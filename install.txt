@@ -1,0 +1,2 @@
+ESP32 USB driver: https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads
+ - read CP210x_Universal_Windows_Driver_ReleaseNotes.txt
