@@ -2,36 +2,47 @@
 #include "main.h"
 
 
-Gui Screen;
 
-#define BACKLIGHT_PIN 12
+
+class ControllerESP{
+private:
+	GUI _Screen;
+public:
+	ControllerESP(/* args */);
+	~ControllerESP();
+	void init(void);
+	void update(void);
+};
+
+ControllerESP::ControllerESP(/* args */){
+
+}
+
+ControllerESP::~ControllerESP(){
+
+}
+
+void ControllerESP::init(void){
+	_Screen.init();
+}
+
+void ControllerESP::update(void){
+	_Screen.update();
+}
+
+
+ControllerESP Controller;
 
 void setup() {
 	// Use serial port
 	Serial.begin(9600);
-	// Screen.test();
-	pinMode(BACKLIGHT_PIN, OUTPUT);
-	// pinMode(33, OUTPUT);
-	// pinMode(13, OUTPUT);
-	// pinMode(15, OUTPUT);
-	// pinMode(CS, OUTPUT);
-	// pinMode(2, OUTPUT);
-
-	digitalWrite(BACKLIGHT_PIN, HIGH);
-	// delay(1000);
-	// digitalWrite(BACKLIGHT_PIN, LOW);
-	// digitalWrite(CS, HIGH);
-	// digitalWrite(33, LOW);
-	// digitalWrite(2, HIGH);
-	// Screen.test();
-
-	Screen.init();
-	Screen.update();
+	Controller.init();
 }
 
 //------------------------------------------------------------------------------------------
 
 void loop(void) {
+	Controller.update();
 	// Screen._tft.fillScreen(TFT_GREEN);
 
 	// Serial.println("test");

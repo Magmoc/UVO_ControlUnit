@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include "gui.h"
+#include "module_interface.h"
 
 void touch_calibrate();
 void setup();
