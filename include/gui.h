@@ -16,6 +16,10 @@ public:
 	~GUI();
 	void init(void);
 	void update(void);
+	void jpegInfo();
+	void drawArrayJpeg(const uint8_t arrayname[], uint32_t array_size, int xpos, int ypos);
+	void renderJPEG(int xpos, int ypos);
+
 };
 
 #endif
