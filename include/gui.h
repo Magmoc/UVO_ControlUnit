@@ -8,6 +8,9 @@
 class GUI{
 private:
 	TFT_eSPI _tft = TFT_eSPI();
+
+	// BE CAREFULL ABOUT USING TOO MANY SPRITES / TOO BIG SPRITES / TOO MUCH MEMORY
+	// THINGS WILL FAIL
 	TFT_eSprite spr_main = TFT_eSprite(&_tft);
 	TFT_eSprite spr_popup = TFT_eSprite(&_tft);
 

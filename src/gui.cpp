@@ -6,7 +6,8 @@
 // #include "images/test_image2.h"
 // #include "images/test_image3.h"
 // #include "images/monke.h"
-#include "images/monke2.h"
+// #include "images/monke2.h"
+#include "images/cool_monke.h"
 
 #include <JPEGDecoder.h>
 #include <TJpg_Decoder.h>
@@ -17,7 +18,7 @@
 
 
 
-GUI::GUI(void){
+GUI::GUI(void) {
 	init();
 }
 
@@ -30,10 +31,12 @@ void GUI::init(void){
 	// Set the rotation to the orientation you wish to use in your project before calibration
 	// (the touch coordinates returned then correspond to that rotation only)
 	_tft.setRotation(1);
+
 	pinMode(BACKLIGHT_PIN, OUTPUT);
 	digitalWrite(BACKLIGHT_PIN, HIGH);
 	update_frame = true;
-	
+
+	_tft.setSwapBytes(true);                      // swap the byte order for pushImage() - corrects endianness
 }
 
 void GUI::update(void){
@@ -47,21 +50,44 @@ void GUI::write_frame(void){
 	// _tft.drawBitmap(0, 0, image, 100, 100, TFT_WHITE, TFT_BLACK);
 
 	// _tft.begin ();                                 // initialize a ST7789 chip
-	_tft.setSwapBytes(true);                      // swap the byte order for pushImage() - corrects endianness
+	
+	_tft.fillScreen(TFT_BLACK);
 
 	// _tft.setRotation(3);
-	_tft.fillScreen (TFT_GREEN);
+	// _tft.fillScreen (TFT_GREEN);
+	int width = 480;
+	int height = 320;
+	_tft.fillScreen(TFT_BLUE);
+	// _tft.fillRect(0,0, (int) (width*0.5), (int) (height*0.9), TFT_GREEN);
 	
-	// spr_main.createSprite(300, 240);
 	// spr_main.fillScreen(TFT_TRANSPARENT);
-	// drawArrayJpeg(spr_main, Baboon40, sizeof(Baboon40), 0, 0);
+	// spr_main.fillCircle(width/2, height/2, 100, TFT_RED);
+	// // drawArrayJpeg(spr_main, Baboon40, sizeof(Baboon40), 0, 0);
 	// spr_main.pushSprite(0, 0);
-	
-	spr_popup.createSprite(480, 320);
+
+	TFT_eSprite test = TFT_eSprite(&_tft);
+
+	// test.createSprite(100, 100);
+	spr_main.createSprite(160, 160);
+	spr_main.setSwapBytes(true);                      // swap the byte order for pushImage() - corrects endianness
+
+
+	// Useful to debug
+	if (spr_main.created()){
+		_tft.fillRect(0,0,50,50, TFT_GREEN);
+	}
+	else{
+		_tft.fillRect(0,0,50,50, TFT_RED);
+	}
+
+	spr_main.pushImage(-92, -33, 336, 293, cool_monke);
+	spr_main.pushSprite(0,0);
+
+	// spr_popup.createSprite(480, 320);
 	// spr_popup.setPivot(240, 160);
 	// spr_popup.fillScreen(TFT_GREEN);
-	drawArrayJpeg(spr_popup, monke2, sizeof(monke2), 0, 0);
-	spr_popup.pushSprite(0, 0);
+	// drawArrayJpeg(spr_popup, monke2, sizeof(monke2), 0, 0);
+	// spr_popup.pushSprite(0, 0);
 
 	// delay(2000);
 	// _tft.fillScreen(TFT_BLUE);
