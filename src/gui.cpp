@@ -5,11 +5,11 @@
 // #include "images/test_image.h"
 // #include "images/test_image2.h"
 // #include "images/test_image3.h"
-#include "images/monke.h"
-#include "images/test.h"
+// #include "images/monke.h"
+#include "images/monke2.h"
 
 #include <JPEGDecoder.h>
-#inclue <TJpg_Decoder.h>
+#include <TJpg_Decoder.h>
 
 #define minimum(a,b)     (((a) < (b)) ? (a) : (b))
 
@@ -38,22 +38,36 @@ void GUI::init(void){
 
 void GUI::update(void){
 	if (update_frame){
+		update_frame = false;
 		write_frame();
 	}
 }
 
 void GUI::write_frame(void){
-	update_frame = false;
-	_tft.fillScreen(TFT_GREEN);
 	// _tft.drawBitmap(0, 0, image, 100, 100, TFT_WHITE, TFT_BLACK);
 
 	// _tft.begin ();                                 // initialize a ST7789 chip
 	_tft.setSwapBytes(true);                      // swap the byte order for pushImage() - corrects endianness
 
 	// _tft.setRotation(3);
-	_tft.fillScreen (TFT_BLACK);
-	drawArrayJpeg(Baboon40, sizeof(Baboon40), 0, 0);
-	// drawArrayJpeg(monke, sizeof(monke), 200, 0);
+	_tft.fillScreen (TFT_GREEN);
+	
+	// spr_main.createSprite(300, 240);
+	// spr_main.fillScreen(TFT_TRANSPARENT);
+	// drawArrayJpeg(spr_main, Baboon40, sizeof(Baboon40), 0, 0);
+	// spr_main.pushSprite(0, 0);
+	
+	spr_popup.createSprite(480, 320);
+	// spr_popup.setPivot(240, 160);
+	// spr_popup.fillScreen(TFT_GREEN);
+	drawArrayJpeg(spr_popup, monke2, sizeof(monke2), 0, 0);
+	spr_popup.pushSprite(0, 0);
+
+	// delay(2000);
+	// _tft.fillScreen(TFT_BLUE);
+	// delay(1000);
+	// spr_popup.pushSprite(0, 0);
+	// drawArrayJpeg(_tft, monke2, sizeof(monke2), 0, 0);
 }
 
 
@@ -62,18 +76,14 @@ void GUI::write_frame(void){
 //####################################################################################################
 // Draw a JPEG on the TFT pulled from a program memory array
 //####################################################################################################
-void GUI::drawArrayJpeg(const uint8_t arrayname[], uint32_t array_size, int xpos, int ypos) {
+void GUI::drawArrayJpeg(TFT_eSPI layer, const uint8_t arrayname[], uint32_t array_size, int xpos, int ypos) {
 
-  int x = xpos;
-  int y = ypos;
+	int x = xpos;
+	int y = ypos;
 
-  JpegDec.decodeArray(arrayname, array_size);
-  
-  jpegInfo(); // Print information from the JPEG file (could comment this line out)
-  
-  renderJPEG(x, y);
-  
-  Serial.println("#########################");
+	JpegDec.decodeArray(arrayname, array_size);
+
+	renderJPEGonLayer(layer, x, y);
 }
 
 //####################################################################################################
@@ -81,98 +91,97 @@ void GUI::drawArrayJpeg(const uint8_t arrayname[], uint32_t array_size, int xpos
 //####################################################################################################
 // This function assumes xpos,ypos is a valid screen coordinate. For convenience images that do not
 // fit totally on the screen are cropped to the nearest MCU size and may leave right/bottom borders.
-void GUI::renderJPEG(int xpos, int ypos) {
 
-  // retrieve infomration about the image
-  uint16_t *pImg;
-  uint16_t mcu_w = JpegDec.MCUWidth;
-  uint16_t mcu_h = JpegDec.MCUHeight;
-  uint32_t max_x = JpegDec.width;
-  uint32_t max_y = JpegDec.height;
+// void GUI::renderJPEGonLayer(TFT_eSPI layer, int xpos, int ypos){
+	
+// }
 
-  // Jpeg images are draw as a set of image block (tiles) called Minimum Coding Units (MCUs)
-  // Typically these MCUs are 16x16 pixel blocks
-  // Determine the width and height of the right and bottom edge image blocks
-  uint32_t min_w = minimum(mcu_w, max_x % mcu_w);
-  uint32_t min_h = minimum(mcu_h, max_y % mcu_h);
 
-  // save the current image block size
-  uint32_t win_w = mcu_w;
-  uint32_t win_h = mcu_h;
+void GUI::renderJPEGonLayer(TFT_eSPI layer, int xpos, int ypos) {
 
-  // record the current time so we can measure how long it takes to draw an image
-  uint32_t drawTime = millis();
+	// retrieve infomration about the image
+	uint16_t *pImg;
+	uint16_t mcu_w = JpegDec.MCUWidth;
+	uint16_t mcu_h = JpegDec.MCUHeight;
+	uint32_t max_x = JpegDec.width;
+	uint32_t max_y = JpegDec.height;
 
-  // save the coordinate of the right and bottom edges to assist image cropping
-  // to the screen size
-  max_x += xpos;
-  max_y += ypos;
+	// Jpeg images are draw as a set of image block (tiles) called Minimum Coding Units (MCUs)
+	// Typically these MCUs are 16x16 pixel blocks
+	// Determine the width and height of the right and bottom edge image blocks
+	uint32_t min_w = minimum(mcu_w, max_x % mcu_w);
+	uint32_t min_h = minimum(mcu_h, max_y % mcu_h);
 
-  // read each MCU block until there are no more
-  while (JpegDec.read()) {
-	  
-    // save a pointer to the image block
-    pImg = JpegDec.pImage ;
+	// save the current image block size
+	uint32_t win_w = mcu_w;
+	uint32_t win_h = mcu_h;
 
-    // calculate where the image block should be drawn on the screen
-    int mcu_x = JpegDec.MCUx * mcu_w + xpos;  // Calculate coordinates of top left corner of current MCU
-    int mcu_y = JpegDec.MCUy * mcu_h + ypos;
+	// save the coordinate of the right and bottom edges to assist image cropping
+	// to the screen size
+	max_x += xpos;
+	max_y += ypos;
 
-    // check if the image block size needs to be changed for the right edge
-    if (mcu_x + mcu_w <= max_x) win_w = mcu_w;
-    else win_w = min_w;
+	// read each MCU block until there are no more
+	while (JpegDec.read()) {
+		
+	// save a pointer to the image block
+	pImg = JpegDec.pImage ;
 
-    // check if the image block size needs to be changed for the bottom edge
-    if (mcu_y + mcu_h <= max_y) win_h = mcu_h;
-    else win_h = min_h;
+	// calculate where the image block should be drawn on the screen
+	int mcu_x = JpegDec.MCUx * mcu_w + xpos;  // Calculate coordinates of top left corner of current MCU
+	int mcu_y = JpegDec.MCUy * mcu_h + ypos;
 
-    // copy pixels into a contiguous block
-    if (win_w != mcu_w)
-    {
-      uint16_t *cImg;
-      int p = 0;
-      cImg = pImg + win_w;
-      for (int h = 1; h < win_h; h++)
-      {
-        p += mcu_w;
-        for (int w = 0; w < win_w; w++)
-        {
-          *cImg = *(pImg + w + p);
-          cImg++;
-        }
-      }
-    }
+	// check if the image block size needs to be changed for the right edge
+	if (mcu_x + mcu_w <= max_x) win_w = mcu_w;
+	else win_w = min_w;
 
-    // calculate how many pixels must be drawn
-    uint32_t mcu_pixels = win_w * win_h;
+	// check if the image block size needs to be changed for the bottom edge
+	if (mcu_y + mcu_h <= max_y) win_h = mcu_h;
+	else win_h = min_h;
 
-    _tft.startWrite();
+	// copy pixels into a contiguous block
+	if (win_w != mcu_w)
+	{
+		uint16_t *cImg;
+		int p = 0;
+		cImg = pImg + win_w;
+		for (int h = 1; h < win_h; h++)
+		{
+		p += mcu_w;
+		for (int w = 0; w < win_w; w++)
+		{
+			*cImg = *(pImg + w + p);
+			cImg++;
+		}
+		}
+	}
 
-    // draw image MCU block only if it will fit on the screen
-    if (( mcu_x + win_w ) <= _tft.width() && ( mcu_y + win_h ) <= _tft.height())
-    {
+	// calculate how many pixels must be drawn
+	uint32_t mcu_pixels = win_w * win_h;
 
-      // Now set a MCU bounding window on the _tft to push pixels into (x, y, x + width - 1, y + height - 1)
-      _tft.setAddrWindow(mcu_x, mcu_y, win_w, win_h);
+	layer.startWrite();
 
-      // Write all MCU pixels to the _tft window
-      while (mcu_pixels--) {
-        // Push each pixel to the _tft MCU area
-        _tft.pushColor(*pImg++);
-      }
+	// draw image MCU block only if it will fit on the screen
+	if (( mcu_x + win_w ) <= layer.width() && ( mcu_y + win_h ) <= layer.height())
+	{
 
-    }
-    else if ( (mcu_y + win_h) >= _tft.height()) JpegDec.abort(); // Image has run off bottom of screen so abort decoding
+		// Now set a MCU bounding window on the _tft to push pixels into (x, y, x + width - 1, y + height - 1)
+		layer.setAddrWindow(mcu_x, mcu_y, win_w, win_h);
 
-    _tft.endWrite();
-  }
+		// Write all MCU pixels to the _tft window
+		while (mcu_pixels--) {
+		// Push each pixel to the _tft MCU area
+		layer.pushColor(*pImg++);
+		}
 
-  // calculate how long it took to draw the image
-  drawTime = millis() - drawTime;
+	}
+	else if ( (mcu_y + win_h) >= layer.height()) JpegDec.abort(); // Image has run off bottom of screen so abort decoding
 
-  // print the results to the serial port
-  Serial.print(F(  "Total render time was    : ")); Serial.print(drawTime); Serial.println(F(" ms"));
-  Serial.println(F(""));
+	layer.endWrite();
+
+	// Return to use entire screen
+	// layer.setAddrWindow(0, 0, layer.width(), layer.height());
+	}
 }
 
 //####################################################################################################
@@ -196,17 +205,3 @@ void GUI::jpegInfo() {
 
 
 // https://github.com/Bodmer/TJpg_Decoder/tree/master/examples/FLash_array/Flash_Jpg
-bool tft_output(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t* bitmap)
-{
-   // Stop further decoding as image is running off bottom of screen
-  if ( y >= tft.height() ) return 0;
-
-  // This function will clip the image block rendering automatically at the TFT boundaries
-  tft.pushImage(x, y, w, h, bitmap);
-
-  // This might work instead if you adapt the sketch to use the Adafruit_GFX library
-  // tft.drawRGBBitmap(x, y, bitmap, w, h);
-
-  // Return 1 to decode next block
-  return 1;
-}
