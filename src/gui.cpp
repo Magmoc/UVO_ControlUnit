@@ -71,7 +71,6 @@ void GUI::write_frame(void){
 	spr_main.createSprite(160, 160);
 	spr_main.setSwapBytes(true);                      // swap the byte order for pushImage() - corrects endianness
 
-
 	// Useful to debug
 	if (spr_main.created()){
 		_tft.fillRect(0,0,50,50, TFT_GREEN);
@@ -81,19 +80,7 @@ void GUI::write_frame(void){
 	}
 
 	spr_main.pushImage(-92, -33, 336, 293, cool_monke);
-	spr_main.pushSprite(0,0);
-
-	// spr_popup.createSprite(480, 320);
-	// spr_popup.setPivot(240, 160);
-	// spr_popup.fillScreen(TFT_GREEN);
-	// drawArrayJpeg(spr_popup, monke2, sizeof(monke2), 0, 0);
-	// spr_popup.pushSprite(0, 0);
-
-	// delay(2000);
-	// _tft.fillScreen(TFT_BLUE);
-	// delay(1000);
-	// spr_popup.pushSprite(0, 0);
-	// drawArrayJpeg(_tft, monke2, sizeof(monke2), 0, 0);
+	spr_main.pushSprite(300,100);
 }
 
 

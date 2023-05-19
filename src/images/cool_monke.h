@@ -4,6 +4,7 @@
 // Image Size     : 336x293 pixels
 // Memory usage   : 196896 bytes
 
+// http://www.rinkydinkelectronics.com/t_imageconverter565.php
 
 #if defined(__AVR__)
     #include <avr/pgmspace.h>
