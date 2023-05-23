@@ -6,15 +6,15 @@
 
 class ControllerESP{
 private:
-	GUI _Screen;
+	GUI m_screen;
 public:
-	ControllerESP(/* args */);
+	ControllerESP();
 	~ControllerESP();
 	void init(void);
 	void update(void);
 };
 
-ControllerESP::ControllerESP(/* args */){
+ControllerESP::ControllerESP(){
 
 }
 
@@ -23,27 +23,24 @@ ControllerESP::~ControllerESP(){
 }
 
 void ControllerESP::init(void){
-	_Screen.init();
+	m_screen.init();
 }
 
 void ControllerESP::update(void){
-	_Screen.update();
+	m_screen.update();
 }
 
 
 ControllerESP Controller;
 
 void setup() {
-	// Use serial port
 	Serial.begin(9600);
 	Controller.init();
 }
 
-//------------------------------------------------------------------------------------------
-
 void loop(void) {
 	Controller.update();
-	// Screen._tft.fillScreen(TFT_GREEN);
+	// Screen.m_tft.fillScreen(TFT_GREEN);
 
 	// Serial.println("test");
 	// Screen.update();

@@ -7,22 +7,20 @@
 
 class GUI{
 private:
-	TFT_eSPI _tft = TFT_eSPI();
+	TFT_eSPI m_tft = TFT_eSPI();
 
 	// BE CAREFULL ABOUT USING TOO MANY SPRITES / TOO BIG SPRITES / TOO MUCH MEMORY
 	// THINGS WILL FAIL
-	TFT_eSprite spr_main = TFT_eSprite(&_tft);
-	TFT_eSprite spr_popup = TFT_eSprite(&_tft);
+	TFT_eSprite m_mainSprite = TFT_eSprite(&m_tft);
+	TFT_eSprite m_popupSprite = TFT_eSprite(&m_tft);
 
-	void write_frame(void);
+	bool m_updateFrame;
 
-	bool update_frame;
+	void writeFrame(void);
+
 public:
 	GUI(void);
 	~GUI();
-	void drawArrayJpeg(TFT_eSPI layer, const uint8_t arrayname[], uint32_t array_size, int xpos, int ypos);
-	void jpegInfo();
-	void renderJPEGonLayer(TFT_eSPI layer, int xpos, int ypos);
 	void init(void);
 	void update(void);
 };
