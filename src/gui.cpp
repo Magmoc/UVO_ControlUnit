@@ -2,12 +2,11 @@
 #include <stdio.h>
 #include <iostream>
 
-// #include "images/test_image.h"
-// #include "images/test_image2.h"
-// #include "images/test_image3.h"
 // #include "images/monke.h"
 // #include "images/monke2.h"
 #include "images/cool_monke.h"
+
+namespace UVO {
 
 GUI::GUI(void) {
 	init();
@@ -65,3 +64,4 @@ void GUI::writeFrame(void){
 	m_mainSprite.pushSprite(300,100);
 }
 
+}

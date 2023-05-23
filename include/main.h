@@ -1,11 +1,10 @@
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <Arduino.h>
-#include "gui.h"
-#include "module_interface.h"
 
-void touch_calibrate();
+#include "module_controllers.h"
+
 void setup();
 void loop();
 

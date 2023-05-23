@@ -1,37 +1,23 @@
-#include <SPI.h>
 #include "main.h"
 
+#if defined(MAIN_CONTROLLER_MODULE)
+	UVO::ControllerESP Controller;
+#elif defined(LED_DRIVER_MODULE)
+	// UVO::ControllerESP Controller;
+#elif defined(MOTOR_CONTROLLER_MODULE)
+	// UVO::ControllerESP Controller;
+#elif defined(DEBUG_MODE)
+	#include "communication_test/I2C_communication_test.h"
 
+	#if defined(ARDUINO_RECEIVER)
+	UVO_UNIT_TESTS::UNOTransceiver Controller(UVO_UNIT_TESTS::RX_mode);
+	#elif defined(ARDUINO_TRANSMITTER)
+	UVO_UNIT_TESTS::UNOTransceiver Controller(UVO_UNIT_TESTS::TX_mode);
+	#endif
 
-
-class ControllerESP{
-private:
-	GUI m_screen;
-public:
-	ControllerESP();
-	~ControllerESP();
-	void init(void);
-	void update(void);
-};
-
-ControllerESP::ControllerESP(){
-
-}
-
-ControllerESP::~ControllerESP(){
-
-}
-
-void ControllerESP::init(void){
-	m_screen.init();
-}
-
-void ControllerESP::update(void){
-	m_screen.update();
-}
-
-
-ControllerESP Controller;
+#else
+    #error "Define a module: MAIN_CONTROLLER_MODULE, LED_DRIVER_MODULE or MOTOR_CONTROLLER_MODULE"
+#endif
 
 void setup() {
 	Serial.begin(9600);
