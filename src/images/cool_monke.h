@@ -13,7 +13,7 @@
 #elif defined(__arm__)
     #define PROGMEM
 #endif
-#include <pgmspace.h>
+// #include <pgmspace.h>
 
 
 const unsigned short cool_monke[98448] PROGMEM={
