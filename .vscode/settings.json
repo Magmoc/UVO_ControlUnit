@@ -1,3 +1,4 @@
 {
-	"C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\g++.exe"
+	"C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\g++.exe",
+	"cmake.sourceDirectory": "C:/Documenten/GitHub/UVO-ESP_code/.pio/libdeps/I2C-communication-test/TFT_eSPI"
 }

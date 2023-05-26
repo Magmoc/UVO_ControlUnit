@@ -12,14 +12,13 @@
 	#endif
 
 #else
-	#include "module_controllers.h"
-
 	#if defined(MAIN_CONTROLLER_MODULE)
-		UVO::ControllerESP Controller;
+		#include "module_controllers/main_controller.h"
+		UVO::MainController Controller;
 	#elif defined(LED_DRIVER_MODULE)
-		UVO::ControllerESP Controller;
+		UVO::MainController Controller;
 	#elif defined(MOTOR_CONTROLLER_MODULE)
-		UVO::ControllerESP Controller;
+		UVO::MainController Controller;
 
 	#else
 		#error "Define a module: MAIN_CONTROLLER_MODULE, LED_DRIVER_MODULE or MOTOR_CONTROLLER_MODULE"

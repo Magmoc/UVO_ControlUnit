@@ -63,6 +63,7 @@ void GUI::writeFrame(void){
 		m_tft.fillRect(0,0,50,50, TFT_RED);
 	}
 
+	// TODO(ERIK) FIX WEGHALEN
 	#ifdef MAIN_CONTROLLER_MODULE
 	m_mainSprite.pushImage(-92, -33, 336, 293, cool_monke);
 	m_mainSprite.pushSprite(300,100);
