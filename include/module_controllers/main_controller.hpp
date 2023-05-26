@@ -2,7 +2,7 @@
 #define MAIN_CONTROLLER_HPP
 
 #include "components/gui.hpp"
-#include "components/module_interface.hpp"
+#include "components/communication_interface.hpp"
 
 #define USER_SETUP_LOADED
 #define ST7796_DRIVER

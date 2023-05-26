@@ -1,4 +1,4 @@
-#include "I2C_communication_test.h"
+#include "I2C_communication_test.hpp"
 
 namespace UVO_UNIT_TESTS {
 	UNOTransceiver::UNOTransceiver(OperationMode t_operationMode, int t_I2C_address){
