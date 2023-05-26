@@ -1,15 +1,13 @@
 #include "gui.h"
-#include <stdio.h>
 
-#ifdef MAIN_CONTROLLER_MODULE
-#include <iostream>
+// #include <stdio.h>
+// #include <iostream>
 
 // #include "images/monke.h"
 // #include "images/monke2.h"
-#include "images/cool_monke.h"
-#endif
+// #include "images/cool_monke.h"
 
-namespace UVO {
+namespace UVO_Modules {
 
 GUI::GUI(void) {
 	init();
@@ -64,10 +62,8 @@ void GUI::writeFrame(void){
 	}
 
 	// TODO(ERIK) FIX WEGHALEN
-	#ifdef MAIN_CONTROLLER_MODULE
-	m_mainSprite.pushImage(-92, -33, 336, 293, cool_monke);
-	m_mainSprite.pushSprite(300,100);
-	#endif
+	// m_mainSprite.pushImage(-92, -33, 336, 293, cool_monke);
+	// m_mainSprite.pushSprite(300,100);
 }
 
 }

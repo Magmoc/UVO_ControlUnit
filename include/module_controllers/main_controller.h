@@ -4,20 +4,36 @@
 #include "gui.h"
 #include "module_interface.h"
 
-// TODO(MAKE FOLDER WITH ALL THE MODULE CONTROLLER FILES. SO ESPCONTROLLER.CPP / MOTORCONTROLLER.CPP ETC ETC. THAT WAY GUI DOES NOT HAVE TO BE INCLUDED IN EVRY THING)
+#define USER_SETUP_LOADED
+#define ST7796_DRIVER
 
-namespace UVO {
-	class MainController{
-	private:
-		UVO::GUI m_screen;
-	public:
-		MainController();
-		~MainController();
-		void init(void);
-		void update(void);
-	};
+#define TFT_RST 32
+#define TFT_MISO 19
+#define TFT_MOSI 23
+#define TFT_SCLK 18
+#define TFT_CS 4
+#define TFT_DC 2
+#define LOAD_GLCD
+#define LOAD_FONT2
+#define LOAD_FONT4
+#define LOAD_FONT6
+#define LOAD_FONT7
+#define LOAD_FONT8
+#define LOAD_GFXFF
+#define SMOOTH_FONT
+#define SPI_FREQUENCY 27000000
 
-	
+namespace UVO_MainController {
+
+class MainController{
+private:
+	UVO_Modules::GUI m_screen;
+public:
+	MainController();
+	~MainController();
+	void init(void);
+	void update(void);
+};
 
 }
 

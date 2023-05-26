@@ -1,6 +1,6 @@
 #include "module_controllers/main_controller.h"
 
-namespace UVO {
+namespace UVO_MainController {
 	MainController::MainController(){
 
 	}

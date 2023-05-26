@@ -5,7 +5,7 @@
 #include <TFT_eSPI.h>      // Hardware-specific library
 #define BACKLIGHT_PIN 12
 
-namespace UVO {
+namespace UVO_Modules {
 		
 	class GUI{
 	private:
