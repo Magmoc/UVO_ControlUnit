@@ -1,11 +1,11 @@
-#ifndef GUI_H
-#define GUI_H
+#ifndef GUI_HPP
+#define GUI_HPP
 
 #include <SPI.h>
 #include <TFT_eSPI.h>      // Hardware-specific library
 #define BACKLIGHT_PIN 12
 
-namespace UVO_Modules {
+namespace UVO_Components {
 		
 	class GUI{
 	private:

@@ -1,8 +1,8 @@
-#ifndef MAIN_CONTROLLER_H
-#define MAIN_CONTROLLER_H
+#ifndef MAIN_CONTROLLER_HPP
+#define MAIN_CONTROLLER_HPP
 
-#include "gui.h"
-#include "module_interface.h"
+#include "components/gui.hpp"
+#include "components/module_interface.hpp"
 
 #define USER_SETUP_LOADED
 #define ST7796_DRIVER
@@ -27,7 +27,7 @@ namespace UVO_MainController {
 
 class MainController{
 private:
-	UVO_Modules::GUI m_screen;
+	UVO_Components::GUI m_screen;
 public:
 	MainController();
 	~MainController();

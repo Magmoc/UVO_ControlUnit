@@ -1,5 +1,5 @@
-#ifndef MODULE_INTERFACE_H
-#define MODULE_INTERFACE_H
+#ifndef MODULE_INTERFACE_HPP
+#define MODULE_INTERFACE_HPP
 
 #include <Wire.h>
 #include <Arduino.h>

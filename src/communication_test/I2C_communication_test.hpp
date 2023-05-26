@@ -1,7 +1,7 @@
-#ifndef UNO_CONTROLLERS_H
-#define UNO_CONTROLLERS_H
+#ifndef UNO_CONTROLLERS_HPP
+#define UNO_CONTROLLERS_HPP
 
-#include "module_interface.h"
+#include "components/module_interface.hpp"
 // #include <random.h>
 
 

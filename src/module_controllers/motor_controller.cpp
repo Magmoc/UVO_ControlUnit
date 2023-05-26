@@ -1,4 +1,4 @@
-#include "module_controllers/motor_controller.h"
+#include "module_controllers/motor_controller.hpp"
 
 namespace UVO_MotorController {
 	MotorController::MotorController(){

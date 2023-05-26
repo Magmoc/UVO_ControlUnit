@@ -1,4 +1,4 @@
-#include "gui.h"
+#include "components/gui.h"
 
 // #include <stdio.h>
 // #include <iostream>
@@ -7,7 +7,7 @@
 // #include "images/monke2.h"
 // #include "images/cool_monke.h"
 
-namespace UVO_Modules {
+namespace UVO_Components {
 
 GUI::GUI(void) {
 	init();

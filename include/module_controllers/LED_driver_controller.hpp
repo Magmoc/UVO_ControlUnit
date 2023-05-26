@@ -1,7 +1,7 @@
-#ifndef LED_DRIVER_CONTROLLER_H
-#define LED_DRIVER_CONTROLLER_H
+#ifndef LED_DRIVER_CONTROLLER_HPP
+#define LED_DRIVER_CONTROLLER_HPP
 
-#include "module_interface.h"
+#include "components/module_interface.hpp"
 
 namespace UVO_LEDDriverController {
 	class LEDDriverController{

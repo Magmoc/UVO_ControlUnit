@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef MAIN_HPP
+#define MAIN_HPP
 
 #include <Arduino.h>
 
@@ -7,7 +7,7 @@ void setup();
 void loop();
 
 #if defined(DEBUG_MODE_TEST)
-	#include "communication_test/I2C_communication_test.h"
+	#include "communication_test/I2C_communication_test.hpp"
 
 	#if defined(MASTER_MODE)
 		UVO_UNIT_TESTS::UNOTransceiver Controller(UVO_UNIT_TESTS::MASTER_OPERATION_MODE, UVO_UNIT_TESTS::MASTER_ADDRESS);
@@ -19,13 +19,13 @@ void loop();
 
 #else
 	#if defined(MAIN_CONTROLLER_MODULE)
-		#include "module_controllers/main_controller.h"
+		#include "module_controllers/main_controller.hpp"
 		UVO_MainController::MainController Controller;
 	#elif defined(LED_DRIVER_MODULE)
-		#include "module_controllers/LED_driver_controller.h"
+		#include "module_controllers/LED_driver_controller.hpp"
 		UVO::MainController Controller;
 	#elif defined(MOTOR_CONTROLLER_MODULE)
-		#include "module_controllers/motor_controller.h"
+		#include "module_controllers/motor_controller.hpp"
 		UVO::MainController Controller;
 
 	#else
