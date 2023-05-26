@@ -1,4 +1,4 @@
-#include "components/sensor.h"
+#include "components/sensor.hpp"
 
 namespace UVO_Components{
 

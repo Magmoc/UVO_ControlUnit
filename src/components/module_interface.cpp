@@ -1,4 +1,4 @@
-#include "components/module_interface.h"
+#include "components/module_interface.hpp"
 
 ModuleInterface::ModuleInterface(/* args */){
 	
