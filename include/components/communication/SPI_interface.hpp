@@ -9,7 +9,7 @@
 
 namespace UVO_Components {
 
-class CommunicationInterface
+class SPIInterface
 {
 private:
 	byte m_receiveValueArray[MAX_MESSAGE_LENGTH];
@@ -18,16 +18,11 @@ private:
 	int m_receiveValueInt;
 	float m_receiveValueFloat; 
 public:
-	CommunicationInterface(/* args */);
-	~CommunicationInterface();
-	bool sendMessageI2C(int address, byte* message, int message_length);
-	bool onReceiveMessageI2C(void);
+	SPIInterface(/* args */);
+	~SPIInterface();
+	bool sendMessage(int address, byte* message, int message_length);
 	int requestMessage(int I2C_address, byte* receive_message, int message_length);
-	int requestMessage(int SPI_chipSelect, byte* receive_message, int message_length);
 
-
-	bool sendMessageSPI(int chipSelect, byte* message, int message_length);
-	bool onReceiveMessageSPI(void);
 };
 
 }

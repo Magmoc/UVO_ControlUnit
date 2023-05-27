@@ -1,4 +1,4 @@
-#include "module_controllers/main_controller.hpp"
+#include "modules/control_module/main_controller.hpp"
 
 namespace UVO_MainController {
 	MainController::MainController(){

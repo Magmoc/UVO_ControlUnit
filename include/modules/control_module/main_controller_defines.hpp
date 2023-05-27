@@ -1,8 +1,13 @@
-#ifndef MAIN_CONTROLLER_HPP
-#define MAIN_CONTROLLER_HPP
+#ifndef MAIN_CONTROLLER_DEFINES_HPP
+#define MAIN_CONTROLLER_DEFINES_HPP
 
-#include "components/gui.hpp"
-#include "components/communication_interface.hpp"
+
+
+// *********************************************************
+//
+//				TFT SCREEN DEFINES
+//
+// *********************************************************
 
 #define USER_SETUP_LOADED
 #define ST7796_DRIVER
@@ -23,18 +28,5 @@
 #define SMOOTH_FONT
 #define SPI_FREQUENCY 27000000
 
-namespace UVO_MainController {
-
-class MainController{
-private:
-	UVO_Components::GUI m_screen;
-public:
-	MainController();
-	~MainController();
-	void init(void);
-	void update(void);
-};
-
-}
 
 #endif
