@@ -1,55 +1,46 @@
 #include "I2C_communication_test.hpp"
+#include "components/communication/communication_protocol.hpp"
+
+
+
 
 namespace UVO_UNIT_TESTS {
+	void receive(int);
+	void request(void);
+
 	UNOTransceiver::UNOTransceiver(OperationMode t_operationMode, int t_I2C_address){
 		m_operationMode = t_operationMode;
 		m_I2C_address = t_I2C_address;
 	}
 
 	void UNOTransceiver::init(){
-		if (m_operationMode == MASTER_OPERATION_MODE){
-			masterInit();
-		}
-		else{
-			slaveInit();
-		}
-		
+		slaveInit();
 		Wire.begin(m_I2C_address);
 		Serial.begin(9600);  // start serial for output
 	}
 
-	void UNOTransceiver::masterInit(){
-	}
-
 	void UNOTransceiver::slaveInit(){
-		Wire.onRequest(requestEvent);
+		// Wire.onRequest(requestEvent);
+		// Wire.onReceive(receive);
+		Wire.onRequest(request);
 	}
 
 
 	void UNOTransceiver::update(){
-		if (m_operationMode == MASTER_OPERATION_MODE){
-			masterUpdate();
-		}
-		else{
-			slaveUpdate();
-		}
+		slaveUpdate();
 	}
 
-	void UNOTransceiver::masterUpdate(void){
-		Wire.requestFrom(SLAVE_ADDRESS, 6);    // request 6 bytes from peripheral device #8
-		while (Wire.available()) { // peripheral may send less than requested
-			char c = Wire.read(); // receive a byte as character
-			Serial.print(c);
-		}
-		Serial.println();
+	void receive(int){
+		char data = Wire.read();
+		Serial.println(data);
+		Wire.write('Y');
+	}
+
+	void request(void){
+		Wire.write('N');
 	}
 
 	void UNOTransceiver::slaveUpdate(void){
 		delay(100);
 	}
-
-	void requestEvent(void){
-		Wire.write("Hello ");
-	}
-
 }

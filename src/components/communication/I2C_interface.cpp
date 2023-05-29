@@ -12,20 +12,20 @@ I2CInterface::I2CInterface(int t_I2C_address){
 	Wire.begin(m_I2C_address);
 }
 
-I2CInterface::I2CInterface(int t_I2C_address, int t_SDA_pin, int t_SCL_pin){
-	m_SDA_pin = t_SDA_pin;
-	m_SCL_pin = t_SCL_pin;
-	m_I2C_address = t_I2C_address;
+// I2CInterface::I2CInterface(int t_I2C_address, int t_SDA_pin, int t_SCL_pin){
+// 	m_SDA_pin = t_SDA_pin;
+// 	m_SCL_pin = t_SCL_pin;
+// 	m_I2C_address = t_I2C_address;
 
-	Wire.begin(m_SDA_pin, m_SCL_pin, m_I2C_address);
-}
+// 	// Wire.begin(m_SDA_pin, m_SCL_pin, m_I2C_address);
+// }
 
 
 I2CInterface::~I2CInterface(){
 	Wire.end();
 }
 
-bool I2CInterface::sendMessage(int address, byte* message, int message_length){
+bool I2CInterface::sendMessages(int address, byte* message, int message_length){
 	Wire.beginTransmission(address);
 	Wire.write(message, (size_t) message_length);
 	Wire.endTransmission();
@@ -33,10 +33,15 @@ bool I2CInterface::sendMessage(int address, byte* message, int message_length){
 	//TODO fix error checking
 }
 
-int I2CInterface::requestMessage(int I2C_address, byte* receive_message, int message_length){
-	int num_bytes_received = Wire.requestFrom(I2C_address, message_length);
-	// Wire.available();
-	Wire.readBytes( (uint8_t *) receive_message, num_bytes_received);
+int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, int bytes_requested){
+	Serial.print("REQUESTED: ");
+	Serial.println(bytes_requested);
+	int num_bytes_received = Wire.requestFrom(I2C_address, bytes_requested);
+	
+	if(Wire.available()){
+		Wire.readBytes(receive_message, num_bytes_received);
+	}
+
 	return num_bytes_received;
 }
 

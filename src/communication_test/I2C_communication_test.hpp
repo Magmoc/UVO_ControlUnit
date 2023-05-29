@@ -1,7 +1,9 @@
 #ifndef UNO_CONTROLLERS_HPP
 #define UNO_CONTROLLERS_HPP
 
-#include "components/communication_interface.hpp"
+#include "components/communication/I2C_interface.hpp"
+#include "components/communication/main_controller_communication_interface.hpp"
+#include "components/communication/communication_protocol.hpp"
 // #include <random.h>
 
 

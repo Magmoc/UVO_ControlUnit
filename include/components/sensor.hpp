@@ -6,7 +6,13 @@ namespace UVO_Components {
 class Sensor
 {
 private:
-	/* data */
+	union address
+	{
+		int I2C_address;
+		int SPI_address;
+	};
+	
+		
 public:
 	Sensor(/* args */);
 	~Sensor();

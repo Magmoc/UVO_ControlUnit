@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include <SPI.h>
 
+//TODO MOVE TO SOMEWHERE ELSE
 #define MAX_MESSAGE_LENGTH 10
 
 namespace UVO_Components {
@@ -17,11 +18,11 @@ private:
 	int m_I2C_address;
 public:
 	I2CInterface(int t_I2C_address);
-	I2CInterface(int t_I2C_address, int t_SDA_pin, int t_SCL_pin);
+	// I2CInterface(int t_I2C_address, int t_SDA_pin, int t_SCL_pin);
 	~I2CInterface();
 	
-	bool sendMessage(int address, byte* message, int message_length);
-	int requestMessage(int I2C_address, byte* receive_message, int message_length);
+	bool sendMessages(int address, byte* message, int message_length);
+	int requestAndReadAnswer(int I2C_address, byte* receive_message, int bytes_requested);
 };
 
 }

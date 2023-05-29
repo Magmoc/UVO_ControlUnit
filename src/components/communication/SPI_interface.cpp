@@ -13,7 +13,7 @@ SPIInterface::~SPIInterface(){
 
 }
 
-bool SPIInterface::sendMessage(int address, byte* message, int message_length){
+bool SPIInterface::sendMessages(int address, byte* message, int message_length){
 	Wire.beginTransmission(address);
 	Wire.write(message, (size_t) message_length);
 	Wire.endTransmission();
@@ -21,7 +21,7 @@ bool SPIInterface::sendMessage(int address, byte* message, int message_length){
 	return true;
 }
 
-int SPIInterface::requestMessage(int I2C_address, byte* receive_message, int message_length){
+int SPIInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, int message_length){
 	int num_bytes_received = Wire.requestFrom(I2C_address, message_length);
 	Wire.readBytes( (uint8_t *) receive_message, num_bytes_received);
 
@@ -30,7 +30,7 @@ int SPIInterface::requestMessage(int I2C_address, byte* receive_message, int mes
 
 
 
-// int CommunicationInterface::requestMessage(int SPI_chipSelect, byte* receive_message, int message_length){
+// int CommunicationInterface::requestAndReadAnswer(int SPI_chipSelect, byte* receive_message, int message_length){
 // 	//TODO implement SPI request data.
 // }
 

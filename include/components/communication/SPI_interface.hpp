@@ -20,8 +20,8 @@ private:
 public:
 	SPIInterface(/* args */);
 	~SPIInterface();
-	bool sendMessage(int address, byte* message, int message_length);
-	int requestMessage(int I2C_address, byte* receive_message, int message_length);
+	bool sendMessages(int address, byte* message, int message_length);
+	int requestAndReadAnswer(int I2C_address, byte* receive_message, int message_length);
 
 };
 
