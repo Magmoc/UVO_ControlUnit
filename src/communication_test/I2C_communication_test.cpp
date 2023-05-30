@@ -21,7 +21,7 @@ namespace UVO_UNIT_TESTS {
 
 	void UNOTransceiver::slaveInit(){
 		// Wire.onRequest(requestEvent);
-		// Wire.onReceive(receive);
+		Wire.onReceive(receive);
 		Wire.onRequest(request);
 	}
 
@@ -33,7 +33,6 @@ namespace UVO_UNIT_TESTS {
 	void receive(int){
 		char data = Wire.read();
 		Serial.println(data);
-		Wire.write('Y');
 	}
 
 	void request(void){
