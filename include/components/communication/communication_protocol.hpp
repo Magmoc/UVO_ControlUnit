@@ -3,6 +3,8 @@
 
 
 namespace UVO_CommunicationProtocol {
+	// https://stackoverflow.com/questions/112433/should-i-use-define-enum-or-const
+
 	// [REQUEST_SENSOR_DATA] [SENSOR_TOKEN] REQUEST [value (double)]
 	// [SET_DRIVER_INTENSITY] [DRIVER_TOKEN] REQUEST [ack (byte)]
 	// [SET_VARIABLE_RESISTOR] [RESISTOR_TOKEN] REQUEST [ack (byte)]
@@ -72,15 +74,18 @@ namespace UVO_CommunicationProtocol {
 	namespace MotorControlToken {
 		//TODO What do we measure at every sensor? What are the conversions
 
-		enum TSensorToken : unsigned char {
-			CURRENTSENSOR_MOTOR = 1,
-			INVALID = 255,
-		};
+		namespace SensorToken {
+			enum TSensorToken : unsigned char {
+				CURRENTSENSOR_MOTOR = 1,
+				INVALID = 255,
+			};
+		}
 
-		enum TDriverToken : unsigned char {
-			PWM_MOTOR = 1,
-
-		};
+		namespace DriverToken {
+			enum TDriverToken : unsigned char {
+				PWM_MOTOR = 1,
+			};
+		}
 	}
 
 

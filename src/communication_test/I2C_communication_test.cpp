@@ -31,12 +31,19 @@ namespace UVO_UNIT_TESTS {
 	}
 
 	void receive(int){
-		char data = Wire.read();
-		Serial.println(data);
+		UVO_CommunicationProtocol::PackageTypeToken::TPackageTypeToken packageType;
+		packageType = (UVO_CommunicationProtocol::PackageTypeToken::TPackageTypeToken) Wire.read();
+		Serial.println(packageType);
+
+		while(Wire.available()){
+			Serial.println(Wire.read());
+		}		
 	}
 
 	void request(void){
-		Wire.write('N');
+		double test = 1.5f;
+		byte* tp = (byte*) &test;
+		Wire.write(tp, sizeof(test));
 	}
 
 	void UNOTransceiver::slaveUpdate(void){

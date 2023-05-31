@@ -31,11 +31,10 @@ bool I2CInterface::sendMessages(int address, byte* message, int message_length){
 	Wire.endTransmission();
 
 	//TODO fix error checking
+	return true;
 }
 
 int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, int bytes_requested){
-	Serial.print("REQUESTED: ");
-	Serial.println(bytes_requested);
 	int num_bytes_received = Wire.requestFrom(I2C_address, bytes_requested);
 	
 	if(Wire.available()){

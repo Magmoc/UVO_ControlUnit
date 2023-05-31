@@ -5,12 +5,15 @@
 #include <Arduino.h>
 #include "components/communication/communication_protocol.hpp"
 #include "components/communication/I2C_interface.hpp"
+#include "components/sensor.hpp"
 
 namespace UVO_MainController {
 
 class MainCommunicationInterface{
 private:
 	UVO_Components::I2CInterface m_I2C_Interface;
+	int sendMessageAndReadResponse(int t_I2C_slave_address, byte* t_message, int t_message_length, int t_bytes_requested, byte* t_response_data);
+	
 public:
 	MainCommunicationInterface(int t_I2C_address);
 	~MainCommunicationInterface();
@@ -21,7 +24,7 @@ public:
 
 	void init(void);
 	void update(void);
-	int requestSensorData(int t_I2C_slave_address, byte* t_received_data);
+	double requestSensorData(UVO_Components::Sensor t_sensor);
 
 };
 
