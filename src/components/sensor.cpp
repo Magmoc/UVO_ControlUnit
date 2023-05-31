@@ -1,13 +1,6 @@
 #include "components/sensor.hpp"
+#include <stdio.h>
 
 namespace UVO_Components{
-
-Sensor::Sensor(/* args */)
-{
-}
-
-Sensor::~Sensor()
-{
-}
 
 }

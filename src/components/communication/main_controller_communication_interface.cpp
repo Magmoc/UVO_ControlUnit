@@ -35,6 +35,7 @@ void MainCommunicationInterface::update(void){
 
 	received_length = sendMessageAndReadResponse(I2C_address, message, message_length, bytes_requested, response_pointer);
 
+	Serial.println(UVO_Components::currentSensor_255nm.LED_sensorToken);
 	Serial.println(response);
 	Serial.println("-------------------");
 	delay(1000);

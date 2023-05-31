@@ -18,6 +18,7 @@ namespace LED_Driver_defines {
 
 	namespace SPI {
 
+		//TODO RENAME SO THAT IT IS CLEAR THAT IT IS THE CHIP SELECT
 		namespace VariableResistorType {
 			enum TVariableResistorType : unsigned char {
 				// [variable resistor in what sensor], [schematic name]
