@@ -18,32 +18,13 @@ void MainCommunicationInterface::init(void){
 
 void MainCommunicationInterface::update(void){
 	double received_data;
-	// received_data = requestSensorData();
-	
 
-	double response;
-	int bytes_requested = sizeof(response);
-	byte* response_pointer = (byte*) &response;
+	received_data = requestSensorData(UVO_CommunicationProtocol::sensors::current_sensor_255nm);
 
-	int received_length = 0;
+	Serial.println(received_data);
 
-	int I2C_address = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS;
-	
-	byte message[] = {	UVO_CommunicationProtocol::PackageTypeToken::REQUEST_SENSOR_DATA, 
-						UVO_CommunicationProtocol::LEDDriverToken::SensorToken::CURRENTSENSOR_255nm};
-	int message_length = sizeof(message) / sizeof(message[0]);
-
-	received_length = sendMessageAndReadResponse(I2C_address, message, message_length, bytes_requested, response_pointer);
-
-	Serial.println(UVO_Components::currentSensor_255nm.LED_sensorToken);
-	Serial.println(response);
-	Serial.println("-------------------");
 	delay(1000);
 }
-
-// int MainCommunicationInterface::requestSensorData(int t_I2C_slave_address, byte* t_received_data){
-
-// }
 
 int MainCommunicationInterface::sendMessageAndReadResponse(int t_I2C_slave_address, byte* t_message, int t_message_length, int t_bytes_requested, byte* t_response_data){
 	int response_length;
@@ -59,28 +40,18 @@ int MainCommunicationInterface::sendMessageAndReadResponse(int t_I2C_slave_addre
 	return response_length;
 }
 
-double MainCommunicationInterface::requestSensorData(UVO_Components::Sensor t_sensor){
+double MainCommunicationInterface::requestSensorData(UVO_CommunicationProtocol::Sensor t_sensor){
 
-	double response;
+	double response = 0;
 	int bytes_requested = sizeof(response);
 	byte* response_pointer = (byte*) &response;
 
 	int received_length = 0;
 
 	int I2C_address = t_sensor.module_address_I2C;
-
-	// TODO IMPLEMENT DIFFERNET MODULE TYPES ENUM
-	// if (t_sensor.module_type == LED_DRIVER){
-	// 	sensorToken = 
-	// }
-	// else {
-
-	// }
 	
-	byte message[] = {UVO_CommunicationProtocol::PackageTypeToken::REQUEST_SENSOR_DATA};
+	byte message[] = {UVO_CommunicationProtocol::PackageTypeToken::REQUEST_SENSOR_DATA, t_sensor.sensorToken};
 	int message_length = sizeof(message) / sizeof(message[0]);
-
-	//TODO TEST THIS
 
 	received_length = sendMessageAndReadResponse(I2C_address, message, message_length, bytes_requested, response_pointer);
 
@@ -102,14 +73,6 @@ double MainCommunicationInterface::requestSensorData(UVO_Components::Sensor t_se
 //		set pwm
 // 		receive pwm signal
 // 		
-
-//bool MainCommunicationInterface::requestSensorData(Sensor sensor){
-// send address
-// request data
-// save data in byte array
-// convert to proper data type
-// store data in sensor
-// }
 
 //bool MainCommunicationInterface::setPWMDutyCycle(Driver driver, int pwm){
 

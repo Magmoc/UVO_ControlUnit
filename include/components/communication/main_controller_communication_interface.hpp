@@ -24,7 +24,7 @@ public:
 
 	void init(void);
 	void update(void);
-	double requestSensorData(UVO_Components::Sensor t_sensor);
+	double requestSensorData(UVO_CommunicationProtocol::Sensor t_sensor);
 
 };
 

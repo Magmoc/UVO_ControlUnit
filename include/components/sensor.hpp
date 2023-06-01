@@ -3,7 +3,7 @@
 
 #include "communication/communication_protocol.hpp"
 
-namespace UVO_Components {
+namespace UVO_CommunicationProtocol {
 
 struct Sensor {
 	int module_address_I2C;
@@ -38,7 +38,7 @@ namespace sensors {
 	
 	inline Sensor ultraviolet_intensity_sensor = {
 		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
-		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::LEDS_TEMPERATURE_SENSOR,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::ULTRAVIOLET_INTENSITY_SENSOR,
 	};
 	
 	inline Sensor ozon_sensor = {
