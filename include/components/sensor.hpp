@@ -6,42 +6,57 @@
 namespace UVO_Components {
 
 struct Sensor {
+	int module_address_I2C;
+	UVO_CommunicationProtocol::TSensorToken sensorToken;
+};
 
-	double last_read_value;
-
-	const int module_type;
-	const int module_address_I2C;
-
-	union
-	{
-		const int I2C_address;
-		const int SPI_chipselect;
+namespace sensors {
+	inline Sensor current_sensor_255nm = {
+		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::CURRENTSENSOR_255nm,
 	};
 	
-	union {
-		const UVO_CommunicationProtocol::LEDDriverToken::SensorToken::TSensorToken LED_sensorToken;
-		const UVO_CommunicationProtocol::MotorControlToken::SensorToken::TSensorToken Motor_sensorToken;
+	inline Sensor current_sensor_275nm = {
+		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::CURRENTSENSOR_275nm,
 	};
-
+	
+	inline Sensor current_sensor_285nm = {
+		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::CURRENTSENSOR_285nm,
+	};
+	
+	inline Sensor current_sensor_395nm = {
+		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::CURRENTSENSOR_395nm,
+	};
+	
+	inline Sensor seed_temperature_sensor = {
+		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::SEED_TEMPERATURE_SENSOR,
+	};
+	
+	inline Sensor ultraviolet_intensity_sensor = {
+		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::LEDS_TEMPERATURE_SENSOR,
+	};
+	
+	inline Sensor ozon_sensor = {
+		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::OZON_SENSOR,
+	};
+	
+	inline Sensor LEDs_temperature_sensor = {
+		.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::LEDS_TEMPERATURE_SENSOR,
+	};
+	
+	inline Sensor current_sensor_motor = {
+		.module_address_I2C = UVO_CommunicationProtocol::MOTOR_CONTROLLER_ADDRESS,
+		.sensorToken = UVO_CommunicationProtocol::MotorControlToken::SensorToken::CURRENTSENSOR_MOTOR,
+	};
+	
 };
-
-//TODO: FIX ERROR WHERE APPEARANTLY THIS HAS ALREADY BEEN DEFINED
-Sensor currentSensor_255nm = {
-	.last_read_value = 0.0f,	// last_read_value
-
-	.module_type = 0,	// module_type
-	.module_address_I2C = UVO_CommunicationProtocol::LED_CONTROLLER_ADDRESS,	// module_address_I2C
-
-	{
-	.I2C_address = 0,	// I2C_address
-	},
-
-	{
-	.LED_sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::CURRENTSENSOR_255nm	// LED_sensorToken
-	}
-};
-
-//TODO : All SENSOR DEFINES
 
 }
 

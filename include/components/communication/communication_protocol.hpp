@@ -13,61 +13,61 @@ namespace UVO_CommunicationProtocol {
 	const int LED_CONTROLLER_ADDRESS = 60;
 	const int MOTOR_CONTROLLER_ADDRESS = 80;
 
+	typedef unsigned char TToken;
+	typedef TToken TSensorToken;
+	typedef TToken TPackageTypeToken;
+	typedef TToken TDriverToken;
+	typedef TToken TVariableResistorToken;
+
 	namespace PackageTypeToken {
-		enum TPackageTypeToken : unsigned char {
-			REQUEST_SENSOR_DATA = 'S',
-			SET_DRIVER_RELATIVE_INTENSITY = 'D',
-			SET_VARIABLE_RESISTOR = 'R',
-		};
+		const TPackageTypeToken REQUEST_SENSOR_DATA = 'S';
+		const TPackageTypeToken SET_DRIVER_RELATIVE_INTENSITY = 'D';
+		const TPackageTypeToken SET_VARIABLE_RESISTOR = 'R';
+		
+		const TPackageTypeToken INVALID = (TPackageTypeToken) 255;
 	}
 
 	namespace LEDDriverToken {
 		//TODO What do we measure at every sensor? What are the conversions
 
 		namespace SensorToken {
-			enum TSensorToken : unsigned char {
-				CURRENTSENSOR_255nm = 1,
-				CURRENTSENSOR_275nm = 2,
-				CURRENTSENSOR_285nm = 4,
-				CURRENTSENSOR_395nm = 8,
-
-				SEED_TEMPERATURE = 16,
-				ULTRAVIOLET_INTENSITY = 32,
-				OZON_MEASUREMENT = 64,
-				LEDS_TEMPERATURE = 128,
-
-				INVALID = 255,
-			};
+			const TSensorToken CURRENTSENSOR_255nm = 1;
+			const TSensorToken CURRENTSENSOR_275nm = 2;
+			const TSensorToken CURRENTSENSOR_285nm = 4;
+			const TSensorToken CURRENTSENSOR_395nm = 8;
+			
+			const TSensorToken SEED_TEMPERATURE_SENSOR = 16;
+			const TSensorToken ULTRAVIOLET_INTENSITY_SENSOR = 32;
+			const TSensorToken OZON_SENSOR = 64;
+			const TSensorToken LEDS_TEMPERATURE_SENSOR = 128;
+			
+			const TSensorToken INVALID = 255;
 		}
 
 		namespace DriverToken {
-			enum TDriverToken : unsigned char {
-				PWM_255nm = 1,
-				PWM_265nm = 2,
-				PWM_275nm = 4,
-				PWM_395nm = 8,
-
-				INVALID = 255,
-			};
+				const TDriverToken PWM_255nm = 1;
+				const TDriverToken PWM_265nm = 2;
+				const TDriverToken PWM_275nm = 4;
+				const TDriverToken PWM_395nm = 8;
+				
+				const TDriverToken INVALID = 255;
 		}
 		
 		namespace VariableResistorToken {
-			enum TVariableResistorToken : unsigned char {
-				CURRENTSENSOR_285nm = 1, // CS1 (Current Sensor X) 
-				CURRENTSENSOR_275nm = 2, // CS2
-				CURRENTSENSOR_255nm = 4, // CS3
-				CURRENTSENSOR_395nm = 8, // CS4
+				const TVariableResistorToken CURRENTSENSOR_285nm = 1; // CS1 (Current Sensor X) 
+				const TVariableResistorToken CURRENTSENSOR_275nm = 2; // CS2
+				const TVariableResistorToken CURRENTSENSOR_255nm = 4; // CS3
+				const TVariableResistorToken CURRENTSENSOR_395nm = 8; // CS4
 
-				BOOSTCONVERTER_255nm = 3, // BC1 (Boost Converter X)
-				BOOSTCONVERTER_275nm = 6, // BC2
-				BOOSTCONVERTER_285nm_395nm = 12, // BC3
-				
-				ULTRAVIOLETSENSOR = 7, // UVS 
-				OZONSENSOR = 14, // OS (Ozone Sensor)
-				SEEDTEMPERATURESENSOR = 28, // TS (Temperature Sensor) 
+				const TVariableResistorToken BOOSTCONVERTER_255nm = 3; // BC1 (Boost Converter X)
+				const TVariableResistorToken BOOSTCONVERTER_275nm = 6; // BC2
+				const TVariableResistorToken BOOSTCONVERTER_285nm_395nm = 12; // BC3
 
-				INVALID = 255,
-			};
+				const TVariableResistorToken ULTRAVIOLETSENSOR = 7; // UVS 
+				const TVariableResistorToken OZONSENSOR = 14; // OS (Ozone Sensor)
+				const TVariableResistorToken SEEDTEMPERATURESENSOR = 28; // TS (Temperature Sensor) 
+
+				const TVariableResistorToken INVALID = 255;
 		}
 	}
 
@@ -75,16 +75,13 @@ namespace UVO_CommunicationProtocol {
 		//TODO What do we measure at every sensor? What are the conversions
 
 		namespace SensorToken {
-			enum TSensorToken : unsigned char {
-				CURRENTSENSOR_MOTOR = 1,
-				INVALID = 255,
-			};
+			const TSensorToken CURRENTSENSOR_MOTOR = 1;
+			const TSensorToken INVALID = 255;
 		}
 
 		namespace DriverToken {
-			enum TDriverToken : unsigned char {
-				PWM_MOTOR = 1,
-			};
+			const TDriverToken PWM_MOTOR = 1;
+			const TDriverToken INVALID = 255;
 		}
 	}
 
