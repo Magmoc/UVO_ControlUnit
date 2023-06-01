@@ -1,5 +1,5 @@
-#ifndef COMMUNICATION_INTERFACE_HPP
-#define COMMUNICATION_INTERFACE_HPP
+#ifndef SPI_INTERFACE_HPP
+#define SPI_INTERFACE_HPP
 
 #include <Wire.h>
 #include <Arduino.h>

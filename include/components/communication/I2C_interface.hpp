@@ -1,5 +1,5 @@
-#ifndef COMMUNICATION_INTERFACE_HPP
-#define COMMUNICATION_INTERFACE_HPP
+#ifndef I2C_INTERFACE_HPP
+#define I2C_INTERFACE_HPP
 
 #include <Wire.h>
 #include <Arduino.h>
