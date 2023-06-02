@@ -2,7 +2,6 @@
 
 // https://www.gammon.com.au/i2c
 
-//TODO: check i2c lib
 
 namespace UVO_Components {
 
@@ -25,13 +24,13 @@ I2CInterface::~I2CInterface(){
 	Wire.end();
 }
 
-bool I2CInterface::sendMessages(int address, byte* message, int message_length){
+void I2CInterface::sendMessages(int address, byte* message, int message_length){
 	Wire.beginTransmission(address);
 	Wire.write(message, (size_t) message_length);
 	Wire.endTransmission();
 
 	//TODO fix error checking
-	return true;
+	// return true;
 }
 
 int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, int bytes_requested){
@@ -42,6 +41,14 @@ int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, i
 	}
 
 	return num_bytes_received;
+}
+
+void onRequest( void (*t_function)(void) ){
+	Wire.onRequest(t_function);
+}
+
+void onReceive( void (*t_function)(int) ){
+	Wire.onReceive(t_function);
 }
 
 // https://forum.arduino.cc/t/multiple-bytes-read-of-i2c/57341/6

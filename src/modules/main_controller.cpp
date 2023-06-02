@@ -11,6 +11,7 @@ namespace UVO_MainController {
 
 	void MainController::init(void){
 		// m_screen.init();
+		m_communication_interface.init();
 	}
 
 	void MainController::update(void){

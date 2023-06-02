@@ -19,12 +19,12 @@ namespace UVO_CommunicationProtocol {
 	typedef TToken TDriverToken;
 	typedef TToken TVariableResistorToken;
 
+	const TToken INVALID = 255;
+
 	namespace PackageTypeToken {
 		const TPackageTypeToken REQUEST_SENSOR_DATA = 'S';
 		const TPackageTypeToken SET_DRIVER_RELATIVE_INTENSITY = 'D';
 		const TPackageTypeToken SET_VARIABLE_RESISTOR = 'R';
-		
-		const TPackageTypeToken INVALID = (TPackageTypeToken) 255;
 	}
 
 	namespace LEDDriverToken {
@@ -40,17 +40,13 @@ namespace UVO_CommunicationProtocol {
 			const TSensorToken ULTRAVIOLET_INTENSITY_SENSOR = 32;
 			const TSensorToken OZON_SENSOR = 64;
 			const TSensorToken LEDS_TEMPERATURE_SENSOR = 128;
-			
-			const TSensorToken INVALID = 255;
 		}
 
 		namespace DriverToken {
 				const TDriverToken PWM_255nm = 1;
 				const TDriverToken PWM_265nm = 2;
 				const TDriverToken PWM_275nm = 4;
-				const TDriverToken PWM_395nm = 8;
-				
-				const TDriverToken INVALID = 255;
+				const TDriverToken PWM_395nm = 8;				
 		}
 		
 		namespace VariableResistorToken {
@@ -66,8 +62,6 @@ namespace UVO_CommunicationProtocol {
 				const TVariableResistorToken ULTRAVIOLETSENSOR = 7; // UVS 
 				const TVariableResistorToken OZONSENSOR = 14; // OS (Ozone Sensor)
 				const TVariableResistorToken SEEDTEMPERATURESENSOR = 28; // TS (Temperature Sensor) 
-
-				const TVariableResistorToken INVALID = 255;
 		}
 	}
 
@@ -76,12 +70,10 @@ namespace UVO_CommunicationProtocol {
 
 		namespace SensorToken {
 			const TSensorToken CURRENTSENSOR_MOTOR = 1;
-			const TSensorToken INVALID = 255;
 		}
 
 		namespace DriverToken {
 			const TDriverToken PWM_MOTOR = 1;
-			const TDriverToken INVALID = 255;
 		}
 	}
 

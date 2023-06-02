@@ -31,8 +31,8 @@ namespace UVO_UNIT_TESTS {
 	}
 
 	void receive(int){
-		UVO_CommunicationProtocol::PackageTypeToken::TPackageTypeToken packageType;
-		packageType = (UVO_CommunicationProtocol::PackageTypeToken::TPackageTypeToken) Wire.read();
+		UVO_CommunicationProtocol::TPackageTypeToken packageType;
+		packageType = (UVO_CommunicationProtocol::TPackageTypeToken) Wire.read();
 		Serial.println(packageType);
 
 		while(Wire.available()){

@@ -10,6 +10,7 @@
 
 namespace UVO_Components {
 
+//TODO make I2C interface subclass of TwoWire
 class I2CInterface
 {
 private:
@@ -21,8 +22,11 @@ public:
 	// I2CInterface(int t_I2C_address, int t_SDA_pin, int t_SCL_pin);
 	~I2CInterface();
 	
-	bool sendMessages(int address, byte* message, int message_length);
+	void sendMessages(int address, byte* message, int message_length);
 	int requestAndReadAnswer(int I2C_address, byte* receive_message, int bytes_requested);
+
+	void onRequest( void (*t_function)(void) );
+	void onReceive( void (*t_function)(int) );
 };
 
 }
