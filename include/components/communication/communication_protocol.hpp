@@ -6,8 +6,8 @@ namespace UVO_CommunicationProtocol {
 	// https://stackoverflow.com/questions/112433/should-i-use-define-enum-or-const
 
 	// [REQUEST_SENSOR_DATA] [SENSOR_TOKEN] REQUEST [value (double)]
-	// [SET_DRIVER_INTENSITY] [DRIVER_TOKEN] REQUEST [ack (byte)]
-	// [SET_VARIABLE_RESISTOR] [RESISTOR_TOKEN] REQUEST [ack (byte)]
+	// [SET_DRIVER_INTENSITY] [DRIVER_TOKEN] [uint_8 intensity (0-255)] REQUEST [ack (byte)]
+	// [SET_VARIABLE_RESISTOR] [RESISTOR_TOKEN] [uint_8 intensity (0-255)] REQUEST [ack (byte)]
 
 	const int MAIN_CONTROLLER_ADDRESS = 40;
 	const int LED_CONTROLLER_ADDRESS = 60;
@@ -19,6 +19,8 @@ namespace UVO_CommunicationProtocol {
 	typedef TToken TDriverToken;
 	typedef TToken TVariableResistorToken;
 
+	const TToken ACK = 2;
+	const TToken NACK = 4;
 	const TToken INVALID = 255;
 
 	namespace PackageTypeToken {

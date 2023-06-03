@@ -10,13 +10,23 @@ namespace UVO_MainController {
 	}
 
 	void MainController::init(void){
-		// m_screen.init();
-		m_communication_interface.init();
+		#ifdef USE_SCREEN
+			m_screen.init();
+		#endif
+		
+		#ifdef USE_COMMUNICATION_INTERFACE
+			m_communication_interface.init();
+		#endif
 	}
 
 	void MainController::update(void){
-		// m_screen.update();
-		m_communication_interface.update();
+		#ifdef USE_SCREEN
+			m_screen.update();
+		#endif
+
+		#ifdef USE_COMMUNICATION_INTERFACE
+			m_communication_interface.update();
+		#endif
 	}
 
 }
