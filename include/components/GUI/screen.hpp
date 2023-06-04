@@ -1,5 +1,5 @@
-#ifndef GUI_HPP
-#define GUI_HPP
+#ifndef SCREEN_HPP
+#define SCREEN_HPP
 
 #include <SPI.h>
 #include <TFT_eSPI.h>      // Hardware-specific library
