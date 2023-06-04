@@ -16,6 +16,8 @@ void MainCommunicationInterface::init(void){
 
 }
 
+
+// TODO: IMPLEMENT https://forum.arduino.cc/t/how-to-properly-use-wire-onreceive/891195/2
 void MainCommunicationInterface::update(void){
 	double received_data;
 

@@ -5,9 +5,16 @@
 namespace UVO_CommunicationProtocol {
 	// https://stackoverflow.com/questions/112433/should-i-use-define-enum-or-const
 
-	// [REQUEST_SENSOR_DATA] [SENSOR_TOKEN] REQUEST [value (double)]
+	// Sent from Control Unit
+	// [REQUEST_SENSOR_DATA] [SENSOR_TOKEN] REQUEST [value (double) (4 bytes)]
 	// [SET_DRIVER_INTENSITY] [DRIVER_TOKEN] [uint_8 intensity (0-255)] REQUEST [ack (byte)]
 	// [SET_VARIABLE_RESISTOR] [RESISTOR_TOKEN] [uint_8 intensity (0-255)] REQUEST [ack (byte)]
+
+
+	//TODO We need to discuss this later, whether we want to implement this
+	//TODO Who does error handling? Control module or submodule?
+	// Sent to Control Unit
+	// [SEND_ERROR_FLAG] [YOUR OWN I2C ADDRESS] [SENSOR_TOKEN] REQUEST [ack (byte)]
 
 	const int MAIN_CONTROLLER_ADDRESS = 40;
 	const int LED_CONTROLLER_ADDRESS = 60;
@@ -27,6 +34,7 @@ namespace UVO_CommunicationProtocol {
 		const TPackageTypeToken REQUEST_SENSOR_DATA = 'S';
 		const TPackageTypeToken SET_DRIVER_RELATIVE_INTENSITY = 'D';
 		const TPackageTypeToken SET_VARIABLE_RESISTOR = 'R';
+		const TPackageTypeToken SEND_ERROR_FLAG = 'E';
 	}
 
 	namespace LEDDriverToken {
