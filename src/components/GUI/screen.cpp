@@ -10,7 +10,7 @@
 namespace UVO_Components {
 
 Screen::Screen(void) {
-
+	init();
 }
 
 Screen::~Screen(){
@@ -57,6 +57,7 @@ void Screen::test(void){
 }
 
 void Screen::setBackground(TFT_eSprite& sprite){
+	sprite.fillCircle(m_TFT_WIDTH/3, m_TFT_HEIGHT/2, 40, TFT_GREENYELLOW);
 	sprite.fillCircle(m_TFT_WIDTH/3, m_TFT_HEIGHT/2, 40, TFT_GREENYELLOW);
 }
 
