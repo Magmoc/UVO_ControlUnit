@@ -5,10 +5,12 @@
 #include <TFT_eSPI.h>      // Hardware-specific library
 #include <string.h>
 
+
+namespace UVO_GUISlice {
+
 #include "components/GUI/GUISliceBuilder_GSLC.hpp"
 #define BACKLIGHT_PIN 12
 
-namespace UVO_GUISlice {
 	class Screen{
 	private:
 		// TFT_eSPI m_tft = TFT_eSPI();
@@ -29,9 +31,8 @@ namespace UVO_GUISlice {
 		const int m_SPRITE_WIDTH = m_TFT_HEIGHT;
 		const int m_SPRITE_HEIGHT = m_TFT_WIDTH;
 
-		const std::string m_Intensity = "";
-
 		bool m_updateFrame;
+		u_int8_t m_Count = 0;
 
 		void writeFrame(void);
 

@@ -16,7 +16,10 @@ namespace UVO_Components {
 
 		uint8_t motor_intensity = 0;
 
-		long int exposureDelay = 0;
+		long int targetExposureTime = 0;
+		long int currentExposureTime = 0;
+
+		int globalSampleFrequencyHz = 10;
 	};
 	
 

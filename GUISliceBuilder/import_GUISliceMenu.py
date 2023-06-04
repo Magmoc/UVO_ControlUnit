@@ -3,7 +3,7 @@ import os
 DIRNAME = os.path.dirname(__file__)
 
 for file in os.listdir(DIRNAME):
-	if file.endswith(".h"):
+	if file.endswith(".h") and "GSLC" in file:
 		GUI_SLICE_BUILDER_FILE = file
 
 GUI_SLICE_BUILDER_FILEPATH = os.path.join(DIRNAME, GUI_SLICE_BUILDER_FILE)
@@ -46,3 +46,4 @@ outpath = os.path.join(DIRNAME, output_filename)
 with open(outpath, "w+") as f:
 	f.write(contents)
 
+# TODO Import from .INO FILE INTO SOURCE FILE

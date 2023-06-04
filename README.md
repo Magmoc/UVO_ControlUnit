@@ -8,12 +8,9 @@ GUI
 	GUI based on settings
 		plot function
 		plot text function
-
-LED DRIVER COMMUNICATION HANDLER
-	automatic reply based on requests
-	Sensor is not part of LDCH
-
-
+	GUISLICE lib setup automation?
+		Py script?
+	https://github.com/ImpulseAdventure/GUIslice/wiki/Builder-_-Walkthrough
 
 React differently based on different messages.
 	Test out protocol via i2c
