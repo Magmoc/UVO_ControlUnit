@@ -2,6 +2,8 @@
 #define SETTINGS_HPP
 
 #include <stdint.h>
+#include <limits.h>
+#include <time.h>
 
 namespace UVO_Components {
 
@@ -16,12 +18,29 @@ namespace UVO_Components {
 
 		uint8_t motor_intensity = 0;
 
-		long int targetExposureTime = 0;
-		// long int targetExposureTime = 0;
-		// long int targetExposureTime = 0;
-		// long int targetExposureTime = 0;
+		time_t targetExposureTime = 0;
 
 		int globalSampleFrequencyHz = 10;
+
+		void changeSeconds(int seconds){
+			ulong new_time = targetExposureTime + seconds;
+
+			//clamp
+			time_t maxTime = ULONG_MAX;
+			time_t minTime = 0;
+			new_time = new_time < maxTime ? new_time : maxTime;
+			new_time = new_time > minTime ? new_time : minTime;
+
+			targetExposureTime = new_time;
+		}
+
+		void changeMinutes(int minutes){
+			changeSeconds(60*minutes);
+		}
+
+		void changeHours(int hours){
+			changeMinutes(60*hours);
+		}
 	};
 
 	struct s_systemState {

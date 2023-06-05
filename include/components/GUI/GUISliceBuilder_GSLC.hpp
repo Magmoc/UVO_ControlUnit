@@ -60,7 +60,7 @@ enum {E_ELEM_SETUP_Dosis_255nm,E_ELEM_SETUP_Dosis_275nm
       ,E_ELEM_SETUP_TEXT_PERCENTAGESIGN_285nm
       ,E_ELEM_SETUP_TEXT_PERCENTSIGN_MOTORINTENSITY
       ,E_ELEM_SETUP_TEXT_TITLE,E_ELEM_SETUP_TEXT_WAVELENGTH
-      ,E_ELEM_TEXT63,E_ELEM_TEXT64};
+      ,E_ELEM_TEXT63,E_ELEM_TEXT64,E_ELEM_TEXT73};
 // Must use separate enum for fonts with MAX_FONT at end to use gslc_FontSet.
 enum {E_BUILTIN10X16,E_SEVEN_SEGMENT16,MAX_FONT};
 //<Enum !End!>
@@ -78,7 +78,7 @@ enum {E_BUILTIN10X16,E_SEVEN_SEGMENT16,MAX_FONT};
 #define MAX_ELEM_PG_BASE 0 // # Elems total on page
 #define MAX_ELEM_PG_BASE_RAM MAX_ELEM_PG_BASE // # Elems in RAM
 
-#define MAX_ELEM_PG_SETUP 28 // # Elems total on page
+#define MAX_ELEM_PG_SETUP 29 // # Elems total on page
 #define MAX_ELEM_PG_SETUP_RAM MAX_ELEM_PG_SETUP // # Elems in RAM
 //<ElementDefines !End!>
 
@@ -371,6 +371,12 @@ inline void InitGUIslice_gen()
   // Create E_ELEM_SETUP_TEXT_PERCENTSIGN_MOTORINTENSITY text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_PERCENTSIGN_MOTORINTENSITY,E_PG_SETUP,(gslc_tsRect){260,260,12,16},
     (char*)"%",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT73 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT73,E_PG_SETUP,(gslc_tsRect){320,290,140,16},
+    (char*)"SETUP SCREEN",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
 //<InitGUI !End!>

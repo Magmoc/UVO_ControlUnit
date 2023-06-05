@@ -20,9 +20,11 @@ namespace UVO_MainController {
 	}
 
 	void MainController::update(void){
-		// delay(1000);
-		// m_setupSettings.LED_intensity_255nm++;
-		// m_setupSettings.isUpdated = true;
+		if (!m_setupSettings.isUpdated){
+			delay(1000);
+			m_setupSettings.changeSeconds(1);
+			m_setupSettings.isUpdated = true;
+		}
 
 		#ifdef USE_SCREEN
 			m_screen.update();

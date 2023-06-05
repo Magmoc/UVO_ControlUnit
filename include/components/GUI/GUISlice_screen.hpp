@@ -45,6 +45,8 @@ namespace GUISlice {
 
 		void displaySetupSettings(void);
 		void displayIntensity(gslc_tsElemRef* elem, uint8_t intensity);
+		void displayTime(gslc_tsElemRef* t_hour, gslc_tsElemRef* t_minutes, gslc_tsElemRef* t_seconds, time_t t_displayTime);
+
 		int uint8_to_percentage(uint8_t value);
 
 		s_setupSettings* m_setupSettings;
