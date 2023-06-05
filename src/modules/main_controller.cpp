@@ -11,7 +11,7 @@ namespace UVO_MainController {
 
 	void MainController::init(void){
 		#ifdef USE_SCREEN
-			m_screen.init();
+			m_screen.init(&m_setupSettings);
 		#endif
 		
 		#ifdef USE_COMMUNICATION_INTERFACE
@@ -20,6 +20,10 @@ namespace UVO_MainController {
 	}
 
 	void MainController::update(void){
+		// delay(1000);
+		// m_setupSettings.LED_intensity_255nm++;
+		// m_setupSettings.isUpdated = true;
+
 		#ifdef USE_SCREEN
 			m_screen.update();
 		#endif

@@ -5,9 +5,9 @@
 
 namespace UVO_Components {
 
-	struct settings
+	struct s_setupSettings
 	{
-		volatile uint8_t isUpdated = 0;
+		bool isUpdated = false;
 
 		uint8_t LED_intensity_255nm = 0;
 		uint8_t LED_intensity_275nm = 0;
@@ -17,9 +17,20 @@ namespace UVO_Components {
 		uint8_t motor_intensity = 0;
 
 		long int targetExposureTime = 0;
-		long int currentExposureTime = 0;
+		// long int targetExposureTime = 0;
+		// long int targetExposureTime = 0;
+		// long int targetExposureTime = 0;
 
 		int globalSampleFrequencyHz = 10;
+	};
+
+	struct s_systemState {
+		s_setupSettings SetupSettings;
+		volatile bool isUpdated = false;
+		long int elapsedExposureTime = 0;
+
+
+
 	};
 	
 

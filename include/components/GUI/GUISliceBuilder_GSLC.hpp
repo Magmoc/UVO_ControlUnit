@@ -106,18 +106,18 @@ inline gslc_tsElemRef                  m_asPage1ElemRef[MAX_ELEM_PG_SETUP];
 
 // Element References for direct access
 //<Extern_References !Start!>
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Dosis_255nm;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Dosis_275nm;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Dosis_285nm;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Dosis_395nm;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Hours;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Intensity_255nm;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Intensity_275nm;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Intensity_285nm;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Intensity_395nm;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Minutes;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_MotorIntensity;
-extern gslc_tsElemRef* m_pElemIntensity_SETUP_Seconds;
+extern gslc_tsElemRef* m_pElem_SETUP_Dosis_255nm;
+extern gslc_tsElemRef* m_pElem_SETUP_Dosis_275nm;
+extern gslc_tsElemRef* m_pElem_SETUP_Dosis_285nm;
+extern gslc_tsElemRef* m_pElem_SETUP_Dosis_395nm;
+extern gslc_tsElemRef* m_pElem_SETUP_Hours;
+extern gslc_tsElemRef* m_pElem_SETUP_Intensity_255nm;
+extern gslc_tsElemRef* m_pElem_SETUP_Intensity_275nm;
+extern gslc_tsElemRef* m_pElem_SETUP_Intensity_285nm;
+extern gslc_tsElemRef* m_pElem_SETUP_Intensity_395nm;
+extern gslc_tsElemRef* m_pElem_SETUP_Minutes;
+extern gslc_tsElemRef* m_pElem_SETUP_MotorIntensity;
+extern gslc_tsElemRef* m_pElem_SETUP_Seconds;
 //<Extern_References !End!>
 
 // Define debug message function
@@ -189,7 +189,7 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Intensity_275nm = pElemRef;
+  m_pElem_SETUP_Intensity_275nm = pElemRef;
   
   // Create E_ELEM_SETUP_Dosis_275nm runtime modifiable text
   static char m_sDisplayText39[6] = "0";
@@ -197,7 +197,7 @@ inline void InitGUIslice_gen()
     (char*)m_sDisplayText39,6,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Dosis_275nm = pElemRef;
+  m_pElem_SETUP_Dosis_275nm = pElemRef;
   
   // Create E_ELEM_SETUP_TEXT_275nm text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_275nm,E_PG_SETUP,(gslc_tsRect){50,110,60,16},
@@ -212,7 +212,7 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Intensity_285nm = pElemRef;
+  m_pElem_SETUP_Intensity_285nm = pElemRef;
   
   // Create E_ELEM_SETUP_Dosis_285nm runtime modifiable text
   static char m_sDisplayText42[6] = "0";
@@ -220,7 +220,7 @@ inline void InitGUIslice_gen()
     (char*)m_sDisplayText42,6,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Dosis_285nm = pElemRef;
+  m_pElem_SETUP_Dosis_285nm = pElemRef;
   
   // Create E_ELEM_SETUP_TEXT_285nm text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_285nm,E_PG_SETUP,(gslc_tsRect){50,140,60,16},
@@ -235,7 +235,7 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Intensity_395nm = pElemRef;
+  m_pElem_SETUP_Intensity_395nm = pElemRef;
   
   // Create E_ELEM_SETUP_Dosis_395nm runtime modifiable text
   static char m_sDisplayText45[6] = "0";
@@ -243,7 +243,7 @@ inline void InitGUIslice_gen()
     (char*)m_sDisplayText45,6,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Dosis_395nm = pElemRef;
+  m_pElem_SETUP_Dosis_395nm = pElemRef;
   
   // Create E_ELEM_SETUP_TEXT_395nm text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_395nm,E_PG_SETUP,(gslc_tsRect){50,170,60,16},
@@ -261,9 +261,10 @@ inline void InitGUIslice_gen()
   static char m_sDisplayText48[3] = "00";
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_Hours,E_PG_SETUP,(gslc_tsRect){150,230,24,16},
     (char*)m_sDisplayText48,3,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Hours = pElemRef;
+  m_pElem_SETUP_Hours = pElemRef;
   
   // Create E_ELEM_SETUP_TEXT_DURATION text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_DURATION,E_PG_SETUP,(gslc_tsRect){20,230,96,16},
@@ -278,7 +279,7 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_MotorIntensity = pElemRef;
+  m_pElem_SETUP_MotorIntensity = pElemRef;
   
   // Create E_ELEM_SETUP_TEXT_MOTORINTENSITY text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_MOTORINTENSITY,E_PG_SETUP,(gslc_tsRect){20,260,180,16},
@@ -293,7 +294,7 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Intensity_255nm = pElemRef;
+  m_pElem_SETUP_Intensity_255nm = pElemRef;
   
   // Create E_ELEM_SETUP_TEXT_DOSIS text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_DOSIS,E_PG_SETUP,(gslc_tsRect){220,60,168,16},
@@ -307,7 +308,7 @@ inline void InitGUIslice_gen()
     (char*)m_sDisplayText59,6,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Dosis_255nm = pElemRef;
+  m_pElem_SETUP_Dosis_255nm = pElemRef;
   
   // Create E_ELEM_SETUP_Minutes runtime modifiable text
   static char m_sDisplayText62[3] = "00";
@@ -315,7 +316,7 @@ inline void InitGUIslice_gen()
     (char*)m_sDisplayText62,3,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Minutes = pElemRef;
+  m_pElem_SETUP_Minutes = pElemRef;
   
   // Create E_ELEM_TEXT63 text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT63,E_PG_SETUP,(gslc_tsRect){170,230,12,16},
@@ -335,7 +336,7 @@ inline void InitGUIslice_gen()
     (char*)m_sDisplayText65,3,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
-  m_pElemIntensity_SETUP_Seconds = pElemRef;
+  m_pElem_SETUP_Seconds = pElemRef;
   
   // Create E_ELEM_SETUP_TEXT_PERCENTAGESIGN_255nm text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_PERCENTAGESIGN_255nm,E_PG_SETUP,(gslc_tsRect){170,80,12,16},

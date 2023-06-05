@@ -20,6 +20,7 @@
 // #define TFT_SCLK 18
 // #define TFT_CS 4
 // #define TFT_DC 2
+
 // #define LOAD_GLCD
 // #define LOAD_FONT2
 // #define LOAD_FONT4

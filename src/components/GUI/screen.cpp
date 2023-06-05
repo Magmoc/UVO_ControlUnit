@@ -8,6 +8,7 @@
 // #include "images/cool_monke.h"
 
 namespace UVO_Components {
+namespace Screen {
 
 Screen::Screen(void) {
 	init();
@@ -107,4 +108,5 @@ void Screen::writeFrame(void){
 	m_screen.pushSprite(300,100);
 }
 
+}
 }

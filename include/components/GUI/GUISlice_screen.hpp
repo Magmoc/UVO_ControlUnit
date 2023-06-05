@@ -4,12 +4,13 @@
 #include <SPI.h>
 #include <TFT_eSPI.h>      // Hardware-specific library
 #include <string.h>
+#include "components/settings.hpp"
 
-
-namespace UVO_GUISlice {
-
-#include "components/GUI/GUISliceBuilder_GSLC.hpp"
+namespace UVO_Components {
 #define BACKLIGHT_PIN 12
+
+namespace GUISlice {
+	#include "components/GUI/GUISliceBuilder_GSLC.hpp"
 
 	class Screen{
 	private:
@@ -42,14 +43,26 @@ namespace UVO_GUISlice {
 
 		void GUISliceInit(void);
 
+		void displaySetupSettings(void);
+		void displayIntensity(gslc_tsElemRef* elem, uint8_t intensity);
+		int uint8_to_percentage(uint8_t value);
 
-	public:
-		Screen(void);
-		~Screen();
-		void init(void);
-		void update(void);
+		s_setupSettings* m_setupSettings;
+
+
+		public:
+			Screen(s_setupSettings* t_Settings);
+			Screen(void);
+			~Screen();
+			
+			// Both with and without setupSettings so that you can restart the module without having to change the settings
+			void init(void);
+			void init(s_setupSettings* t_initSettings);
+			
+			void update(void);
+			void setSetupSettings(s_setupSettings* t_Settings);
 
 	};
-
+}
 }
 #endif

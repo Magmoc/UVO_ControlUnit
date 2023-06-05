@@ -8,6 +8,7 @@
 #define BACKLIGHT_PIN 12
 
 namespace UVO_Components {
+namespace Screen {
 
 	class Screen{
 	private:
@@ -44,6 +45,6 @@ namespace UVO_Components {
 		void update(void);
 
 	};
-
+}
 }
 #endif

@@ -6,18 +6,18 @@
 
 // Save some element references for direct access
 //<Save_References !Start!>
-gslc_tsElemRef* m_pElemIntensity_SETUP_Dosis_255nm= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Dosis_275nm= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Dosis_285nm= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Dosis_395nm= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Hours= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Intensity_255nm= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Intensity_275nm= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Intensity_285nm= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Intensity_395nm= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Minutes= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_MotorIntensity= NULL;
-gslc_tsElemRef* m_pElemIntensity_SETUP_Seconds= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Dosis_255nm= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Dosis_275nm= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Dosis_285nm= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Dosis_395nm= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Hours= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Intensity_255nm= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Intensity_275nm= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Intensity_285nm= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Intensity_395nm= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Minutes= NULL;
+gslc_tsElemRef* m_pElem_SETUP_MotorIntensity= NULL;
+gslc_tsElemRef* m_pElem_SETUP_Seconds= NULL;
 //<Save_References !End!>
 
 // Define debug message function
