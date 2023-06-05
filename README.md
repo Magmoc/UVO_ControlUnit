@@ -17,3 +17,7 @@ React differently based on different messages.
 
 Work on SPI
 	Use the current sensor library
+
+Settings class
+	pass pointer to screen to update
+	friend class of buttons so that buttons can change everything

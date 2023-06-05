@@ -9,11 +9,9 @@
 
 namespace UVO_GUISlice {
 
-gslc_tsElemRef* m_pElemIntensity_255= NULL;
-//<Save_References !End!>
+//TODO include image
 
-// Define debug message function
-static int16_t DebugOut(char ch) { if (ch == (char)'\n') Serial.println(""); else Serial.write(ch); return 0; }
+#include "components/GUI/GUISlice_references_content.hpp"
 
 Screen::Screen(void) {
 	init();
@@ -55,7 +53,7 @@ void Screen::update(void){
 	char txt[4];
 	snprintf(txt, 4, "%d", m_Count);
 	m_Count++;
-	gslc_ElemSetTxtStr(&m_gui, m_pElemIntensity_255, txt);
+	gslc_ElemSetTxtStr(&m_gui, m_pElemIntensity_SETUP_Hours, txt);
 }
 
 }
