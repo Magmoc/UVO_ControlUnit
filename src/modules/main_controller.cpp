@@ -22,7 +22,7 @@ namespace UVO_MainController {
 	void MainController::update(void){
 		if (!m_setupSettings.isUpdated){
 			delay(1000);
-			m_setupSettings.changeSeconds(1);
+			m_setupSettings.addSeconds(1);
 			m_setupSettings.isUpdated = true;
 		}
 

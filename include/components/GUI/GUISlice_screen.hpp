@@ -12,6 +12,37 @@ namespace UVO_Components {
 namespace GUISlice {
 	#include "components/GUI/GUISliceBuilder_GSLC.hpp"
 
+	struct s_screenState {
+		typedef std::vector<gslc_tsElemRef*> glsc_ElemRefVec;
+
+		const glsc_ElemRefVec SETUP_page_elem_arr = {
+			m_pElem_SETUP_Intensity_255nm,
+			m_pElem_SETUP_Intensity_275nm,
+			m_pElem_SETUP_Intensity_285nm,
+			m_pElem_SETUP_Intensity_395nm,
+			m_pElem_SETUP_Hours,
+			m_pElem_SETUP_Minutes,
+			m_pElem_SETUP_Seconds,
+			m_pElem_SETUP_MotorIntensity,
+			m_pElem_SETUP_Dosis_255nm,
+			m_pElem_SETUP_Dosis_275nm,
+			m_pElem_SETUP_Dosis_285nm,
+			m_pElem_SETUP_Dosis_395nm,
+			};
+
+		const std::vector<glsc_ElemRefVec> page_vec = {SETUP_page_elem_arr};
+
+		int current_elem_idx = 0; // TODO should add box around object
+		bool elem_is_selected = false; // TODO if true: should change background color of thing
+		int current_page_idx = 0;
+
+		// TODO HERE or should button handler fix this?
+		
+		volatile bool button_up_pressed;
+		volatile bool button_down_pressed;
+		
+	};
+
 	class Screen{
 	private:
 		// TFT_eSPI m_tft = TFT_eSPI();

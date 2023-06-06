@@ -117,3 +117,5 @@ try:
 	print(f"Succesfully replaced {REFERENCES_HEADER_FILENAME}!")
 except:
 	pass
+
+# TODO Export everything with same _SETUP_ into cpp array with said name

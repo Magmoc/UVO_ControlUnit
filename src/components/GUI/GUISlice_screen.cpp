@@ -50,14 +50,20 @@ void Screen::setSetupSettings(s_setupSettings* t_Settings){
 	m_setupSettings = t_Settings;
 }
 
+int i = 0;
 
 void Screen::update(void){
 	// delay(10);
 	if (m_setupSettings->isUpdated){
+		char txt[4] = {};
+		snprintf(txt, 4, "%02d", i++);
+		gslc_ElemSetTxtStr(&m_gui, m_pElem_SETUP_Dosis_255nm, txt);
+
 		displaySetupSettings();
 
 		gslc_Update(&m_gui);
 		m_setupSettings->isUpdated = false;
+
 	}
 }
 

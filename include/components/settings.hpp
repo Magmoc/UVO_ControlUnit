@@ -22,24 +22,25 @@ namespace UVO_Components {
 
 		int globalSampleFrequencyHz = 10;
 
-		void changeSeconds(int seconds){
+		void addSeconds(int seconds){
+			// Must be ulong type.
 			ulong new_time = targetExposureTime + seconds;
 
 			//clamp
 			time_t maxTime = ULONG_MAX;
 			time_t minTime = 0;
-			new_time = new_time < maxTime ? new_time : maxTime;
-			new_time = new_time > minTime ? new_time : minTime;
+			new_time = (new_time > maxTime) ? maxTime : new_time;
+			new_time = (new_time < minTime) ? minTime : new_time;
 
 			targetExposureTime = new_time;
 		}
 
-		void changeMinutes(int minutes){
-			changeSeconds(60*minutes);
+		void addMinutes(int minutes){
+			addSeconds(60*minutes);
 		}
 
-		void changeHours(int hours){
-			changeMinutes(60*hours);
+		void addHours(int hours){
+			addMinutes(60*hours);
 		}
 	};
 
@@ -48,12 +49,8 @@ namespace UVO_Components {
 		volatile bool isUpdated = false;
 		long int elapsedExposureTime = 0;
 
-
-
 	};
 	
-
-
 }
 
 #endif
