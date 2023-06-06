@@ -47,54 +47,56 @@ void Screen::init(s_setupSettings* t_initSettings){
 }
 
 void Screen::setSetupSettings(s_setupSettings* t_Settings){
-	m_setupSettingsPointer = t_Settings;
+	m_referenceSetupSettingsPointer = t_Settings;
+	displaySetupSettings(m_referenceSetupSettingsPointer);
 }
 
-#ifdef DEBUG_MODE
-int i = 0;
-#endif
+
 
 void Screen::update(void){
-	// delay(10);
-	if (m_setupSettingsPointer->isUpdated){
-
-		#ifdef DEBUG_MODE
-		//TODO Make a function for debugging
-		char txt[4] = {};
-		snprintf(txt, 4, "%02d", i++);
-		gslc_ElemSetTxtStr(&m_gui, m_pElem_SETUP_Dosis_255nm, txt);
-		#endif
-
-		displaySetupSettings();
-
-
-		displaySelected(m_pElem_SETUP_Intensity_285nm);
-
-
-		gslc_Update(&m_gui);
-		m_setupSettingsPointer->isUpdated = false;
+	if (m_referenceSetupSettingsPointer->isUpdated){
+		displaySetupSettings(m_referenceSetupSettingsPointer);
+		m_referenceSetupSettingsPointer->isUpdated = false;
 	}
+
+	delay(10);
+	gslc_Update(&m_gui);
 }
 
-void Screen::displaySelected(gslc_tsElemRef* t_pElem){
-	gslc_tsColor current_colFrame = t_pElem->pElem->colElemFrame;
-	gslc_tsColor current_colFill = t_pElem->pElem->colElemFill;
-	gslc_tsColor current_colFillGlow = t_pElem->pElem->colElemFillGlow;
 
-	gslc_ElemSetCol(&m_gui, t_pElem, current_colFrame, UVO_WHITE, current_colFillGlow);
-	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);
-	gslc_ElemSetFillEn(&m_gui, t_pElem, true);
-}
 
-void Screen::displaySetupSettings(void){
-	displayIntensity(m_pElem_SETUP_Intensity_255nm, m_setupSettingsPointer->LED_intensity_255nm);
-	displayIntensity(m_pElem_SETUP_Intensity_275nm, m_setupSettingsPointer->LED_intensity_275nm);
-	displayIntensity(m_pElem_SETUP_Intensity_285nm, m_setupSettingsPointer->LED_intensity_285nm);
-	displayIntensity(m_pElem_SETUP_Intensity_395nm, m_setupSettingsPointer->LED_intensity_395nm);
-	
-	displayIntensity(m_pElem_SETUP_MotorIntensity, m_setupSettingsPointer->motor_intensity);
+void Screen::displaySetupSettings(s_setupSettings* t_new){
+	//TODO write this more elligible
+	if (m_currentlyDisplayedSetupSettings.LED_intensity_255nm != t_new->LED_intensity_255nm){
+		m_currentlyDisplayedSetupSettings.LED_intensity_255nm = t_new->LED_intensity_255nm;
+		displayIntensity(m_pElem_SETUP_Intensity_255nm, m_currentlyDisplayedSetupSettings.LED_intensity_255nm);
+	}
 
-	displayTime(m_pElem_SETUP_Hours, m_pElem_SETUP_Minutes, m_pElem_SETUP_Seconds, m_setupSettingsPointer->targetExposureTime);
+	if (m_currentlyDisplayedSetupSettings.LED_intensity_275nm != t_new->LED_intensity_275nm){
+		m_currentlyDisplayedSetupSettings.LED_intensity_275nm = t_new->LED_intensity_275nm;
+		displayIntensity(m_pElem_SETUP_Intensity_275nm, m_currentlyDisplayedSetupSettings.LED_intensity_275nm);
+	}
+
+	if (m_currentlyDisplayedSetupSettings.LED_intensity_285nm != t_new->LED_intensity_285nm){
+		m_currentlyDisplayedSetupSettings.LED_intensity_285nm = t_new->LED_intensity_285nm;
+		displayIntensity(m_pElem_SETUP_Intensity_285nm, m_currentlyDisplayedSetupSettings.LED_intensity_285nm);
+	}
+
+	if (m_currentlyDisplayedSetupSettings.LED_intensity_395nm != t_new->LED_intensity_395nm){
+		m_currentlyDisplayedSetupSettings.LED_intensity_395nm = t_new->LED_intensity_395nm;
+		displayIntensity(m_pElem_SETUP_Intensity_395nm, m_currentlyDisplayedSetupSettings.LED_intensity_395nm);
+	}
+
+	if (m_currentlyDisplayedSetupSettings.motor_intensity != t_new->motor_intensity){
+		m_currentlyDisplayedSetupSettings.motor_intensity = t_new->motor_intensity;
+		displayIntensity(m_pElem_SETUP_MotorIntensity, m_currentlyDisplayedSetupSettings.motor_intensity);
+	}
+
+	if (m_currentlyDisplayedSetupSettings.targetExposureTime != t_new->targetExposureTime){
+		m_currentlyDisplayedSetupSettings.targetExposureTime = t_new->targetExposureTime;
+		displayTime(m_pElem_SETUP_Hours, m_pElem_SETUP_Minutes, m_pElem_SETUP_Seconds, m_currentlyDisplayedSetupSettings.targetExposureTime);
+	}
+
 }
 
 void Screen::displayIntensity(gslc_tsElemRef* t_pElem, uint8_t t_intensity){
@@ -119,9 +121,96 @@ void Screen::displayTime(gslc_tsElemRef* t_pElem_hour, gslc_tsElemRef* t_pElem_m
 	gslc_ElemSetTxtStr(&m_gui, t_pElem_seconds, seconds_txt);
 }
 
+
+
+void Screen::setSelectedElem(gslc_tsElemRef* t_pElem){
+	std::optional<int> index = getIndex(m_screenState.SETUP_page_selectable_items, t_pElem);
+	
+	if (!index){
+		//TODO FIX WITH CUSTOM DEBUGGING FUNCTION
+		throw "Element not in array";
+	}
+
+	updateSelectedElem(index.value());
+}
+
+void Screen::setSelectedElem(int t_index){
+	updateSelectedElem(t_index);
+}
+
+void Screen::updateSelectedElem(int t_newSelectedIdx){
+	if (t_newSelectedIdx != m_screenState.current_elem_idx){
+		gslc_tsElemRef* selectedElem = m_screenState.SETUP_page_selectable_items.at(m_screenState.current_elem_idx);
+		resetElemOptions(selectedElem);
+		
+		m_screenState.current_elem_idx = t_newSelectedIdx;
+		selectedElem = m_screenState.SETUP_page_selectable_items.at(m_screenState.current_elem_idx);
+		displayAsSelected(selectedElem);
+	}
+}
+
+
+
+void Screen::setColorFrame(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFrame){
+	gslc_tsColor current_colFill =  t_pElem->pElem->colElemFill;
+	gslc_tsColor current_colFillGlow = t_pElem->pElem->colElemFillGlow;
+	gslc_ElemSetCol(&m_gui, t_pElem, t_colFrame, current_colFill, current_colFillGlow);
+}
+
+void Screen::setColorFill(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFill){
+	gslc_tsColor current_colFrame = t_pElem->pElem->colElemFrame;
+	gslc_tsColor current_colFillGlow = t_pElem->pElem->colElemFillGlow;
+
+	gslc_ElemSetCol(&m_gui, t_pElem, current_colFrame, t_colFill, current_colFillGlow);
+}
+
+void Screen::resetElemOptions(gslc_tsElemRef* t_pElem){
+	setColorFill(t_pElem, UVO_LIGHT_BLUE);
+	gslc_ElemSetFrameEn(&m_gui, t_pElem, false);
+	gslc_ElemSetFillEn(&m_gui, t_pElem, false);
+}
+
+
+
+void Screen::displayAsSelected(gslc_tsElemRef* t_pElem){
+	setColorFill(t_pElem, UVO_WHITE);
+	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);
+	gslc_ElemSetFillEn(&m_gui, t_pElem, true);
+}
+
+void Screen::displayEditing(gslc_tsElemRef* t_pElem){
+	gslc_tsColor current_colFrame = t_pElem->pElem->colElemFrame;
+	gslc_tsColor current_colFill = t_pElem->pElem->colElemFill;
+	gslc_tsColor current_colFillGlow = t_pElem->pElem->colElemFillGlow;
+
+	gslc_ElemSetCol(&m_gui, t_pElem, current_colFrame, UVO_WHITE, current_colFillGlow);
+	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);
+	gslc_ElemSetFillEn(&m_gui, t_pElem, true);
+}
+
+
+
+//TODO MOVE TO OTHER FILE
 int Screen::uint8_to_percentage(uint8_t value){
 	return value * 100.0/255;
 }
+
+//TODO MOVE TO OTHER FILE
+template<typename T>
+std::optional<int> Screen::getIndex(std::vector<T> t_vec, T t_elem){
+	auto it = find(t_vec.begin(), t_vec.end(), t_elem);
+  
+    // If element was found
+    if (it != t_vec.end()){
+        // calculating the index
+        int index = it - t_vec.begin();
+        return index;
+    }
+    else {
+		return std::nullopt;
+	}
+}
+
 
 }
 }
