@@ -15,7 +15,7 @@ namespace GUISlice {
 	struct s_screenState {
 		typedef std::vector<gslc_tsElemRef*> glsc_ElemRefVec;
 
-		const glsc_ElemRefVec SETUP_page_elem_arr = {
+		const glsc_ElemRefVec SETUP_page_selectable_items = {
 			m_pElem_SETUP_Intensity_255nm,
 			m_pElem_SETUP_Intensity_275nm,
 			m_pElem_SETUP_Intensity_285nm,
@@ -24,17 +24,13 @@ namespace GUISlice {
 			m_pElem_SETUP_Minutes,
 			m_pElem_SETUP_Seconds,
 			m_pElem_SETUP_MotorIntensity,
-			m_pElem_SETUP_Dosis_255nm,
-			m_pElem_SETUP_Dosis_275nm,
-			m_pElem_SETUP_Dosis_285nm,
-			m_pElem_SETUP_Dosis_395nm,
 			};
 
-		const std::vector<glsc_ElemRefVec> page_vec = {SETUP_page_elem_arr};
+		const std::vector<glsc_ElemRefVec> page_vec = {SETUP_page_selectable_items};
+		int current_page_idx = 0;
 
 		int current_elem_idx = 0; // TODO should add box around object
 		bool elem_is_selected = false; // TODO if true: should change background color of thing
-		int current_page_idx = 0;
 
 		// TODO HERE or should button handler fix this?
 		
@@ -49,11 +45,11 @@ namespace GUISlice {
 		// TFT_eSprite m_screen = TFT_eSprite(&m_tft);	
 		// TFT_eSprite m_popupSprite = TFT_eSprite(&m_tft); 
 
-		// const uint16_t UVO_BLACK = m_tft.color565(0, 0, 5);
-		// const uint16_t UVO_DARK_BLUE = m_tft.color565(59, 51, 85);
-		// const uint16_t UVO_PURPLE = m_tft.color565(93, 93, 129);
-		// const uint16_t UVO_LIGHT_BLUE = m_tft.color565(191, 205, 224);
-		// const uint16_t UVO_WHITE = m_tft.color565(254, 252, 253);
+		const gslc_tsColor UVO_BLACK = {0, 0, 5};
+		const gslc_tsColor UVO_DARK_BLUE = {59, 51, 85};
+		const gslc_tsColor UVO_PURPLE = {93, 93, 129};
+		const gslc_tsColor UVO_LIGHT_BLUE = {191, 205, 224};
+		const gslc_tsColor UVO_WHITE = {254, 252, 253};
 
 		const int m_TFT_WIDTH = 480;
 		const int m_TFT_HEIGHT = 320;
@@ -74,13 +70,15 @@ namespace GUISlice {
 
 		void GUISliceInit(void);
 
+		void displaySelected(gslc_tsElemRef* t_pElem);
+
 		void displaySetupSettings(void);
-		void displayIntensity(gslc_tsElemRef* elem, uint8_t intensity);
+		void displayIntensity(gslc_tsElemRef* t_pElem, uint8_t intensity);
 		void displayTime(gslc_tsElemRef* t_hour, gslc_tsElemRef* t_minutes, gslc_tsElemRef* t_seconds, time_t t_displayTime);
 
 		int uint8_to_percentage(uint8_t value);
 
-		s_setupSettings* m_setupSettings;
+		s_setupSettings* m_setupSettingsPointer;
 
 
 		public:

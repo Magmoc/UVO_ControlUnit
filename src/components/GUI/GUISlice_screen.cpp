@@ -47,46 +47,65 @@ void Screen::init(s_setupSettings* t_initSettings){
 }
 
 void Screen::setSetupSettings(s_setupSettings* t_Settings){
-	m_setupSettings = t_Settings;
+	m_setupSettingsPointer = t_Settings;
 }
 
+#ifdef DEBUG_MODE
 int i = 0;
+#endif
 
 void Screen::update(void){
 	// delay(10);
-	if (m_setupSettings->isUpdated){
+	if (m_setupSettingsPointer->isUpdated){
+
+		#ifdef DEBUG_MODE
+		//TODO Make a function for debugging
 		char txt[4] = {};
 		snprintf(txt, 4, "%02d", i++);
 		gslc_ElemSetTxtStr(&m_gui, m_pElem_SETUP_Dosis_255nm, txt);
+		#endif
 
 		displaySetupSettings();
 
-		gslc_Update(&m_gui);
-		m_setupSettings->isUpdated = false;
 
+		displaySelected(m_pElem_SETUP_Intensity_285nm);
+
+
+		gslc_Update(&m_gui);
+		m_setupSettingsPointer->isUpdated = false;
 	}
 }
 
-void Screen::displaySetupSettings(void){
-	displayIntensity(m_pElem_SETUP_Intensity_255nm, m_setupSettings->LED_intensity_255nm);
-	displayIntensity(m_pElem_SETUP_Intensity_275nm, m_setupSettings->LED_intensity_275nm);
-	displayIntensity(m_pElem_SETUP_Intensity_285nm, m_setupSettings->LED_intensity_285nm);
-	displayIntensity(m_pElem_SETUP_Intensity_395nm, m_setupSettings->LED_intensity_395nm);
-	
-	displayIntensity(m_pElem_SETUP_MotorIntensity, m_setupSettings->motor_intensity);
+void Screen::displaySelected(gslc_tsElemRef* t_pElem){
+	gslc_tsColor current_colFrame = t_pElem->pElem->colElemFrame;
+	gslc_tsColor current_colFill = t_pElem->pElem->colElemFill;
+	gslc_tsColor current_colFillGlow = t_pElem->pElem->colElemFillGlow;
 
-	displayTime(m_pElem_SETUP_Hours, m_pElem_SETUP_Minutes, m_pElem_SETUP_Seconds, m_setupSettings->targetExposureTime);
+	gslc_ElemSetCol(&m_gui, t_pElem, current_colFrame, UVO_WHITE, current_colFillGlow);
+	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);
+	gslc_ElemSetFillEn(&m_gui, t_pElem, true);
 }
 
-void Screen::displayIntensity(gslc_tsElemRef* t_elem, uint8_t t_intensity){
+void Screen::displaySetupSettings(void){
+	displayIntensity(m_pElem_SETUP_Intensity_255nm, m_setupSettingsPointer->LED_intensity_255nm);
+	displayIntensity(m_pElem_SETUP_Intensity_275nm, m_setupSettingsPointer->LED_intensity_275nm);
+	displayIntensity(m_pElem_SETUP_Intensity_285nm, m_setupSettingsPointer->LED_intensity_285nm);
+	displayIntensity(m_pElem_SETUP_Intensity_395nm, m_setupSettingsPointer->LED_intensity_395nm);
+	
+	displayIntensity(m_pElem_SETUP_MotorIntensity, m_setupSettingsPointer->motor_intensity);
+
+	displayTime(m_pElem_SETUP_Hours, m_pElem_SETUP_Minutes, m_pElem_SETUP_Seconds, m_setupSettingsPointer->targetExposureTime);
+}
+
+void Screen::displayIntensity(gslc_tsElemRef* t_pElem, uint8_t t_intensity){
 	int intensity_percentage = uint8_to_percentage(t_intensity);
 	
 	char txt[4];
 	snprintf(txt, 4, "%02d", intensity_percentage);
-	gslc_ElemSetTxtStr(&m_gui, t_elem, txt);
+	gslc_ElemSetTxtStr(&m_gui, t_pElem, txt);
 }
 
-void Screen::displayTime(gslc_tsElemRef* t_hour, gslc_tsElemRef* t_minutes, gslc_tsElemRef* t_seconds, time_t t_displayTime){
+void Screen::displayTime(gslc_tsElemRef* t_pElem_hour, gslc_tsElemRef* t_pElem_minutes, gslc_tsElemRef* t_pElem_seconds, time_t t_displayTime){
 	char hours_txt[3] = {0};
 	char minutes_txt[3] = {0};
 	char seconds_txt[3] = {0};
@@ -95,9 +114,9 @@ void Screen::displayTime(gslc_tsElemRef* t_hour, gslc_tsElemRef* t_minutes, gslc
 	strftime(minutes_txt, sizeof(minutes_txt), "%MM", curr_tm);
 	strftime(seconds_txt, sizeof(seconds_txt), "%SS", curr_tm);
 
-	gslc_ElemSetTxtStr(&m_gui, t_hour, hours_txt);
-	gslc_ElemSetTxtStr(&m_gui, t_minutes, minutes_txt);
-	gslc_ElemSetTxtStr(&m_gui, t_seconds, seconds_txt);
+	gslc_ElemSetTxtStr(&m_gui, t_pElem_hour, hours_txt);
+	gslc_ElemSetTxtStr(&m_gui, t_pElem_minutes, minutes_txt);
+	gslc_ElemSetTxtStr(&m_gui, t_pElem_seconds, seconds_txt);
 }
 
 int Screen::uint8_to_percentage(uint8_t value){
