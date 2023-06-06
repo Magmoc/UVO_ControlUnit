@@ -44,7 +44,7 @@
 // Enumerations for pages, elements, fonts, images
 // ------------------------------------------------
 //<Enum !Start!>
-enum {E_PG_BASE,E_PG_SETUP};
+enum {E_PG_BASE,E_PG_SETUP,E_PG_SCREENSAVER,E_PG_RUNNING};
 enum {E_ELEM_SETUP_Dosis_255nm,E_ELEM_SETUP_Dosis_275nm
       ,E_ELEM_SETUP_Dosis_285nm,E_ELEM_SETUP_Dosis_395nm
       ,E_ELEM_SETUP_Hours,E_ELEM_SETUP_Intensity_255nm
@@ -73,13 +73,19 @@ enum {E_BUILTIN10X16,E_SEVEN_SEGMENT16,MAX_FONT};
 // Define the maximum number of elements and pages
 // ------------------------------------------------
 //<ElementDefines !Start!>
-#define MAX_PAGE                2
+#define MAX_PAGE                4
 
 #define MAX_ELEM_PG_BASE 0 // # Elems total on page
 #define MAX_ELEM_PG_BASE_RAM MAX_ELEM_PG_BASE // # Elems in RAM
 
 #define MAX_ELEM_PG_SETUP 29 // # Elems total on page
 #define MAX_ELEM_PG_SETUP_RAM MAX_ELEM_PG_SETUP // # Elems in RAM
+
+#define MAX_ELEM_PG_SCREENSAVER 0 // # Elems total on page
+#define MAX_ELEM_PG_SCREENSAVER_RAM MAX_ELEM_PG_SCREENSAVER // # Elems in RAM
+
+#define MAX_ELEM_PG_RUNNING 0 // # Elems total on page
+#define MAX_ELEM_PG_RUNNING_RAM MAX_ELEM_PG_RUNNING // # Elems in RAM
 //<ElementDefines !End!>
 
 // ------------------------------------------------
@@ -95,6 +101,10 @@ inline gslc_tsElem                     m_asBasePage1Elem[MAX_ELEM_PG_BASE_RAM];
 inline gslc_tsElemRef                  m_asBasePage1ElemRef[MAX_ELEM_PG_BASE];
 inline gslc_tsElem                     m_asPage1Elem[MAX_ELEM_PG_SETUP_RAM];
 inline gslc_tsElemRef                  m_asPage1ElemRef[MAX_ELEM_PG_SETUP];
+inline gslc_tsElem                     m_asPage2Elem[MAX_ELEM_PG_SCREENSAVER_RAM];
+inline gslc_tsElemRef                  m_asPage2ElemRef[MAX_ELEM_PG_SCREENSAVER];
+inline gslc_tsElem                     m_asPage3Elem[MAX_ELEM_PG_RUNNING_RAM];
+inline gslc_tsElemRef                  m_asPage3ElemRef[MAX_ELEM_PG_RUNNING];
 
 #define MAX_STR                 100
 
@@ -155,6 +165,8 @@ inline void InitGUIslice_gen()
 //<InitGUI !Start!>
   gslc_PageAdd(&m_gui,E_PG_BASE,m_asBasePage1Elem,MAX_ELEM_PG_BASE_RAM,m_asBasePage1ElemRef,MAX_ELEM_PG_BASE);
   gslc_PageAdd(&m_gui,E_PG_SETUP,m_asPage1Elem,MAX_ELEM_PG_SETUP_RAM,m_asPage1ElemRef,MAX_ELEM_PG_SETUP);
+  gslc_PageAdd(&m_gui,E_PG_SCREENSAVER,m_asPage2Elem,MAX_ELEM_PG_SCREENSAVER_RAM,m_asPage2ElemRef,MAX_ELEM_PG_SCREENSAVER);
+  gslc_PageAdd(&m_gui,E_PG_RUNNING,m_asPage3Elem,MAX_ELEM_PG_RUNNING_RAM,m_asPage3ElemRef,MAX_ELEM_PG_RUNNING);
 
   // Now mark E_PG_BASE as a "base" page which means that it's elements
   // are always visible. This is useful for common page elements.
@@ -189,6 +201,7 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLUE,GSLC_COL_BLACK,GSLC_COL_BLACK);
   m_pElem_SETUP_Intensity_275nm = pElemRef;
   
   // Create E_ELEM_SETUP_Dosis_275nm runtime modifiable text
@@ -212,6 +225,7 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLUE,GSLC_COL_BLACK,GSLC_COL_BLACK);
   m_pElem_SETUP_Intensity_285nm = pElemRef;
   
   // Create E_ELEM_SETUP_Dosis_285nm runtime modifiable text
@@ -294,6 +308,7 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_BLUE,GSLC_COL_BLACK,GSLC_COL_BLACK);
   m_pElem_SETUP_Intensity_255nm = pElemRef;
   
   // Create E_ELEM_SETUP_TEXT_DOSIS text label
@@ -363,8 +378,8 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
   // Create E_ELEM_SETUP_TEXT_TITLE text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_TITLE,E_PG_SETUP,(gslc_tsRect){88,10,304,22},
-    (char*)"SEED DESINFECTOR 9000!",0,E_SEVEN_SEGMENT16);
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_TEXT_TITLE,E_PG_SETUP,(gslc_tsRect){88,10,296,22},
+    (char*)"SEED DISINFECTOR 9000!",0,E_SEVEN_SEGMENT16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
@@ -379,6 +394,14 @@ inline void InitGUIslice_gen()
     (char*)"SETUP SCREEN",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+
+  // -----------------------------------
+  // PAGE: E_PG_SCREENSAVER
+  
+
+  // -----------------------------------
+  // PAGE: E_PG_RUNNING
+  
 //<InitGUI !End!>
 
 //<Startup !Start!>

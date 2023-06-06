@@ -9,7 +9,7 @@
 namespace UVO_Components {
 namespace GUISlice {
 
-//TODO include image
+//TODO include logo onto screen
 
 #include "components/GUI/GUISlice_references_content.hpp"
 
@@ -31,6 +31,7 @@ void Screen::GUISliceInit(void){
   gslc_InitDebug(&DebugOut);
 
   InitGUIslice_gen();
+  m_screenState.init_SETUP_sel_array();
 }
 
 void Screen::init(void){
@@ -52,14 +53,17 @@ void Screen::setSetupSettings(s_setupSettings* t_Settings){
 }
 
 
+int i = 0;
 
 void Screen::update(void){
 	if (m_referenceSetupSettingsPointer->isUpdated){
 		displaySetupSettings(m_referenceSetupSettingsPointer);
 		m_referenceSetupSettingsPointer->isUpdated = false;
 	}
+		
+	i = (i + 1) % 8;
+	setSelectedElem(i);
 
-	delay(10);
 	gslc_Update(&m_gui);
 }
 
@@ -99,12 +103,15 @@ void Screen::displaySetupSettings(s_setupSettings* t_new){
 
 }
 
+void Screen::displayInteger(gslc_tsElemRef* t_pElem, uint8_t t_value){
+	char txt[4];
+	snprintf(txt, 4, "%02d", t_value);
+	gslc_ElemSetTxtStr(&m_gui, t_pElem, txt);
+}
+
 void Screen::displayIntensity(gslc_tsElemRef* t_pElem, uint8_t t_intensity){
 	int intensity_percentage = uint8_to_percentage(t_intensity);
-	
-	char txt[4];
-	snprintf(txt, 4, "%02d", intensity_percentage);
-	gslc_ElemSetTxtStr(&m_gui, t_pElem, txt);
+	displayInteger(t_pElem, intensity_percentage);
 }
 
 void Screen::displayTime(gslc_tsElemRef* t_pElem_hour, gslc_tsElemRef* t_pElem_minutes, gslc_tsElemRef* t_pElem_seconds, time_t t_displayTime){
@@ -124,7 +131,7 @@ void Screen::displayTime(gslc_tsElemRef* t_pElem_hour, gslc_tsElemRef* t_pElem_m
 
 
 void Screen::setSelectedElem(gslc_tsElemRef* t_pElem){
-	std::optional<int> index = getIndex(m_screenState.SETUP_page_selectable_items, t_pElem);
+	std::optional<int> index = getIndex(m_screenState.SETUP_page_selectable_items, m_screenState.SETUP_page_selectable_items_size, t_pElem);
 	
 	if (!index){
 		//TODO FIX WITH CUSTOM DEBUGGING FUNCTION
@@ -139,14 +146,20 @@ void Screen::setSelectedElem(int t_index){
 }
 
 void Screen::updateSelectedElem(int t_newSelectedIdx){
-	if (t_newSelectedIdx != m_screenState.current_elem_idx){
-		gslc_tsElemRef* selectedElem = m_screenState.SETUP_page_selectable_items.at(m_screenState.current_elem_idx);
-		resetElemOptions(selectedElem);
-		
+	int current_elem_idx = m_screenState.current_elem_idx;
+	
+
+	if (t_newSelectedIdx != current_elem_idx){
 		m_screenState.current_elem_idx = t_newSelectedIdx;
-		selectedElem = m_screenState.SETUP_page_selectable_items.at(m_screenState.current_elem_idx);
-		displayAsSelected(selectedElem);
+
+		gslc_tsElemRef** elem_array = m_screenState.SETUP_page_selectable_items;
+		gslc_tsElemRef* selectedElem = elem_array[current_elem_idx];		
+		resetElemOptions(selectedElem);
+	
+		gslc_tsElemRef* new_selectedElem = elem_array[t_newSelectedIdx];
+		displayAsSelected(new_selectedElem);
 	}
+
 }
 
 
@@ -165,17 +178,17 @@ void Screen::setColorFill(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFill){
 }
 
 void Screen::resetElemOptions(gslc_tsElemRef* t_pElem){
-	setColorFill(t_pElem, UVO_LIGHT_BLUE);
+	// setColorFill(t_pElem, UVO_LIGHT_BLUE);
 	gslc_ElemSetFrameEn(&m_gui, t_pElem, false);
-	gslc_ElemSetFillEn(&m_gui, t_pElem, false);
+	// gslc_ElemSetFillEn(&m_gui, t_pElem, false);
 }
 
 
 
 void Screen::displayAsSelected(gslc_tsElemRef* t_pElem){
-	setColorFill(t_pElem, UVO_WHITE);
+	// setColorFill(t_pElem, UVO_WHITE);
 	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);
-	gslc_ElemSetFillEn(&m_gui, t_pElem, true);
+	// gslc_ElemSetFillEn(&m_gui, t_pElem, true);
 }
 
 void Screen::displayEditing(gslc_tsElemRef* t_pElem){
@@ -197,20 +210,21 @@ int Screen::uint8_to_percentage(uint8_t value){
 
 //TODO MOVE TO OTHER FILE
 template<typename T>
-std::optional<int> Screen::getIndex(std::vector<T> t_vec, T t_elem){
-	auto it = find(t_vec.begin(), t_vec.end(), t_elem);
-  
-    // If element was found
-    if (it != t_vec.end()){
-        // calculating the index
-        int index = it - t_vec.begin();
-        return index;
-    }
-    else {
-		return std::nullopt;
+std::optional<int> Screen::getIndex(T* t_vec, int t_size, T t_elem){
+	for (int i = 0; i < t_size; i++){
+		if (t_vec[i] == t_elem){
+			return i;
+		}
 	}
+	
+	return std::nullopt;
 }
 
+// int Screen::clip(int t_val, int t_min, int t_max){
+// 		// int idx = (t_index > max_idx) ? max_idx : t_index;
+// 	// idx = (idx < 0) ? 0 : idx;
+
+// }
 
 }
 }

@@ -12,26 +12,32 @@ namespace UVO_Components {
 namespace GUISlice {
 	#include "components/GUI/GUISliceBuilder_GSLC.hpp"
 
+	//TODO make screenstate into a class
 	struct s_screenState {
-		typedef std::vector<gslc_tsElemRef*> glsc_ElemRefVec;
+		
+		#define SETUP_PAGE_SELECTABLE_ITEMS_NUM 8
+		const int SETUP_page_selectable_items_size = SETUP_PAGE_SELECTABLE_ITEMS_NUM;
+		gslc_tsElemRef* SETUP_page_selectable_items[SETUP_PAGE_SELECTABLE_ITEMS_NUM];
 
-		const glsc_ElemRefVec SETUP_page_selectable_items = {
-			m_pElem_SETUP_Intensity_255nm,
-			m_pElem_SETUP_Intensity_275nm,
-			m_pElem_SETUP_Intensity_285nm,
-			m_pElem_SETUP_Intensity_395nm,
-			m_pElem_SETUP_Hours,
-			m_pElem_SETUP_Minutes,
-			m_pElem_SETUP_Seconds,
-			m_pElem_SETUP_MotorIntensity,
-			};
+		// Must call this after initializing GSLC
+		void init_SETUP_sel_array(void){
+			SETUP_page_selectable_items[0] = m_pElem_SETUP_Intensity_255nm;
+			SETUP_page_selectable_items[1] = m_pElem_SETUP_Intensity_275nm;
+			SETUP_page_selectable_items[2] = m_pElem_SETUP_Intensity_285nm;
+			SETUP_page_selectable_items[3] = m_pElem_SETUP_Intensity_395nm;
+			SETUP_page_selectable_items[4] = m_pElem_SETUP_Hours;
+			SETUP_page_selectable_items[5] = m_pElem_SETUP_Minutes;
+			SETUP_page_selectable_items[6] = m_pElem_SETUP_Seconds;
+			SETUP_page_selectable_items[7] = m_pElem_SETUP_MotorIntensity;
+		}
 
-		const std::vector<glsc_ElemRefVec> page_vec = {SETUP_page_selectable_items};
+		gslc_tsElemRef** page_vec[2] = {SETUP_page_selectable_items};
+		
 		int current_page_idx = 0;
 		bool update_current_page = false;
 
 		bool update_selected_elems = false;
-		int current_elem_idx = 0; // TODO should add box around object
+		int current_elem_idx = 5; // TODO should add box around object
 		bool elem_is_selected = false; // TODO if true: should change background color of thing
 
 		// TODO HERE or should button handler fix this?
@@ -87,13 +93,15 @@ namespace GUISlice {
 		void displaySelected(gslc_tsElemRef* t_pElem);
 		void displayEditing(gslc_tsElemRef* t_pElem);
 
+		void displayInteger(gslc_tsElemRef* t_pElem, uint8_t t_value);
+
 
 		void displaySetupSettings(s_setupSettings* t_new);
 		void displayIntensity(gslc_tsElemRef* t_pElem, uint8_t intensity);
 		void displayTime(gslc_tsElemRef* t_hour, gslc_tsElemRef* t_minutes, gslc_tsElemRef* t_seconds, time_t t_displayTime);
 
 		int uint8_to_percentage(uint8_t value);
-		template<typename T> std::optional<int> getIndex(std::vector<T> t_vec, T t_elem);
+		template<typename T> std::optional<int> getIndex(T* t_vec, int t_size, T t_elem);
 
 		s_setupSettings* m_referenceSetupSettingsPointer;
 		s_setupSettings m_currentlyDisplayedSetupSettings;
