@@ -32,6 +32,7 @@ namespace GUISlice {
 		}
 
 		gslc_tsElemRef** page_vec[1] = {SETUP_page_selectable_items};
+		int page_vec_array_sizes[1] = {SETUP_PAGE_SELECTABLE_ITEMS_NUM};
 		
 		int current_page_idx = 0;
 		bool update_current_page = false;
@@ -39,7 +40,7 @@ namespace GUISlice {
 		int current_elem_idx = 0;
 		
 		//TODO better name
-		bool elem_is_editing = false; // TODO if true: should change background color of thing
+		bool elem_is_editing = false;
 
 		// TODO HERE or should button handler fix this?
 		
@@ -68,6 +69,7 @@ namespace GUISlice {
 		void selectPreviousElem(void);
 		void selectNextElem(void);
 		void toggleEditSelectedElem(void);
+		bool isEditingElement(void);
 
 	private:
 		s_setupSettings* m_referenceSetupSettingsPointer;

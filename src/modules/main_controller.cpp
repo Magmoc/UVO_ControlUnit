@@ -11,7 +11,7 @@ namespace UVO_MainController {
 
 	void MainController::init(void){
 		#ifdef USE_SCREEN
-			m_screen.init(&m_setupSettings);
+			m_screen.init(&m_systemState.SetupSettings);
 		#endif
 		
 		#ifdef USE_COMMUNICATION_INTERFACE
@@ -19,13 +19,15 @@ namespace UVO_MainController {
 		#endif
 	}
 
+	int i = 0;
+
 	void MainController::update(void){
-		if (!m_setupSettings.isUpdated){
+		if (!m_setupSettings->isUpdated){
 			delay(1000);
-			m_setupSettings.addSeconds(1);
+			m_setupSettings->addSeconds(1);
 			
-			m_setupSettings.isUpdated = true;
-			m_screen.selectNextElem();
+			m_setupSettings->isUpdated = true;
+
 			m_screen.toggleEditSelectedElem();
 		}
 
@@ -37,5 +39,14 @@ namespace UVO_MainController {
 			m_communication_interface.update();
 		#endif
 	}
+
+	void MainController::onButtonUpPress(void);
+	void MainController::onButtonDownPress(void);
+	void MainController::onEnterButtonPress(void);
+	void MainController::onRotaryRight(void);
+	void MainController::onRotaryLeft(void);
+
+	void MainController::incrementSettingElement(void);
+	void MainController::decrementSettingElement(void);
 
 }

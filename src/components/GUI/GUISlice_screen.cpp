@@ -36,6 +36,10 @@ void Screen::init(void){
 	pinMode(BACKLIGHT_PIN, OUTPUT);
 	digitalWrite(BACKLIGHT_PIN, HIGH);
 
+	m_screenState.elem_is_editing = false;
+	m_screenState.current_elem_idx = 0;
+	m_screenState.current_page_idx = 0;
+
 	GUISliceInit();
 	gslc_Update(&m_gui);
 }
@@ -123,14 +127,22 @@ void Screen::displayTime(gslc_tsElemRef* t_pElem_hour, gslc_tsElemRef* t_pElem_m
 
 
 void Screen::selectPreviousElem(void){
-	//TODO MAKE IT MODULO
-	setSelectedElem(m_screenState.current_elem_idx - 1);
+	int previous_idx = m_screenState.current_elem_idx - 1;
+	int min_idx = 0;
+
+	previous_idx = (previous_idx < min_idx) ? min_idx : previous_idx;
+
+	setSelectedElem(previous_idx);
 }
 
 void Screen::selectNextElem(void){
-	//TODO MAKE IT MODULO
-	// int next_idx = (m_screenState.current_elem_idx + 1)
-	setSelectedElem(m_screenState.current_elem_idx + 1);
+	gslc_tsElemRef** current_elem_array = m_screenState.page_vec[m_screenState.current_page_idx];
+	int max_idx = m_screenState.page_vec_array_sizes[m_screenState.current_page_idx] - 1;
+
+	int next_idx = m_screenState.current_elem_idx + 1;
+	next_idx = (next_idx > max_idx) ? max_idx : next_idx;
+
+	setSelectedElem(next_idx);
 }
 
 void Screen::toggleEditSelectedElem(void){
@@ -144,6 +156,14 @@ void Screen::toggleEditSelectedElem(void){
 	else {
 		displayAsSelected(current_elem);
 	}
+}
+
+bool Screen::isEditingElement(void){
+	return m_screenState.elem_is_editing;
+}
+
+bool Screen::isEditingElement(void){
+	return m_screenState.getCurrentlySelectedElem();
 }
 
 void Screen::setSelectedElem(gslc_tsElemRef* t_pElem){

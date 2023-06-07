@@ -16,8 +16,8 @@ namespace UVO_MainController {
 
 class MainController{
 private:
-	UVO_Components::s_setupSettings m_setupSettings;
 	UVO_Components::s_systemState m_systemState;
+	UVO_Components::s_setupSettings* m_setupSettings = &m_systemState.SetupSettings;
 
 	#ifdef USE_SCREEN
 	#ifdef USE_NORMAL_SCREEN
