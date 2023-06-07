@@ -26,12 +26,10 @@ Screen::~Screen(){
 }
 
 void Screen::GUISliceInit(void){
-  Serial.begin(9600);
+	gslc_InitDebug(&DebugOut);
 
-  gslc_InitDebug(&DebugOut);
-
-  InitGUIslice_gen();
-  m_screenState.init_SETUP_sel_array();
+	InitGUIslice_gen();
+	m_screenState.init_SETUP_sel_array();
 }
 
 void Screen::init(void){
@@ -53,17 +51,12 @@ void Screen::setSetupSettings(s_setupSettings* t_Settings){
 }
 
 
-int i = 0;
-
 void Screen::update(void){
 	if (m_referenceSetupSettingsPointer->isUpdated){
 		displaySetupSettings(m_referenceSetupSettingsPointer);
 		m_referenceSetupSettingsPointer->isUpdated = false;
 	}
 		
-	i = (i + 1) % 8;
-	setSelectedElem(i);
-
 	gslc_Update(&m_gui);
 }
 
@@ -129,6 +122,29 @@ void Screen::displayTime(gslc_tsElemRef* t_pElem_hour, gslc_tsElemRef* t_pElem_m
 }
 
 
+void Screen::selectPreviousElem(void){
+	//TODO MAKE IT MODULO
+	setSelectedElem(m_screenState.current_elem_idx - 1);
+}
+
+void Screen::selectNextElem(void){
+	//TODO MAKE IT MODULO
+	// int next_idx = (m_screenState.current_elem_idx + 1)
+	setSelectedElem(m_screenState.current_elem_idx + 1);
+}
+
+void Screen::toggleEditSelectedElem(void){
+	m_screenState.elem_is_editing = !m_screenState.elem_is_editing;
+
+	gslc_tsElemRef* current_elem = m_screenState.getCurrentlySelectedElem();
+
+	if (m_screenState.elem_is_editing){
+		displayAsEditing(current_elem);
+	}
+	else {
+		displayAsSelected(current_elem);
+	}
+}
 
 void Screen::setSelectedElem(gslc_tsElemRef* t_pElem){
 	std::optional<int> index = getIndex(m_screenState.SETUP_page_selectable_items, m_screenState.SETUP_page_selectable_items_size, t_pElem);
@@ -148,21 +164,17 @@ void Screen::setSelectedElem(int t_index){
 void Screen::updateSelectedElem(int t_newSelectedIdx){
 	int current_elem_idx = m_screenState.current_elem_idx;
 	
-
 	if (t_newSelectedIdx != current_elem_idx){
+		gslc_tsElemRef* selectedElem = m_screenState.getCurrentlySelectedElem();
+		resetElemOptions(selectedElem);
+		
 		m_screenState.current_elem_idx = t_newSelectedIdx;
 
-		gslc_tsElemRef** elem_array = m_screenState.SETUP_page_selectable_items;
-		gslc_tsElemRef* selectedElem = elem_array[current_elem_idx];		
-		resetElemOptions(selectedElem);
-	
-		gslc_tsElemRef* new_selectedElem = elem_array[t_newSelectedIdx];
-		displayAsSelected(new_selectedElem);
+		selectedElem = m_screenState.getCurrentlySelectedElem();
+		displayAsSelected(selectedElem);
 	}
 
 }
-
-
 
 void Screen::setColorFrame(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFrame){
 	gslc_tsColor current_colFill =  t_pElem->pElem->colElemFill;
@@ -180,27 +192,33 @@ void Screen::setColorFill(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFill){
 void Screen::resetElemOptions(gslc_tsElemRef* t_pElem){
 	// setColorFill(t_pElem, UVO_LIGHT_BLUE);
 	gslc_ElemSetFrameEn(&m_gui, t_pElem, false);
-	// gslc_ElemSetFillEn(&m_gui, t_pElem, false);
+	gslc_ElemSetFillEn(&m_gui, t_pElem, false);
+	gslc_ElemSetTxtCol(&m_gui, t_pElem, UVO_BLACK);
 }
 
 
 
 void Screen::displayAsSelected(gslc_tsElemRef* t_pElem){
 	// setColorFill(t_pElem, UVO_WHITE);
+	resetElemOptions(t_pElem);
 	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);
-	// gslc_ElemSetFillEn(&m_gui, t_pElem, true);
+	// gslc_ElemSetFillEn(&m_gui, t_pElem, false);
 }
 
-void Screen::displayEditing(gslc_tsElemRef* t_pElem){
-	gslc_tsColor current_colFrame = t_pElem->pElem->colElemFrame;
-	gslc_tsColor current_colFill = t_pElem->pElem->colElemFill;
-	gslc_tsColor current_colFillGlow = t_pElem->pElem->colElemFillGlow;
+void Screen::displayAsEditing(gslc_tsElemRef* t_pElem){
+	//TODO move this to somewhere else
+	//TODO remove flickering from screen
+	resetElemOptions(t_pElem);
 
-	gslc_ElemSetCol(&m_gui, t_pElem, current_colFrame, UVO_WHITE, current_colFillGlow);
 	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);
 	gslc_ElemSetFillEn(&m_gui, t_pElem, true);
+	gslc_ElemSetTxtCol(&m_gui, t_pElem, UVO_WHITE);
 }
 
+
+bool Screen::hasFillEnabled(gslc_tsElemRef* t_pElem){
+	return t_pElem->pElem->nFeatures & (1 << GSLC_ELEM_FEA_FILL_EN);
+}
 
 
 //TODO MOVE TO OTHER FILE

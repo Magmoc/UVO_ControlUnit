@@ -31,24 +31,49 @@ namespace GUISlice {
 			SETUP_page_selectable_items[7] = m_pElem_SETUP_MotorIntensity;
 		}
 
-		gslc_tsElemRef** page_vec[2] = {SETUP_page_selectable_items};
+		gslc_tsElemRef** page_vec[1] = {SETUP_page_selectable_items};
 		
 		int current_page_idx = 0;
 		bool update_current_page = false;
 
-		bool update_selected_elems = false;
-		int current_elem_idx = 5; // TODO should add box around object
-		bool elem_is_selected = false; // TODO if true: should change background color of thing
+		int current_elem_idx = 0;
+		
+		//TODO better name
+		bool elem_is_editing = false; // TODO if true: should change background color of thing
 
 		// TODO HERE or should button handler fix this?
 		
 		volatile bool button_up_pressed;
 		volatile bool button_down_pressed;
 		
+		gslc_tsElemRef* getCurrentlySelectedElem(void){
+			return page_vec[current_page_idx][current_elem_idx];
+		}
+
 	};
 
 	class Screen{
+	public:
+		Screen(s_setupSettings* t_Settings);
+		Screen(void);
+		~Screen();
+		
+		// Both with and without setupSettings so that you can restart the module without having to change the settings
+		void init(void);
+		void init(s_setupSettings* t_initSettings);
+		
+		void update(void);
+		void setSetupSettings(s_setupSettings* t_Settings);
+		
+		void selectPreviousElem(void);
+		void selectNextElem(void);
+		void toggleEditSelectedElem(void);
+
 	private:
+		s_setupSettings* m_referenceSetupSettingsPointer;
+		s_setupSettings m_currentlyDisplayedSetupSettings;
+
+		s_screenState m_screenState;
 		// TFT_eSPI m_tft = TFT_eSPI();
 		// TFT_eSprite m_screen = TFT_eSprite(&m_tft);	
 		// TFT_eSprite m_popupSprite = TFT_eSprite(&m_tft); 
@@ -81,17 +106,21 @@ namespace GUISlice {
 		void setColorFrame(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFrame);
 		void setColorFill(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFill);
 		
-		void displayAsSelected(gslc_tsElemRef* t_pElem);
 
 		//TODO better name
 		void resetElemOptions(gslc_tsElemRef* t_pElem);
 
+
+		// TODO rename the setSelected and updatedSelected. Is quite unclear whoopsie.
 		void setSelectedElem(gslc_tsElemRef* t_pElem);
 		void setSelectedElem(int t_index);
 		void updateSelectedElem(int t_newSelectedIdx);
 
-		void displaySelected(gslc_tsElemRef* t_pElem);
-		void displayEditing(gslc_tsElemRef* t_pElem);
+		void displayAsSelected(gslc_tsElemRef* t_pElem);
+		void displayAsEditing(gslc_tsElemRef* t_pElem);
+
+		bool hasFillEnabled(gslc_tsElemRef* t_pElem);
+
 
 		void displayInteger(gslc_tsElemRef* t_pElem, uint8_t t_value);
 
@@ -102,24 +131,6 @@ namespace GUISlice {
 
 		int uint8_to_percentage(uint8_t value);
 		template<typename T> std::optional<int> getIndex(T* t_vec, int t_size, T t_elem);
-
-		s_setupSettings* m_referenceSetupSettingsPointer;
-		s_setupSettings m_currentlyDisplayedSetupSettings;
-
-		s_screenState m_screenState;
-
-		public:
-			Screen(s_setupSettings* t_Settings);
-			Screen(void);
-			~Screen();
-			
-			// Both with and without setupSettings so that you can restart the module without having to change the settings
-			void init(void);
-			void init(s_setupSettings* t_initSettings);
-			
-			void update(void);
-			void setSetupSettings(s_setupSettings* t_Settings);
-
 	};
 }
 }

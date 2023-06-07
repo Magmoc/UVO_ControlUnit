@@ -1,18 +1,23 @@
 import os
 
 DIRNAME = os.path.dirname(__file__)
+GUI_SLICE_BUILDER_FILE = None
 
 for file in os.listdir(DIRNAME):
 	if file.endswith(".h") and "GSLC" in file:
 		GUI_SLICE_BUILDER_FILE = file
+
+if not GUI_SLICE_BUILDER_FILE:
+	raise Exception("Please generate new code within GUISLiceBuilder")
 
 GUI_SLICE_BUILDER_FILEPATH = os.path.join(DIRNAME, GUI_SLICE_BUILDER_FILE)
 
 with open(GUI_SLICE_BUILDER_FILEPATH) as f:
 	contents = f.read()
 
-# os.remove(GUI_SLICE_BUILDER_FILEPATH)
 
+os.remove(GUI_SLICE_BUILDER_FILEPATH)
+print(f"Removed {GUI_SLICE_BUILDER_FILE}")
 
 # Replace function
 FUNC_DEF = "void InitGUIslice_gen()"
@@ -49,7 +54,6 @@ with open(GSLC_outpath, "w+") as f:
 
 
 
-# TODO Import from .INO FILE INTO SOURCE FILE
 ###########################################################
 #
 #					IMPORT INO FILE
@@ -72,7 +76,10 @@ GUI_SLICE_BUILDER_INO_FILEPATH = os.path.join(DIRNAME, GUI_SLICE_BUILDER_INO)
 with open(GUI_SLICE_BUILDER_INO_FILEPATH) as f:
 	contents = f.read()
 
-# os.remove(GUI_SLICE_BUILDER_INO_FILEPATH)
+os.remove(GUI_SLICE_BUILDER_INO_FILEPATH)
+print(f"Removed {GUI_SLICE_BUILDER_INO}")
+
+
 
 references_start_idx = contents.find(REFERENCES_START)
 references_end_idx = contents.find(REFERENCES_END)

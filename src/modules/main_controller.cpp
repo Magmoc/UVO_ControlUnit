@@ -25,6 +25,8 @@ namespace UVO_MainController {
 			m_setupSettings.addSeconds(1);
 			
 			m_setupSettings.isUpdated = true;
+			m_screen.selectNextElem();
+			m_screen.toggleEditSelectedElem();
 		}
 
 		#ifdef USE_SCREEN
