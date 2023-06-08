@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include "components/communication/communication_protocol.hpp"
 #include "components/communication/I2C_interface.hpp"
-#include "components/sensor.hpp"
+#include "components/communication/sensor.hpp"
 
 namespace UVO_MainController {
 

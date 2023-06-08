@@ -40,13 +40,13 @@ namespace UVO_MainController {
 		#endif
 	}
 
-	void MainController::onButtonUpPress(void);
-	void MainController::onButtonDownPress(void);
-	void MainController::onEnterButtonPress(void);
-	void MainController::onRotaryRight(void);
-	void MainController::onRotaryLeft(void);
+	// void MainController::onButtonUpPress(void);
+	// void MainController::onButtonDownPress(void);
+	// void MainController::onEnterButtonPress(void);
+	// void MainController::onRotaryRight(void);
+	// void MainController::onRotaryLeft(void);
 
-	void MainController::incrementSettingElement(void);
-	void MainController::decrementSettingElement(void);
+	// void MainController::incrementSettingElement(void);
+	// void MainController::decrementSettingElement(void);
 
 }

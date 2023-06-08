@@ -1,7 +1,7 @@
 #ifndef SENSOR_HPP
 #define SENSOR_HPP
 
-#include "communication/communication_protocol.hpp"
+#include "components/communication/communication_protocol.hpp"
 
 namespace UVO_CommunicationProtocol {
 

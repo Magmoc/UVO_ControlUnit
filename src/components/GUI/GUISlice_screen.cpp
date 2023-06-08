@@ -162,9 +162,9 @@ bool Screen::isEditingElement(void){
 	return m_screenState.elem_is_editing;
 }
 
-bool Screen::isEditingElement(void){
-	return m_screenState.getCurrentlySelectedElem();
-}
+// bool Screen::isEditingElement(void){
+// 	return m_screenState.getCurrentlySelectedElem();
+// }
 
 void Screen::setSelectedElem(gslc_tsElemRef* t_pElem){
 	std::optional<int> index = getIndex(m_screenState.SETUP_page_selectable_items, m_screenState.SETUP_page_selectable_items_size, t_pElem);
@@ -182,6 +182,7 @@ void Screen::setSelectedElem(int t_index){
 }
 
 void Screen::updateSelectedElem(int t_newSelectedIdx){
+	m_screenState.elem_is_editing = false;
 	int current_elem_idx = m_screenState.current_elem_idx;
 	
 	if (t_newSelectedIdx != current_elem_idx){
