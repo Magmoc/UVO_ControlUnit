@@ -32,7 +32,7 @@ namespace UVO_CommunicationProtocol {
 
 	namespace PackageTypeToken {
 		const TPackageTypeToken REQUEST_SENSOR_DATA = 'S';
-		const TPackageTypeToken SET_DRIVER_RELATIVE_INTENSITY = 'D';
+		const TPackageTypeToken SET_DRIVER_INTENSITY = 'D';
 		const TPackageTypeToken SET_VARIABLE_RESISTOR = 'R';
 		const TPackageTypeToken SEND_ERROR_FLAG = 'E';
 	}
