@@ -1,23 +1,25 @@
-line 164 GUISlice_screen.cpp zit het probleem
-
 GUI
-	Settings class/struct
-	GUI based on settings
-		plot function
-		plot text function
 	https://github.com/ImpulseAdventure/GUIslice/wiki/Builder-_-Walkthrough
-
-React differently based on different messages.
-	Test out protocol via i2c
 
 Work on SPI
 	Use the current sensor library
 
 Settings class
-	pass pointer to screen to update
 	friend class of buttons so that buttons can change everything
 
 
-Settings struct
-Setup settings struct
 Display state struct (current selected, what screen etc etc)
+
+hard code chip select between screen and data
+
+Driver struct for i2c communication script
+function to combine settings and sensors/drivers to pass to function to set everything correctly
+
+I2C send multiple commands in one session functionality? Kind of repeated start?
+
+
+Entire parts:
+	Data logging
+	Safety
+	Debugging
+

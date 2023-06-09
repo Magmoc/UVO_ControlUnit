@@ -1,5 +1,5 @@
-#ifndef GUISLICE_REFERENCES_CONTENT_HPP
-#define GUISLICE_REFERENCES_CONTENT_HPP
+#ifndef _GUISLICE_REFERENCES_CONTENT_HPP
+#define _GUISLICE_REFERENCES_CONTENT_HPP
 // ------------------------------------------------
 // Program Globals
 // ------------------------------------------------

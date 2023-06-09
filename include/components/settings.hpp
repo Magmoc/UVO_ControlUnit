@@ -1,5 +1,5 @@
-#ifndef SETTINGS_HPP
-#define SETTINGS_HPP
+#ifndef _SETTINGS_HPP
+#define _SETTINGS_HPP
 
 #include <stdint.h>
 #include <limits.h>

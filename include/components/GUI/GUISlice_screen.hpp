@@ -1,5 +1,5 @@
-#ifndef GUISLICE_SCREEN_HPP
-#define GUISLICE_SCREEN_HPP
+#ifndef _GUISLICE_SCREEN_HPP
+#define _GUISLICE_SCREEN_HPP
 
 #include <SPI.h>
 #include <TFT_eSPI.h>      // Hardware-specific library
