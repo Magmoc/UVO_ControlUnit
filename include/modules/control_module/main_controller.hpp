@@ -16,6 +16,16 @@
 
 namespace UVO_MainController {
 
+enum UIEvent {UIbuttonUpPressed, UIbuttonDownPressed, UIbuttonRotaryPressed, UIrotaryRight, UIrotaryLeft, UInoEvent};
+extern volatile UIEvent last_ui_event;
+
+void onButtonUpPressISR(Button2& t_button);
+void onButtonDownPressISR(Button2& t_button);
+void onButtonRotaryPressISR(Button2& t_button);
+void onRotaryRightISR(ESPRotary& t_rotary);
+void onRotaryLeftISR(ESPRotary& t_rotary);
+
+
 class MainController{
 private:
 	UVO_Components::s_systemState m_systemState;
@@ -40,11 +50,13 @@ private:
 	#endif
 
 	void initUI(void);
-	void onButtonUpPress(void);
-	void onButtonDownPress(void);
-	void onEnterButtonPress(void);
-	void onRotaryRight(void);
-	void onRotaryLeft(void);
+	void processUI(void);
+
+	void onButtonUpPress(Button2& t_button);
+	void onButtonDownPress(Button2& t_button);
+	void onEnterButtonPress(Button2& t_button);
+	void onRotaryRight(ESPRotary& t_rotary);
+	void onRotaryLeft(ESPRotary& t_rotary);
 	void changeSettingElement(int t_amount);
 
 public:
