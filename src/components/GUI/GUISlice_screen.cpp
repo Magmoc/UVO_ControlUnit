@@ -68,6 +68,9 @@ void Screen::update(void){
 
 void Screen::displaySetupSettings(s_setupSettings* t_new){
 	//TODO write this more elligible
+	
+	//TODO IMPLEMENT SWITCH STATEMENT FOR WHICH PAGE YOU ARE ON
+
 	if (m_currentlyDisplayedSetupSettings.LED_intensity_255nm != t_new->LED_intensity_255nm){
 		m_currentlyDisplayedSetupSettings.LED_intensity_255nm = t_new->LED_intensity_255nm;
 		displayIntensity(m_pElem_SETUP_Intensity_255nm, m_currentlyDisplayedSetupSettings.LED_intensity_255nm);
@@ -145,16 +148,24 @@ void Screen::selectNextElem(void){
 	setSelectedElem(next_idx);
 }
 
-void Screen::toggleEditSelectedElem(void){
-	m_screenState.elem_is_editing = !m_screenState.elem_is_editing;
-
+void Screen::endEditSelectedElem(void){
+	m_screenState.elem_is_editing = false;
 	gslc_tsElemRef* current_elem = m_screenState.getCurrentlySelectedElem();
+	displayAsSelected(current_elem);
+}
 
+void Screen::beginEditSelectedElem(void){
+	m_screenState.elem_is_editing = true;
+	gslc_tsElemRef* current_elem = m_screenState.getCurrentlySelectedElem();
+	displayAsEditing(current_elem);
+}
+
+void Screen::toggleEditSelectedElem(void){
 	if (m_screenState.elem_is_editing){
-		displayAsEditing(current_elem);
+		endEditSelectedElem();
 	}
-	else {
-		displayAsSelected(current_elem);
+	else{
+		beginEditSelectedElem();
 	}
 }
 
@@ -162,9 +173,10 @@ bool Screen::isEditingElement(void){
 	return m_screenState.elem_is_editing;
 }
 
-// bool Screen::isEditingElement(void){
-// 	return m_screenState.getCurrentlySelectedElem();
-// }
+uint16_t Screen::getCurrentElementID(void){
+	return m_screenState.getCurrentlySelectedElemID();
+}
+
 
 void Screen::setSelectedElem(gslc_tsElemRef* t_pElem){
 	std::optional<int> index = getIndex(m_screenState.SETUP_page_selectable_items, m_screenState.SETUP_page_selectable_items_size, t_pElem);

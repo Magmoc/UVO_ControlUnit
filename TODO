@@ -17,6 +17,10 @@ function to combine settings and sensors/drivers to pass to function to set ever
 
 I2C send multiple commands in one session functionality? Kind of repeated start?
 
+Code Beautification
+	const where necessary
+	add explanation/documentation for everything
+
 
 Entire parts:
 	Data logging

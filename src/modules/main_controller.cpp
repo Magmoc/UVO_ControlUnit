@@ -41,17 +41,77 @@ namespace UVO_MainController {
 	}
 
 	
-	void MainController::initButtons(void){
+	void MainController::initUI(void){
 		m_upButton.begin(BUTTON_UP_PIN);
 		m_downButton.begin(BUTTON_DOWN_PIN);
-		m_rotaryButton.begin();
+		m_rotaryButton.begin(ROTARY_ENCODER_PUSH_PIN);
+		//TODO FIND STEPS PER INC
+		m_rotaryEncoder.begin(ROTARY_ENCODER_A_PIN, ROTARY_ENCODER_B_PIN);
 	}
 	
-	void MainController::onButtonUpPress(void);
-	void MainController::onButtonDownPress(void);
-	void MainController::onEnterButtonPress(void);
-	void MainController::onRotaryRight(void);
-	void MainController::onRotaryLeft(void);
+	void MainController::onButtonUpPress(void){
+		if(!m_screen.isEditingElement()){
+			m_screen.selectPreviousElem();
+		}
+	}
+	
+	void MainController::onButtonDownPress(void){
+		if(!m_screen.isEditingElement()){
+			m_screen.selectNextElem();
+		}
+	}
+	
+	void MainController::onEnterButtonPress(void){
+		if(!m_screen.isEditingElement()){
+			m_screen.beginEditSelectedElem();
+		}
+		else{
+		}
+
+
+	}
+	
+	void MainController::onRotaryRight(void){
+		changeSettingElement(1);
+	}
+
+	void MainController::onRotaryLeft(void){
+		changeSettingElement(-1);
+	}
+
+	void MainController::changeSettingElement(int t_amount){
+		int16_t elem_id = m_screen.getCurrentElementID();
+
+		// switch(elem_id)
+		// {
+		// case E_ELEM_SETUP_Intensity_255nm:
+		// 	m_setupSettings->LED_intensity_255nm += t_amount;
+		// 	break;
+		// case E_ELEM_SETUP_Intensity_275nm:
+		// 	m_setupSettings->LED_intensity_275nm += t_amount;
+		// 	break;
+		// case E_ELEM_SETUP_Intensity_285nm:
+		// 	m_setupSettings->LED_intensity_285nm += t_amount;
+		// 	break;
+		// case E_ELEM_SETUP_Intensity_395nm:
+		// 	m_setupSettings->LED_intensity_395nm += t_amount;
+		// 	break;
+		// case E_ELEM_SETUP_Hours:
+		// 	m_setupSettings->addHours(t_amount);
+		// 	break;
+		// case E_ELEM_SETUP_Minutes:
+		// 	m_setupSettings->addMinutes(t_amount);
+		// 	break;
+		// case E_ELEM_SETUP_Seconds:
+		// 	m_setupSettings->addSeconds(t_amount);
+		// 	break;
+		// case E_ELEM_SETUP_MotorIntensity:
+		// 	m_setupSettings->motor_intensity += t_amount;
+		// 	break;
+		// default:
+		// 	break;
+		// }
+	}
 
 	// void MainController::incrementSettingElement(void);
 	// void MainController::decrementSettingElement(void);

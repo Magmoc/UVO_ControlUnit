@@ -36,10 +36,12 @@ void I2CInterface::sendMessages(int address, byte* message, int message_length){
 int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, int bytes_requested){
 	int num_bytes_received = Wire.requestFrom(I2C_address, bytes_requested);
 	
+	//TODO MULTILPE CHECKS
 	if(Wire.available()){
 		Wire.readBytes(receive_message, num_bytes_received);
 	}
 
+	//TODO RETURN OPTIONAL VALUE IF ERROR FOR EXAMPLE
 	return num_bytes_received;
 }
 

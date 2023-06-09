@@ -13,6 +13,7 @@ namespace GUISlice {
 	#include "components/GUI/GUISliceBuilder_GSLC.hpp"
 
 	//TODO make screenstate into a class
+	//TODO MAKE STRUCT WITH elem id, whether it is editable, and pointer to what it changes, and which function to use for changing the value
 	struct s_screenState {
 		
 		#define SETUP_PAGE_SELECTABLE_ITEMS_NUM 8
@@ -42,13 +43,13 @@ namespace GUISlice {
 		//TODO better name
 		bool elem_is_editing = false;
 
-		// TODO HERE or should button handler fix this?
-		
-		volatile bool button_up_pressed;
-		volatile bool button_down_pressed;
-		
+
 		gslc_tsElemRef* getCurrentlySelectedElem(void){
 			return page_vec[current_page_idx][current_elem_idx];
+		}
+
+		uint16_t getCurrentlySelectedElemID(void){
+			return page_vec[current_page_idx][current_elem_idx]->pElem->nId;
 		}
 
 	};
@@ -68,8 +69,12 @@ namespace GUISlice {
 		
 		void selectPreviousElem(void);
 		void selectNextElem(void);
+		void beginEditSelectedElem(void);
+		void endEditSelectedElem(void);
 		void toggleEditSelectedElem(void);
+
 		bool isEditingElement(void);
+		uint16_t getCurrentElementID(void);
 
 	private:
 		s_setupSettings* m_referenceSetupSettingsPointer;

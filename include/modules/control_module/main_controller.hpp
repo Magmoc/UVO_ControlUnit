@@ -24,7 +24,7 @@ private:
 	Button2 m_upButton;
 	Button2 m_downButton;
 	Button2 m_rotaryButton;
-	ESPRotary m_rotaryButton;
+	ESPRotary m_rotaryEncoder;
 
 	#ifdef USE_SCREEN
 	#ifdef USE_NORMAL_SCREEN
@@ -39,12 +39,13 @@ private:
 		UVO_MainController::MainCommunicationInterface m_communication_interface{UVO_CommunicationProtocol::MAIN_CONTROLLER_ADDRESS};
 	#endif
 
-	void initButtons(void);
+	void initUI(void);
 	void onButtonUpPress(void);
 	void onButtonDownPress(void);
 	void onEnterButtonPress(void);
 	void onRotaryRight(void);
 	void onRotaryLeft(void);
+	void changeSettingElement(int t_amount);
 
 public:
 	MainController();
