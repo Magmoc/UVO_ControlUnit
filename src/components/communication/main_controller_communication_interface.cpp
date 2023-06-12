@@ -19,9 +19,10 @@ void MainCommunicationInterface::init(void){
 
 // TODO: IMPLEMENT https://forum.arduino.cc/t/how-to-properly-use-wire-onreceive/891195/2
 void MainCommunicationInterface::update(void){
+	//TODO Implement good update function
 	double received_data;
 
-	received_data = requestSensorData(UVO_CommunicationProtocol::sensors::current_sensor_255nm);
+	received_data = requestSensorData(UVO_CommunicationProtocol::sensors::TOP_LEDDriver::current_sensor_255nm);
 
 	Serial.println(received_data);
 

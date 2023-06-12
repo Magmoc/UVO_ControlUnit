@@ -35,6 +35,9 @@ namespace UVO_MainController {
 			m_screen.toggleEditSelectedElem();
 		}
 
+		if (last_ui_event != UInoEvent){
+			processUI();
+		}
 		#ifdef USE_SCREEN
 			m_screen.update();
 		#endif
@@ -43,13 +46,11 @@ namespace UVO_MainController {
 			m_communication_interface.update();
 		#endif
 
-		if (last_ui_event != UInoEvent){
-			processUI();
-		}
 	}
 
 	
 	void MainController::initUI(void){
+		//TODO CHECK IF 5U is correct
 		m_upButton.begin(BUTTON_UP_PIN, 5U, false);
 		m_downButton.begin(BUTTON_DOWN_PIN, 5U, false);
 		m_rotaryButton.begin(ROTARY_ENCODER_PUSH_PIN, 5U, false);

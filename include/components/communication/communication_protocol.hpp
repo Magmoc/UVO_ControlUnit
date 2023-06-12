@@ -17,7 +17,8 @@ namespace UVO_CommunicationProtocol {
 	// [SEND_ERROR_FLAG] [YOUR OWN I2C ADDRESS] [SENSOR_TOKEN] REQUEST [ack (byte)]
 
 	const int MAIN_CONTROLLER_ADDRESS = 40;
-	const int LED_CONTROLLER_ADDRESS = 60;
+	const int TOP_LED_CONTROLLER_ADDRESS = 60;
+	const int BOTTOM_LED_CONTROLLER_ADDRESS = 61;
 	const int MOTOR_CONTROLLER_ADDRESS = 80;
 
 	typedef unsigned char TToken;

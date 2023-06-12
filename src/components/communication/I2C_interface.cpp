@@ -45,11 +45,11 @@ int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, i
 	return num_bytes_received;
 }
 
-void onRequest( void (*t_function)(void) ){
+void I2CInterface::onRequest( void (*t_function)(void) ){
 	Wire.onRequest(t_function);
 }
 
-void onReceive( void (*t_function)(int) ){
+void I2CInterface::onReceive( void (*t_function)(int) ){
 	Wire.onReceive(t_function);
 }
 
