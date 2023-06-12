@@ -1,11 +1,16 @@
-import os
+import os, shutil
 
 DIRNAME = os.path.dirname(__file__)
 GUI_SLICE_BUILDER_FILE = None
 
+headers = list()
+
 for file in os.listdir(DIRNAME):
-	if file.endswith(".h") and "GSLC" in file:
-		GUI_SLICE_BUILDER_FILE = file
+	if file.endswith(".h"):
+		if "GSLC" in file:
+			GUI_SLICE_BUILDER_FILE = file
+		else:
+			headers.append(file)
 
 if not GUI_SLICE_BUILDER_FILE:
 	raise Exception("Please generate new code within GUISLiceBuilder")
@@ -110,19 +115,20 @@ def find(name, path):
 INCLUDE_DIR = "include"
 INCLUDE_DIR_PATH = os.path.abspath(os.path.join(DIRNAME, os.pardir, INCLUDE_DIR))
 
-file_to_replace = find(GSLC_output_filename, INCLUDE_DIR_PATH)
-try:
-	os.replace(GSLC_outpath, file_to_replace)
-	print(f"Succesfully replaced {GSLC_output_filename}!")
-except:
-	pass
+def replace(filename, search_directory):
+	file_to_replace = find(filename, search_directory)
+	try:
+		outpath = os.path.join(DIRNAME, filename)
+		os.replace(outpath, file_to_replace)
+		print(f"Succesfully replaced {outpath}!")
+	except:
+		print(f"Failed to replace {outpath}!")
 
-file_to_replace = find(REFERENCES_HEADER_FILENAME, INCLUDE_DIR_PATH)
+replace(GSLC_output_filename, INCLUDE_DIR_PATH)
 
-try:
-	os.replace(REFERENCES_HEADER_PATH, file_to_replace)
-	print(f"Succesfully replaced {REFERENCES_HEADER_FILENAME}!")
-except:
-	pass
+replace(REFERENCES_HEADER_FILENAME, INCLUDE_DIR_PATH)
+
+for header in headers:
+	replace(header, INCLUDE_DIR_PATH)
 
 # TODO Export everything with same _SETUP_ into cpp array with said name
