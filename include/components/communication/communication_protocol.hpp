@@ -22,13 +22,14 @@ namespace UVO_CommunicationProtocol {
 	const int MOTOR_CONTROLLER_ADDRESS = 80;
 
 	typedef unsigned char TToken;
-	typedef TToken TSensorToken;
 	typedef TToken TPackageTypeToken;
+	typedef TToken TSensorToken;
 	typedef TToken TDriverToken;
 	typedef TToken TVariableResistorToken;
 
 	const TToken ACK = 2;
 	const TToken NACK = 4;
+
 	const TToken INVALID = 255;
 
 	namespace PackageTypeToken {

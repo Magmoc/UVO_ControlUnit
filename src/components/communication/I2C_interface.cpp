@@ -34,6 +34,7 @@ void I2CInterface::sendMessages(int address, byte* message, int message_length){
 }
 
 int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, int bytes_requested){
+	//TODO CHECK OUT IF requestFrom can also be implemented using restart=false
 	int num_bytes_received = Wire.requestFrom(I2C_address, bytes_requested);
 	
 	//TODO MULTILPE CHECKS
