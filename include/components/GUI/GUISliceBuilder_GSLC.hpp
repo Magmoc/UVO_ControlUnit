@@ -44,14 +44,22 @@
 // Enumerations for pages, elements, fonts, images
 // ------------------------------------------------
 //<Enum !Start!>
-enum {E_PG_BASE,E_PG_SETUP,E_PG_SCREENSAVER,E_PG_RUNNING};
-enum {E_ELEM_SETUP_Dosis_255nm,E_ELEM_SETUP_Dosis_275nm
-      ,E_ELEM_SETUP_Dosis_285nm,E_ELEM_SETUP_Dosis_395nm
-      ,E_ELEM_SETUP_Hours,E_ELEM_SETUP_Intensity_255nm
-      ,E_ELEM_SETUP_Intensity_275nm,E_ELEM_SETUP_Intensity_285nm
-      ,E_ELEM_SETUP_Intensity_395nm,E_ELEM_SETUP_Minutes
-      ,E_ELEM_SETUP_MotorIntensity,E_ELEM_SETUP_PERCENTAGESIGN_395nm
-      ,E_ELEM_SETUP_Seconds,E_ELEM_SETUP_TEXT_255nm
+enum {E_PG_BASE,E_PG_SETUP,E_PG_SCREENSAVER,E_PG_MONITOR};
+enum {E_ELEM_MONITOR_Current_255nm,E_ELEM_MONITOR_Current_275nm
+      ,E_ELEM_MONITOR_Current_285nm,E_ELEM_MONITOR_Current_395nm
+      ,E_ELEM_MONITOR_Dosis,E_ELEM_MONITOR_Hours
+      ,E_ELEM_MONITOR_Intensity,E_ELEM_MONITOR_Minutes
+      ,E_ELEM_MONITOR_Pause,E_ELEM_MONITOR_Seconds,E_ELEM_MONITOR_Stop
+      ,E_ELEM_MONITOR_Temperature_LED_Bottom
+      ,E_ELEM_MONITOR_Temperature_LED_Top
+      ,E_ELEM_MONITOR_Temperature_Seed,E_ELEM_SETUP_Dosis_255nm
+      ,E_ELEM_SETUP_Dosis_275nm,E_ELEM_SETUP_Dosis_285nm
+      ,E_ELEM_SETUP_Dosis_395nm,E_ELEM_SETUP_Hours
+      ,E_ELEM_SETUP_Intensity_255nm,E_ELEM_SETUP_Intensity_275nm
+      ,E_ELEM_SETUP_Intensity_285nm,E_ELEM_SETUP_Intensity_395nm
+      ,E_ELEM_SETUP_Minutes,E_ELEM_SETUP_MotorIntensity
+      ,E_ELEM_SETUP_PERCENTAGESIGN_395nm,E_ELEM_SETUP_Seconds
+      ,E_ELEM_SETUP_Start,E_ELEM_SETUP_TEXT_255nm
       ,E_ELEM_SETUP_TEXT_275nm,E_ELEM_SETUP_TEXT_285nm
       ,E_ELEM_SETUP_TEXT_395nm,E_ELEM_SETUP_TEXT_DOSIS
       ,E_ELEM_SETUP_TEXT_DURATION,E_ELEM_SETUP_TEXT_MOTORINTENSITY
@@ -60,7 +68,14 @@ enum {E_ELEM_SETUP_Dosis_255nm,E_ELEM_SETUP_Dosis_275nm
       ,E_ELEM_SETUP_TEXT_PERCENTAGESIGN_285nm
       ,E_ELEM_SETUP_TEXT_PERCENTSIGN_MOTORINTENSITY
       ,E_ELEM_SETUP_TEXT_TITLE,E_ELEM_SETUP_TEXT_WAVELENGTH
-      ,E_ELEM_TEXT63,E_ELEM_TEXT64,E_ELEM_TEXT73};
+      ,E_ELEM_TEXT103,E_ELEM_TEXT104,E_ELEM_TEXT105,E_ELEM_TEXT106
+      ,E_ELEM_TEXT108,E_ELEM_TEXT118,E_ELEM_TEXT119,E_ELEM_TEXT121
+      ,E_ELEM_TEXT122,E_ELEM_TEXT124,E_ELEM_TEXT125,E_ELEM_TEXT126
+      ,E_ELEM_TEXT127,E_ELEM_TEXT128,E_ELEM_TEXT63,E_ELEM_TEXT64
+      ,E_ELEM_TEXT73,E_ELEM_TEXT74,E_ELEM_TEXT75,E_ELEM_TEXT76
+      ,E_ELEM_TEXT77,E_ELEM_TEXT78,E_ELEM_TEXT80,E_ELEM_TEXT82
+      ,E_ELEM_TEXT83,E_ELEM_TEXT85,E_ELEM_TEXT88,E_ELEM_TEXT89
+      ,E_ELEM_TEXT90,E_ELEM_TEXT94};
 // Must use separate enum for fonts with MAX_FONT at end to use gslc_FontSet.
 enum {E_BUILTIN10X16,E_SEVEN_SEGMENT16,MAX_FONT};
 //<Enum !End!>
@@ -78,14 +93,14 @@ enum {E_BUILTIN10X16,E_SEVEN_SEGMENT16,MAX_FONT};
 #define MAX_ELEM_PG_BASE 0 // # Elems total on page
 #define MAX_ELEM_PG_BASE_RAM MAX_ELEM_PG_BASE // # Elems in RAM
 
-#define MAX_ELEM_PG_SETUP 29 // # Elems total on page
+#define MAX_ELEM_PG_SETUP 31 // # Elems total on page
 #define MAX_ELEM_PG_SETUP_RAM MAX_ELEM_PG_SETUP // # Elems in RAM
 
 #define MAX_ELEM_PG_SCREENSAVER 0 // # Elems total on page
 #define MAX_ELEM_PG_SCREENSAVER_RAM MAX_ELEM_PG_SCREENSAVER // # Elems in RAM
 
-#define MAX_ELEM_PG_RUNNING 0 // # Elems total on page
-#define MAX_ELEM_PG_RUNNING_RAM MAX_ELEM_PG_RUNNING // # Elems in RAM
+#define MAX_ELEM_PG_MONITOR 40 // # Elems total on page
+#define MAX_ELEM_PG_MONITOR_RAM MAX_ELEM_PG_MONITOR // # Elems in RAM
 //<ElementDefines !End!>
 
 // ------------------------------------------------
@@ -103,8 +118,8 @@ inline gslc_tsElem                     m_asPage1Elem[MAX_ELEM_PG_SETUP_RAM];
 inline gslc_tsElemRef                  m_asPage1ElemRef[MAX_ELEM_PG_SETUP];
 inline gslc_tsElem                     m_asPage2Elem[MAX_ELEM_PG_SCREENSAVER_RAM];
 inline gslc_tsElemRef                  m_asPage2ElemRef[MAX_ELEM_PG_SCREENSAVER];
-inline gslc_tsElem                     m_asPage3Elem[MAX_ELEM_PG_RUNNING_RAM];
-inline gslc_tsElemRef                  m_asPage3ElemRef[MAX_ELEM_PG_RUNNING];
+inline gslc_tsElem                     m_asPage3Elem[MAX_ELEM_PG_MONITOR_RAM];
+inline gslc_tsElemRef                  m_asPage3ElemRef[MAX_ELEM_PG_MONITOR];
 
 #define MAX_STR                 100
 
@@ -116,6 +131,21 @@ inline gslc_tsElemRef                  m_asPage3ElemRef[MAX_ELEM_PG_RUNNING];
 
 // Element References for direct access
 //<Extern_References !Start!>
+extern gslc_tsElemRef* m_pElem_MONITOR_Current_255nm;
+extern gslc_tsElemRef* m_pElem_MONITOR_Current_275nm;
+extern gslc_tsElemRef* m_pElem_MONITOR_Current_285nm;
+extern gslc_tsElemRef* m_pElem_MONITOR_Current_395nm;
+extern gslc_tsElemRef* m_pElem_MONITOR_Dosis;
+extern gslc_tsElemRef* m_pElem_MONITOR_Hours;
+extern gslc_tsElemRef* m_pElem_MONITOR_Intensity;
+extern gslc_tsElemRef* m_pElem_MONITOR_Intensity127;
+extern gslc_tsElemRef* m_pElem_MONITOR_Minutes;
+extern gslc_tsElemRef* m_pElem_MONITOR_Pause;
+extern gslc_tsElemRef* m_pElem_MONITOR_Seconds;
+extern gslc_tsElemRef* m_pElem_MONITOR_Stop;
+extern gslc_tsElemRef* m_pElem_MONITOR_Temperature_LED_Bottom;
+extern gslc_tsElemRef* m_pElem_MONITOR_Temperature_LED_Top;
+extern gslc_tsElemRef* m_pElem_MONITOR_Temperature_Seed;
 extern gslc_tsElemRef* m_pElem_SETUP_Dosis_255nm;
 extern gslc_tsElemRef* m_pElem_SETUP_Dosis_275nm;
 extern gslc_tsElemRef* m_pElem_SETUP_Dosis_285nm;
@@ -128,6 +158,7 @@ extern gslc_tsElemRef* m_pElem_SETUP_Intensity_395nm;
 extern gslc_tsElemRef* m_pElem_SETUP_Minutes;
 extern gslc_tsElemRef* m_pElem_SETUP_MotorIntensity;
 extern gslc_tsElemRef* m_pElem_SETUP_Seconds;
+extern gslc_tsElemRef* m_pElem_SETUP_Start;
 //<Extern_References !End!>
 
 // Define debug message function
@@ -166,7 +197,7 @@ inline void InitGUIslice_gen()
   gslc_PageAdd(&m_gui,E_PG_BASE,m_asBasePage1Elem,MAX_ELEM_PG_BASE_RAM,m_asBasePage1ElemRef,MAX_ELEM_PG_BASE);
   gslc_PageAdd(&m_gui,E_PG_SETUP,m_asPage1Elem,MAX_ELEM_PG_SETUP_RAM,m_asPage1ElemRef,MAX_ELEM_PG_SETUP);
   gslc_PageAdd(&m_gui,E_PG_SCREENSAVER,m_asPage2Elem,MAX_ELEM_PG_SCREENSAVER_RAM,m_asPage2ElemRef,MAX_ELEM_PG_SCREENSAVER);
-  gslc_PageAdd(&m_gui,E_PG_RUNNING,m_asPage3Elem,MAX_ELEM_PG_RUNNING_RAM,m_asPage3ElemRef,MAX_ELEM_PG_RUNNING);
+  gslc_PageAdd(&m_gui,E_PG_MONITOR,m_asPage3Elem,MAX_ELEM_PG_MONITOR_RAM,m_asPage3ElemRef,MAX_ELEM_PG_MONITOR);
 
   // Now mark E_PG_BASE as a "base" page which means that it's elements
   // are always visible. This is useful for common page elements.
@@ -396,8 +427,24 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
   // Create E_ELEM_TEXT73 text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT73,E_PG_SETUP,(gslc_tsRect){320,290,140,16},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT73,E_PG_SETUP,(gslc_tsRect){160,300,144,16},
     (char*)"SETUP SCREEN",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_SETUP_Start runtime modifiable text
+  static char m_sDisplayText87[6] = "START";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_SETUP_Start,E_PG_SETUP,(gslc_tsRect){390,280,60,16},
+    (char*)m_sDisplayText87,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_SETUP_Start = pElemRef;
+  
+  // Create E_ELEM_TEXT125 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT125,E_PG_SETUP,(gslc_tsRect){0,300,96,16},
+    (char*)"TEAM UVO",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
 
@@ -406,8 +453,306 @@ inline void InitGUIslice_gen()
   
 
   // -----------------------------------
-  // PAGE: E_PG_RUNNING
+  // PAGE: E_PG_MONITOR
   
+  
+  // Create E_ELEM_TEXT74 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT74,E_PG_MONITOR,(gslc_tsRect){50,80,60,16},
+    (char*)"255nm",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT75 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT75,E_PG_MONITOR,(gslc_tsRect){50,110,60,16},
+    (char*)"275nm",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT76 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT76,E_PG_MONITOR,(gslc_tsRect){50,140,60,16},
+    (char*)"285nm",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT77 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT77,E_PG_MONITOR,(gslc_tsRect){50,170,60,16},
+    (char*)"395nm",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT78 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT78,E_PG_MONITOR,(gslc_tsRect){10,60,120,16},
+    (char*)"Wavelength",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_MONITOR_Hours runtime modifiable text
+  static char m_sDisplayText79[3] = "00";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Hours,E_PG_MONITOR,(gslc_tsRect){152,273,24,16},
+    (char*)m_sDisplayText79,3,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Hours = pElemRef;
+  
+  // Create E_ELEM_TEXT80 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT80,E_PG_MONITOR,(gslc_tsRect){22,273,96,16},
+    (char*)"Duration",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_MONITOR_Minutes runtime modifiable text
+  static char m_sDisplayText81[3] = "00";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Minutes,E_PG_MONITOR,(gslc_tsRect){182,273,24,16},
+    (char*)m_sDisplayText81,3,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Minutes = pElemRef;
+  
+  // Create E_ELEM_TEXT82 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT82,E_PG_MONITOR,(gslc_tsRect){172,273,12,16},
+    (char*)":",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT83 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT83,E_PG_MONITOR,(gslc_tsRect){202,273,12,16},
+    (char*)":",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_MONITOR_Seconds runtime modifiable text
+  static char m_sDisplayText84[3] = "00";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Seconds,E_PG_MONITOR,(gslc_tsRect){212,273,24,16},
+    (char*)m_sDisplayText84,3,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Seconds = pElemRef;
+  
+  // Create E_ELEM_TEXT85 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT85,E_PG_MONITOR,(gslc_tsRect){88,10,296,22},
+    (char*)"SEED DISINFECTOR 9000!",0,E_SEVEN_SEGMENT16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT88 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT88,E_PG_MONITOR,(gslc_tsRect){320,80,60,16},
+    (char*)"Seeds",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT89 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT89,E_PG_MONITOR,(gslc_tsRect){300,110,96,16},
+    (char*)"LEDs Top",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT90 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT90,E_PG_MONITOR,(gslc_tsRect){270,140,132,16},
+    (char*)"LEDs Bottom",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT94 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT94,E_PG_MONITOR,(gslc_tsRect){140,300,168,16},
+    (char*)"MONITOR SCREEN",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_MONITOR_Stop runtime modifiable text
+  static char m_sDisplayText95[6] = "STOP";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Stop,E_PG_MONITOR,(gslc_tsRect){390,280,60,16},
+    (char*)m_sDisplayText95,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Stop = pElemRef;
+  
+  // Create E_ELEM_MONITOR_Current_275nm runtime modifiable text
+  static char m_sDisplayText99[4] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Current_275nm,E_PG_MONITOR,(gslc_tsRect){130,110,36,16},
+    (char*)m_sDisplayText99,4,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Current_275nm = pElemRef;
+  
+  // Create E_ELEM_MONITOR_Current_285nm runtime modifiable text
+  static char m_sDisplayText100[4] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Current_285nm,E_PG_MONITOR,(gslc_tsRect){130,140,36,16},
+    (char*)m_sDisplayText100,4,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Current_285nm = pElemRef;
+  
+  // Create E_ELEM_MONITOR_Current_395nm runtime modifiable text
+  static char m_sDisplayText101[4] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Current_395nm,E_PG_MONITOR,(gslc_tsRect){130,170,36,16},
+    (char*)m_sDisplayText101,4,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Current_395nm = pElemRef;
+  
+  // Create E_ELEM_MONITOR_Current_255nm runtime modifiable text
+  static char m_sDisplayText102[4] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Current_255nm,E_PG_MONITOR,(gslc_tsRect){130,80,36,16},
+    (char*)m_sDisplayText102,4,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Current_255nm = pElemRef;
+  
+  // Create E_ELEM_TEXT103 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT103,E_PG_MONITOR,(gslc_tsRect){170,80,24,16},
+    (char*)"mA",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT104 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT104,E_PG_MONITOR,(gslc_tsRect){170,110,24,16},
+    (char*)"mA",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT105 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT105,E_PG_MONITOR,(gslc_tsRect){170,140,24,16},
+    (char*)"mA",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT106 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT106,E_PG_MONITOR,(gslc_tsRect){170,170,24,16},
+    (char*)"mA",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_MONITOR_Intensity runtime modifiable text
+  static char m_sDisplayText107[5] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Intensity,E_PG_MONITOR,(gslc_tsRect){170,210,48,16},
+    (char*)m_sDisplayText107,5,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Intensity = pElemRef;
+  
+  // Create E_ELEM_TEXT108 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT108,E_PG_MONITOR,(gslc_tsRect){20,210,144,16},
+    (char*)"UV Intensity",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_MONITOR_Temperature_LED_Top runtime modifiable text
+  static char m_sDisplayText110[4] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Temperature_LED_Top,E_PG_MONITOR,(gslc_tsRect){415,112,36,16},
+    (char*)m_sDisplayText110,4,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Temperature_LED_Top = pElemRef;
+  
+  // Create E_ELEM_MONITOR_Temperature_LED_Bottom runtime modifiable text
+  static char m_sDisplayText111[4] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Temperature_LED_Bottom,E_PG_MONITOR,(gslc_tsRect){415,142,36,16},
+    (char*)m_sDisplayText111,4,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Temperature_LED_Bottom = pElemRef;
+  
+  // Create E_ELEM_MONITOR_Temperature_Seed runtime modifiable text
+  static char m_sDisplayText113[4] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Temperature_Seed,E_PG_MONITOR,(gslc_tsRect){415,82,36,16},
+    (char*)m_sDisplayText113,4,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Temperature_Seed = pElemRef;
+  
+  // Create E_ELEM_TEXT118 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT118,E_PG_MONITOR,(gslc_tsRect){290,60,180,16},
+    (char*)"Temperature [C]",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT119 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT119,E_PG_MONITOR,(gslc_tsRect){220,210,72,16},
+    (char*)"mW/cm2",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_MONITOR_Dosis runtime modifiable text
+  static char m_sDisplayText120[5] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Dosis,E_PG_MONITOR,(gslc_tsRect){170,240,48,16},
+    (char*)m_sDisplayText120,5,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Dosis = pElemRef;
+  
+  // Create E_ELEM_TEXT121 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT121,E_PG_MONITOR,(gslc_tsRect){19,239,96,16},
+    (char*)"UV Dosis",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT122 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT122,E_PG_MONITOR,(gslc_tsRect){220,240,72,16},
+    (char*)"mJ/cm2",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_MONITOR_Pause runtime modifiable text
+  static char m_sDisplayText123[6] = "PAUSE";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Pause,E_PG_MONITOR,(gslc_tsRect){330,280,60,16},
+    (char*)m_sDisplayText123,6,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Pause = pElemRef;
+  
+  // Create E_ELEM_TEXT124 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT124,E_PG_MONITOR,(gslc_tsRect){0,300,96,16},
+    (char*)"TEAM UVO",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT126 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT126,E_PG_MONITOR,(gslc_tsRect){320,210,48,16},
+    (char*)"Ozon",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT127 runtime modifiable text
+  static char m_sDisplayText127[5] = "0";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT127,E_PG_MONITOR,(gslc_tsRect){370,210,48,16},
+    (char*)m_sDisplayText127,5,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Intensity127 = pElemRef;
+  
+  // Create E_ELEM_TEXT128 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT128,E_PG_MONITOR,(gslc_tsRect){430,210,36,16},
+    (char*)"ppm",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
 //<InitGUI !End!>
 
 //<Startup !Start!>
