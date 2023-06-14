@@ -733,14 +733,14 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
   // Create E_ELEM_TEXT126 text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT126,E_PG_MONITOR,(gslc_tsRect){320,210,48,16},
-    (char*)"Ozon",0,E_BUILTIN10X16);
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT126,E_PG_MONITOR,(gslc_tsRect){310,210,60,16},
+    (char*)"Ozone",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
   // Create E_ELEM_TEXT127 runtime modifiable text
   static char m_sDisplayText127[5] = "0";
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT127,E_PG_MONITOR,(gslc_tsRect){370,210,48,16},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT127,E_PG_MONITOR,(gslc_tsRect){380,210,48,16},
     (char*)m_sDisplayText127,5,E_BUILTIN10X16);
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
