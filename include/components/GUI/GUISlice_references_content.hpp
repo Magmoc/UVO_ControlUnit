@@ -6,6 +6,10 @@
 
 // Save some element references for direct access
 //<Save_References !Start!>
+gslc_tsElemRef* m_pElem_ERROR_Error1= NULL;
+gslc_tsElemRef* m_pElem_ERROR_Error2= NULL;
+gslc_tsElemRef* m_pElem_ERROR_Error3= NULL;
+gslc_tsElemRef* m_pElem_ERROR_Error4= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Current_255nm= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Current_275nm= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Current_285nm= NULL;
@@ -18,6 +22,7 @@ gslc_tsElemRef* m_pElem_MONITOR_Minutes= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Pause= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Seconds= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Stop= NULL;
+gslc_tsElemRef* m_pElem_MONITOR_Stop136= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Temperature_LED_Bottom= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Temperature_LED_Top= NULL;
 gslc_tsElemRef* m_pElem_MONITOR_Temperature_Seed= NULL;
@@ -52,8 +57,43 @@ static int16_t DebugOut(char ch) { if (ch == (char)'\n') Serial.println(""); els
 //<Spinner Callback !End!>
 //<Listbox Callback !Start!>
 //<Listbox Callback !End!>
-//<Draw Callback !Start!>
-//<Draw Callback !End!>
+ 
+// Scanner drawing callback function
+// - This is called when E_ELEM_SCAN is being rendered
+bool CbDrawScanner(void* pvGui,void* pvElemRef,gslc_teRedrawType eRedraw)
+{
+  int nInd;
+
+  // Typecast the parameters to match the GUI and element types
+  gslc_tsGui*     pGui     = (gslc_tsGui*)(pvGui);
+  gslc_tsElemRef* pElemRef = (gslc_tsElemRef*)(pvElemRef);
+  gslc_tsElem*    pElem    = gslc_GetElemFromRef(pGui,pElemRef); 
+
+  // Create shorthand variables for the origin
+  int16_t  nX = pElem->rElem.x;
+  int16_t  nY = pElem->rElem.y;
+
+  // Draw the background
+  gslc_tsRect rInside = pElem->rElem;
+  rInside = gslc_ExpandRect(rInside,-1,-1);
+  gslc_DrawFillRect(pGui,rInside,pElem->colElemFill);
+
+  // Enable localized clipping
+  gslc_SetClipRect(pGui,&rInside);
+
+  //TODO - Add your drawing graphic primitives
+
+  // Disable clipping region
+  gslc_SetClipRect(pGui,NULL);
+
+  // Draw the frame
+  gslc_DrawFrameRect(pGui,pElem->rElem,pElem->colElemFrame);
+
+  // Clear the redraw flag
+  gslc_ElemSetRedraw(&m_gui,pElemRef,GSLC_REDRAW_NONE);
+
+  return true;
+}
 //<Slider Callback !Start!>
 //<Slider Callback !End!>
 //<Tick Callback !Start!>

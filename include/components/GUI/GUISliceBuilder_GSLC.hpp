@@ -44,8 +44,10 @@
 // Enumerations for pages, elements, fonts, images
 // ------------------------------------------------
 //<Enum !Start!>
-enum {E_PG_BASE,E_PG_SETUP,E_PG_SCREENSAVER,E_PG_MONITOR};
-enum {E_ELEM_MONITOR_Current_255nm,E_ELEM_MONITOR_Current_275nm
+enum {E_PG_BASE,E_PG_SETUP,E_PG_SCREENSAVER,E_PG_MONITOR,E_PG_ERROR};
+enum {E_ELEM_BOX1,E_ELEM_ERROR_Error1,E_ELEM_ERROR_Error2
+      ,E_ELEM_ERROR_Error3,E_ELEM_ERROR_Error4
+      ,E_ELEM_MONITOR_Current_255nm,E_ELEM_MONITOR_Current_275nm
       ,E_ELEM_MONITOR_Current_285nm,E_ELEM_MONITOR_Current_395nm
       ,E_ELEM_MONITOR_Dosis,E_ELEM_MONITOR_Hours
       ,E_ELEM_MONITOR_Intensity,E_ELEM_MONITOR_Minutes
@@ -71,13 +73,14 @@ enum {E_ELEM_MONITOR_Current_255nm,E_ELEM_MONITOR_Current_275nm
       ,E_ELEM_TEXT103,E_ELEM_TEXT104,E_ELEM_TEXT105,E_ELEM_TEXT106
       ,E_ELEM_TEXT108,E_ELEM_TEXT118,E_ELEM_TEXT119,E_ELEM_TEXT121
       ,E_ELEM_TEXT122,E_ELEM_TEXT124,E_ELEM_TEXT125,E_ELEM_TEXT126
-      ,E_ELEM_TEXT127,E_ELEM_TEXT128,E_ELEM_TEXT63,E_ELEM_TEXT64
-      ,E_ELEM_TEXT73,E_ELEM_TEXT74,E_ELEM_TEXT75,E_ELEM_TEXT76
-      ,E_ELEM_TEXT77,E_ELEM_TEXT78,E_ELEM_TEXT80,E_ELEM_TEXT82
-      ,E_ELEM_TEXT83,E_ELEM_TEXT85,E_ELEM_TEXT88,E_ELEM_TEXT89
-      ,E_ELEM_TEXT90,E_ELEM_TEXT94};
+      ,E_ELEM_TEXT127,E_ELEM_TEXT128,E_ELEM_TEXT129,E_ELEM_TEXT130
+      ,E_ELEM_TEXT131,E_ELEM_TEXT136,E_ELEM_TEXT137,E_ELEM_TEXT63
+      ,E_ELEM_TEXT64,E_ELEM_TEXT73,E_ELEM_TEXT74,E_ELEM_TEXT75
+      ,E_ELEM_TEXT76,E_ELEM_TEXT77,E_ELEM_TEXT78,E_ELEM_TEXT80
+      ,E_ELEM_TEXT82,E_ELEM_TEXT83,E_ELEM_TEXT85,E_ELEM_TEXT88
+      ,E_ELEM_TEXT89,E_ELEM_TEXT90,E_ELEM_TEXT94};
 // Must use separate enum for fonts with MAX_FONT at end to use gslc_FontSet.
-enum {E_BUILTIN10X16,E_SEVEN_SEGMENT16,MAX_FONT};
+enum {E_BUILTIN10X16,E_BUILTIN25X40,E_SEVEN_SEGMENT16,MAX_FONT};
 //<Enum !End!>
 
 // ------------------------------------------------
@@ -88,7 +91,7 @@ enum {E_BUILTIN10X16,E_SEVEN_SEGMENT16,MAX_FONT};
 // Define the maximum number of elements and pages
 // ------------------------------------------------
 //<ElementDefines !Start!>
-#define MAX_PAGE                4
+#define MAX_PAGE                5
 
 #define MAX_ELEM_PG_BASE 0 // # Elems total on page
 #define MAX_ELEM_PG_BASE_RAM MAX_ELEM_PG_BASE // # Elems in RAM
@@ -101,6 +104,9 @@ enum {E_BUILTIN10X16,E_SEVEN_SEGMENT16,MAX_FONT};
 
 #define MAX_ELEM_PG_MONITOR 40 // # Elems total on page
 #define MAX_ELEM_PG_MONITOR_RAM MAX_ELEM_PG_MONITOR // # Elems in RAM
+
+#define MAX_ELEM_PG_ERROR 10 // # Elems total on page
+#define MAX_ELEM_PG_ERROR_RAM MAX_ELEM_PG_ERROR // # Elems in RAM
 //<ElementDefines !End!>
 
 // ------------------------------------------------
@@ -120,6 +126,8 @@ inline gslc_tsElem                     m_asPage2Elem[MAX_ELEM_PG_SCREENSAVER_RAM
 inline gslc_tsElemRef                  m_asPage2ElemRef[MAX_ELEM_PG_SCREENSAVER];
 inline gslc_tsElem                     m_asPage3Elem[MAX_ELEM_PG_MONITOR_RAM];
 inline gslc_tsElemRef                  m_asPage3ElemRef[MAX_ELEM_PG_MONITOR];
+inline gslc_tsElem                     m_asPopup1Elem[MAX_ELEM_PG_ERROR_RAM];
+inline gslc_tsElemRef                  m_asPopup1ElemRef[MAX_ELEM_PG_ERROR];
 
 #define MAX_STR                 100
 
@@ -131,6 +139,10 @@ inline gslc_tsElemRef                  m_asPage3ElemRef[MAX_ELEM_PG_MONITOR];
 
 // Element References for direct access
 //<Extern_References !Start!>
+extern gslc_tsElemRef* m_pElem_ERROR_Error1;
+extern gslc_tsElemRef* m_pElem_ERROR_Error2;
+extern gslc_tsElemRef* m_pElem_ERROR_Error3;
+extern gslc_tsElemRef* m_pElem_ERROR_Error4;
 extern gslc_tsElemRef* m_pElem_MONITOR_Current_255nm;
 extern gslc_tsElemRef* m_pElem_MONITOR_Current_275nm;
 extern gslc_tsElemRef* m_pElem_MONITOR_Current_285nm;
@@ -143,6 +155,7 @@ extern gslc_tsElemRef* m_pElem_MONITOR_Minutes;
 extern gslc_tsElemRef* m_pElem_MONITOR_Pause;
 extern gslc_tsElemRef* m_pElem_MONITOR_Seconds;
 extern gslc_tsElemRef* m_pElem_MONITOR_Stop;
+extern gslc_tsElemRef* m_pElem_MONITOR_Stop136;
 extern gslc_tsElemRef* m_pElem_MONITOR_Temperature_LED_Bottom;
 extern gslc_tsElemRef* m_pElem_MONITOR_Temperature_LED_Top;
 extern gslc_tsElemRef* m_pElem_MONITOR_Temperature_Seed;
@@ -190,6 +203,7 @@ inline void InitGUIslice_gen()
   // ------------------------------------------------
 //<Load_Fonts !Start!>
     if (!gslc_FontSet(&m_gui,E_BUILTIN10X16,GSLC_FONTREF_PTR,NULL,2)) { return; }
+    if (!gslc_FontSet(&m_gui,E_BUILTIN25X40,GSLC_FONTREF_PTR,NULL,5)) { return; }
     if (!gslc_FontSet(&m_gui,E_SEVEN_SEGMENT16,GSLC_FONTREF_PTR,&Seven_Segment16pt7b,1)) { return; }
 //<Load_Fonts !End!>
 
@@ -198,6 +212,7 @@ inline void InitGUIslice_gen()
   gslc_PageAdd(&m_gui,E_PG_SETUP,m_asPage1Elem,MAX_ELEM_PG_SETUP_RAM,m_asPage1ElemRef,MAX_ELEM_PG_SETUP);
   gslc_PageAdd(&m_gui,E_PG_SCREENSAVER,m_asPage2Elem,MAX_ELEM_PG_SCREENSAVER_RAM,m_asPage2ElemRef,MAX_ELEM_PG_SCREENSAVER);
   gslc_PageAdd(&m_gui,E_PG_MONITOR,m_asPage3Elem,MAX_ELEM_PG_MONITOR_RAM,m_asPage3ElemRef,MAX_ELEM_PG_MONITOR);
+  gslc_PageAdd(&m_gui,E_PG_ERROR,m_asPopup1Elem,MAX_ELEM_PG_ERROR_RAM,m_asPopup1ElemRef,MAX_ELEM_PG_ERROR);
 
   // Now mark E_PG_BASE as a "base" page which means that it's elements
   // are always visible. This is useful for common page elements.
@@ -443,7 +458,7 @@ inline void InitGUIslice_gen()
   m_pElem_SETUP_Start = pElemRef;
   
   // Create E_ELEM_TEXT125 text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT125,E_PG_SETUP,(gslc_tsRect){0,300,96,16},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT125,E_PG_SETUP,(gslc_tsRect){10,300,96,16},
     (char*)"TEAM UVO",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
@@ -727,13 +742,13 @@ inline void InitGUIslice_gen()
   m_pElem_MONITOR_Pause = pElemRef;
   
   // Create E_ELEM_TEXT124 text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT124,E_PG_MONITOR,(gslc_tsRect){0,300,96,16},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT124,E_PG_MONITOR,(gslc_tsRect){10,300,96,16},
     (char*)"TEAM UVO",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
   // Create E_ELEM_TEXT126 text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT126,E_PG_MONITOR,(gslc_tsRect){310,210,60,16},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT126,E_PG_MONITOR,(gslc_tsRect){320,210,60,16},
     (char*)"Ozone",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
@@ -751,6 +766,83 @@ inline void InitGUIslice_gen()
   // Create E_ELEM_TEXT128 text label
   pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT128,E_PG_MONITOR,(gslc_tsRect){430,210,36,16},
     (char*)"ppm",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+
+  // -----------------------------------
+  // PAGE: E_PG_ERROR
+  
+   
+  // Create E_ELEM_BOX1 box
+  pElemRef = gslc_ElemCreateBox(&m_gui,E_ELEM_BOX1,E_PG_ERROR,(gslc_tsRect){10,10,350,100});
+  // Set the callback function to handle all drawing for the element
+  gslc_ElemSetDrawFunc(&m_gui,pElemRef,&CbDrawScanner);
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_GRAY,GSLC_COL_RED_LT4,GSLC_COL_RED_LT4);
+  
+  // Create E_ELEM_TEXT129 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT129,E_PG_ERROR,(gslc_tsRect){30,30,270,40},
+    (char*)"Whoops...",0,E_BUILTIN25X40);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,GSLC_COL_RED,GSLC_COL_BLACK,GSLC_COL_BLACK);
+  
+  // Create E_ELEM_TEXT130 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT130,E_PG_ERROR,(gslc_tsRect){20,80,324,16},
+    (char*)"An unexpected error occured",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_TEXT131 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT131,E_PG_ERROR,(gslc_tsRect){20,170,72,16},
+    (char*)"Error:",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  
+  // Create E_ELEM_ERROR_Error1 runtime modifiable text
+  static char m_sDisplayText132[25] = "Default Error Message";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_ERROR_Error1,E_PG_ERROR,(gslc_tsRect){100,170,288,16},
+    (char*)m_sDisplayText132,25,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  m_pElem_ERROR_Error1 = pElemRef;
+  
+  // Create E_ELEM_ERROR_Error2 runtime modifiable text
+  static char m_sDisplayText133[25] = "Default Error Message";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_ERROR_Error2,E_PG_ERROR,(gslc_tsRect){100,190,288,16},
+    (char*)m_sDisplayText133,25,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  m_pElem_ERROR_Error2 = pElemRef;
+  
+  // Create E_ELEM_ERROR_Error3 runtime modifiable text
+  static char m_sDisplayText134[25] = "Default Error Message";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_ERROR_Error3,E_PG_ERROR,(gslc_tsRect){100,210,288,16},
+    (char*)m_sDisplayText134,25,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  m_pElem_ERROR_Error3 = pElemRef;
+  
+  // Create E_ELEM_ERROR_Error4 runtime modifiable text
+  static char m_sDisplayText135[25] = "Default Error Message";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_ERROR_Error4,E_PG_ERROR,(gslc_tsRect){100,230,288,16},
+    (char*)m_sDisplayText135,25,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  m_pElem_ERROR_Error4 = pElemRef;
+  
+  // Create E_ELEM_TEXT136 runtime modifiable text
+  static char m_sDisplayText136[9] = "CONTINUE";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT136,E_PG_ERROR,(gslc_tsRect){360,270,96,16},
+    (char*)m_sDisplayText136,9,E_BUILTIN10X16);
+  gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
+  gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
+  m_pElem_MONITOR_Stop136 = pElemRef;
+  
+  // Create E_ELEM_TEXT137 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT137,E_PG_ERROR,(gslc_tsRect){10,300,96,16},
+    (char*)"TEAM UVO",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
 //<InitGUI !End!>
