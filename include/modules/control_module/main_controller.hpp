@@ -16,6 +16,7 @@
 
 namespace UVO_MainController {
 
+#ifdef USE_BUTTONS
 enum UIEvent {UIbuttonUpPressed, UIbuttonDownPressed, UIbuttonRotaryPressed, UIrotaryRight, UIrotaryLeft, UInoEvent};
 extern volatile UIEvent last_ui_event;
 
@@ -24,19 +25,20 @@ void onButtonDownPressISR(Button2& t_button);
 void onButtonRotaryPressISR(Button2& t_button);
 void onRotaryRightISR(ESPRotary& t_rotary);
 void onRotaryLeftISR(ESPRotary& t_rotary);
+#endif
 
 
 class MainController{
 private:
 	UVO_Components::s_systemState m_systemState;
-	// UVO_Components::s_setupSettings m_setupSettings2;
-
 	UVO_Components::s_setupSettings m_setupSettings;
 
+	#ifdef USE_BUTTONS
 	Button2 m_upButton;
 	Button2 m_downButton;
 	Button2 m_rotaryButton;
 	ESPRotary m_rotaryEncoder;
+	#endif
 
 	#ifdef USE_SCREEN
 	#ifdef USE_NORMAL_SCREEN
@@ -51,6 +53,7 @@ private:
 		UVO_MainController::MainCommunicationInterface m_communication_interface{UVO_CommunicationProtocol::MAIN_CONTROLLER_ADDRESS};
 	#endif
 
+	#ifdef USE_BUTTONS
 	void initUI(void);
 	void processUI(void);
 
@@ -60,6 +63,7 @@ private:
 	void onRotaryRight(ESPRotary& t_rotary);
 	void onRotaryLeft(ESPRotary& t_rotary);
 	void changeSettingElement(int t_amount);
+	#endif
 
 public:
 	MainController();

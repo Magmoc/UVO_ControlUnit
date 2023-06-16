@@ -41,7 +41,6 @@ void Screen::init(void){
 	m_screenState.current_page_idx = 0;
 
 	GUISliceInit();
-	gslc_Update(&m_gui);
 }
 
 void Screen::init(s_setupSettings* t_initSettings){

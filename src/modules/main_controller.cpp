@@ -1,7 +1,9 @@
 #include "modules/control_module/main_controller.hpp"
 
 namespace UVO_MainController {
+	#ifdef USE_BUTTONS
 	volatile UIEvent last_ui_event = UInoEvent;
+	#endif
 
 	MainController::MainController(){
 
@@ -41,7 +43,7 @@ namespace UVO_MainController {
 		// 	processUI();
 		// }
 		#ifdef USE_SCREEN
-			// m_screen.update();
+			m_screen.update();
 		#endif
 
 		#ifdef USE_COMMUNICATION_INTERFACE
@@ -50,7 +52,7 @@ namespace UVO_MainController {
 
 	}
 
-	
+	#ifdef USE_BUTTONS
 	void MainController::initUI(void){
 		//TODO CHECK IF 5U is correct
 		m_upButton.begin(BUTTON_UP_PIN, 5U, false);
@@ -152,37 +154,38 @@ namespace UVO_MainController {
 
 
 	void MainController::changeSettingElement(int t_amount){
-		// int16_t elem_id = m_screen.getCurrentElementID();
+		int16_t elem_id = m_screen.getCurrentElementID();
 
-		// switch(elem_id)
-		// {
-		// case UVO_Components::GUISlice::E_ELEM_SETUP_Intensity_255nm:
-		// 	m_setupSettings->LED_intensity_255nm += t_amount;
-		// 	break;
-		// case UVO_Components::GUISlice::E_ELEM_SETUP_Intensity_275nm:
-		// 	m_setupSettings->LED_intensity_275nm += t_amount;
-		// 	break;
-		// case UVO_Components::GUISlice::E_ELEM_SETUP_Intensity_285nm:
-		// 	m_setupSettings->LED_intensity_285nm += t_amount;
-		// 	break;
-		// case UVO_Components::GUISlice::E_ELEM_SETUP_Intensity_395nm:
-		// 	m_setupSettings->LED_intensity_395nm += t_amount;
-		// 	break;
-		// case UVO_Components::GUISlice::E_ELEM_SETUP_Hours:
-		// 	m_setupSettings->addHours(t_amount);
-		// 	break;
-		// case UVO_Components::GUISlice::E_ELEM_SETUP_Minutes:
-		// 	m_setupSettings->addMinutes(t_amount);
-		// 	break;
-		// case UVO_Components::GUISlice::E_ELEM_SETUP_Seconds:
-		// 	m_setupSettings->addSeconds(t_amount);
-		// 	break;
-		// case UVO_Components::GUISlice::E_ELEM_SETUP_MotorIntensity:
-		// 	m_setupSettings->motor_intensity += t_amount;
-		// 	break;
-		// default:
-		// 	break;
-		// }
+		switch(elem_id)
+		{
+		case UVO_Components::GUISlice::E_ELEM_SETUP_Intensity_255nm:
+			m_setupSettings->LED_intensity_255nm += t_amount;
+			break;
+		case UVO_Components::GUISlice::E_ELEM_SETUP_Intensity_275nm:
+			m_setupSettings->LED_intensity_275nm += t_amount;
+			break;
+		case UVO_Components::GUISlice::E_ELEM_SETUP_Intensity_285nm:
+			m_setupSettings->LED_intensity_285nm += t_amount;
+			break;
+		case UVO_Components::GUISlice::E_ELEM_SETUP_Intensity_395nm:
+			m_setupSettings->LED_intensity_395nm += t_amount;
+			break;
+		case UVO_Components::GUISlice::E_ELEM_SETUP_Hours:
+			m_setupSettings->addHours(t_amount);
+			break;
+		case UVO_Components::GUISlice::E_ELEM_SETUP_Minutes:
+			m_setupSettings->addMinutes(t_amount);
+			break;
+		case UVO_Components::GUISlice::E_ELEM_SETUP_Seconds:
+			m_setupSettings->addSeconds(t_amount);
+			break;
+		case UVO_Components::GUISlice::E_ELEM_SETUP_MotorIntensity:
+			m_setupSettings->motor_intensity += t_amount;
+			break;
+		default:
+			break;
+		}
 	}
+	#endif
 
 }
