@@ -1,5 +1,15 @@
-#ifndef COMMUNICATION_PROTOCOL_HPP
-#define COMMUNICATION_PROTOCOL_HPP
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
+#ifndef _COMMUNICATION_PROTOCOL_HPP
+#define _COMMUNICATION_PROTOCOL_HPP
 
 
 namespace UVO_CommunicationProtocol {
@@ -10,9 +20,6 @@ namespace UVO_CommunicationProtocol {
 	// [SET_DRIVER_INTENSITY] [DRIVER_TOKEN] [uint_8 intensity (0-255)] REQUEST [ack (byte)]
 	// [SET_VARIABLE_RESISTOR] [RESISTOR_TOKEN] [uint_8 intensity (0-255)] REQUEST [ack (byte)]
 
-
-	//TODO We need to discuss this later, whether we want to implement this
-	//TODO Who does error handling? Control module or submodule?
 	// Sent to Control Unit
 	// [SEND_ERROR_FLAG] [YOUR OWN I2C ADDRESS] [SENSOR_TOKEN] REQUEST [ack (byte)]
 

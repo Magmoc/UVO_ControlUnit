@@ -1,5 +1,15 @@
-#ifndef UNO_CONTROLLERS_HPP
-#define UNO_CONTROLLERS_HPP
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
+#ifndef _UNO_CONTROLLERS_HPP
+#define _UNO_CONTROLLERS_HPP
 
 #include "components/communication/I2C_interface.hpp"
 #include "components/communication/main_controller_communication_interface.hpp"

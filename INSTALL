@@ -1,8 +1,13 @@
-ESP32 USB driver: https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads
+Install the ESP32 USB driver: https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads
  - read CP210x_Universal_Windows_Driver_ReleaseNotes.txt
 
- For the GUISliceBuilder library:
+For the GUISlice library:
 	- install the library
 	- Go to src/GUIslice_config.h
 	- uncomment:
 		#include "../configs/esp-tftespi-default-notouch.h"
+
+For editing the GUISliceBuilder project:
+	- install https://github.com/ImpulseAdventure/GUIslice-Builder
+
+When updating the GUISlice project, run "import_GUISliceMenu.py"

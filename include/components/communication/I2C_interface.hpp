@@ -1,5 +1,15 @@
-#ifndef I2C_INTERFACE_HPP
-#define I2C_INTERFACE_HPP
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
+#ifndef _I2C_INTERFACE_HPP
+#define _I2C_INTERFACE_HPP
 
 #include <Wire.h>
 #include <Arduino.h>

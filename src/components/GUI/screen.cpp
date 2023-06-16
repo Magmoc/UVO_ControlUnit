@@ -1,11 +1,17 @@
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
 #include "components/GUI/screen.hpp"
 
 // #include <stdio.h>
 // #include <iostream>
-
-// #include "images/monke.h"
-// #include "images/monke2.h"
-// #include "images/cool_monke.h"
 
 namespace UVO_Components {
 namespace Screen {
@@ -103,9 +109,7 @@ void Screen::writeFrame(void){
 		m_tft.fillRect(0,0,50,50, TFT_RED);
 	}
 
-	// TODO(ERIK) FIX WEGHALEN
-	// m_screen.pushImage(-92, -33, 336, 293, cool_monke);
-	m_screen.pushSprite(300,100);
+	// m_screen.pushSprite(300,100);
 }
 
 }

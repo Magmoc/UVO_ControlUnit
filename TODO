@@ -1,15 +1,3 @@
-GUI
-	https://github.com/ImpulseAdventure/GUIslice/wiki/Builder-_-Walkthrough
-
-Work on SPI
-	Use the current sensor library
-
-Settings class
-	friend class of buttons so that buttons can change everything
-
-
-Display state struct (current selected, what screen etc etc)
-
 hard code chip select between screen and data
 
 Driver struct for i2c communication script
@@ -21,10 +9,7 @@ Code Beautification
 	const where necessary
 	add explanation/documentation for everything
 
-
 Entire parts:
 	Data logging
 	Safety
 	Debugging
-
-GUISLICE CONFIG PY FILE

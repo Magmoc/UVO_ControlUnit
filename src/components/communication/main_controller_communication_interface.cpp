@@ -1,3 +1,13 @@
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
 #include "components/communication/main_controller_communication_interface.hpp"
 
 namespace UVO_MainController {
@@ -36,9 +46,9 @@ int MainCommunicationInterface::sendMessageAndReadResponse(int t_I2C_slave_addre
 
 	response_length = m_I2C_Interface.requestAndReadAnswer(t_I2C_slave_address, t_response_data, t_bytes_requested);
 
-	// if (response_length != t_bytes_requested){
-	// 	//TODO Add log here.
-	// }
+	if (response_length != t_bytes_requested){
+		//TODO Add log here.
+	}
 
 	return response_length;
 }
@@ -65,17 +75,6 @@ double MainCommunicationInterface::requestSensorData(UVO_CommunicationProtocol::
 
 	return response;
 }
-
-//TODO fix
-// Use I2C interface and SPI interface for default communication
-// that way you can later switch them very easily if you need a differnet protocol
-// then define communication interfaces per module with the different types of functions
-// so for example
-// 		request sensor data
-//		send sensor data
-//		set pwm
-// 		receive pwm signal
-// 		
 
 //bool MainCommunicationInterface::setPWMDutyCycle(Driver driver, int pwm){
 

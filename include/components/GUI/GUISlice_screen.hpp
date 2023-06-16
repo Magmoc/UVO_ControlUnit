@@ -1,3 +1,13 @@
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
 #ifndef _GUISLICE_SCREEN_HPP
 #define _GUISLICE_SCREEN_HPP
 
@@ -81,9 +91,6 @@ namespace GUISlice {
 		s_setupSettings m_currentlyDisplayedSetupSettings;
 
 		s_screenState m_screenState;
-		// TFT_eSPI m_tft = TFT_eSPI();
-		// TFT_eSprite m_screen = TFT_eSprite(&m_tft);	
-		// TFT_eSprite m_popupSprite = TFT_eSprite(&m_tft); 
 
 		const gslc_tsColor UVO_BLACK = {0, 0, 5};
 		const gslc_tsColor UVO_DARK_BLUE = {59, 51, 85};
@@ -118,7 +125,7 @@ namespace GUISlice {
 		void resetElemOptions(gslc_tsElemRef* t_pElem);
 
 
-		// TODO rename the setSelected and updatedSelected. Is quite unclear whoopsie.
+		// TODO rename the setSelected and updatedSelected. It is quite unclear.
 		void setSelectedElem(gslc_tsElemRef* t_pElem);
 		void setSelectedElem(int t_index);
 		void updateSelectedElem(int t_newSelectedIdx);

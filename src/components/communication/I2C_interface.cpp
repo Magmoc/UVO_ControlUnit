@@ -1,3 +1,13 @@
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
 #include "components/communication/I2C_interface.hpp"
 
 // https://www.gammon.com.au/i2c
@@ -53,13 +63,5 @@ void I2CInterface::onRequest( void (*t_function)(void) ){
 void I2CInterface::onReceive( void (*t_function)(int) ){
 	Wire.onReceive(t_function);
 }
-
-// https://forum.arduino.cc/t/multiple-bytes-read-of-i2c/57341/6
-
-// bool CommunicationInterface::onReceiveMessageI2C(void){
-// 	// https://forum.arduino.cc/t/send-float-over-i2c/424351
-
-// 	// byte* px = (byte*)&x;
-
 
 }

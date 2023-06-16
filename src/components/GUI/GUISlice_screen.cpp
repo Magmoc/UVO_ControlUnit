@@ -1,11 +1,15 @@
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
 #include "components/GUI/GUISlice_screen.hpp"
 
-// #include <stdio.h>
-// #include <iostream>
-
-// #include "images/monke.h"
-// #include "images/monke2.h"
-// #include "images/cool_monke.h"
 namespace UVO_Components {
 namespace GUISlice {
 
@@ -223,7 +227,6 @@ void Screen::setColorFill(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFill){
 }
 
 void Screen::resetElemOptions(gslc_tsElemRef* t_pElem){
-	// setColorFill(t_pElem, UVO_LIGHT_BLUE);
 	gslc_ElemSetFrameEn(&m_gui, t_pElem, false);
 	gslc_ElemSetFillEn(&m_gui, t_pElem, false);
 	gslc_ElemSetTxtCol(&m_gui, t_pElem, UVO_BLACK);
@@ -232,15 +235,11 @@ void Screen::resetElemOptions(gslc_tsElemRef* t_pElem){
 
 
 void Screen::displayAsSelected(gslc_tsElemRef* t_pElem){
-	// setColorFill(t_pElem, UVO_WHITE);
 	resetElemOptions(t_pElem);
 	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);
-	// gslc_ElemSetFillEn(&m_gui, t_pElem, false);
 }
 
 void Screen::displayAsEditing(gslc_tsElemRef* t_pElem){
-	//TODO move this to somewhere else
-	//TODO remove flickering from screen
 	resetElemOptions(t_pElem);
 
 	gslc_ElemSetFrameEn(&m_gui, t_pElem, true);

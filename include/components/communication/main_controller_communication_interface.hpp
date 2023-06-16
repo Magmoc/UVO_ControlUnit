@@ -1,5 +1,15 @@
-#ifndef MAIN_CONTROLLER_COMMUNICATION_INTERFACE_H
-#define MAIN_CONTROLLER_COMMUNICATION_INTERFACE_H
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
+#ifndef _MAIN_CONTROLLER_COMMUNICATION_INTERFACE_H
+#define _MAIN_CONTROLLER_COMMUNICATION_INTERFACE_H
 
 #include <Wire.h>
 #include <Arduino.h>

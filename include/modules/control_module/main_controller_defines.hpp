@@ -1,3 +1,13 @@
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
 #ifndef _MAIN_CONTROLLER_DEFINES_HPP
 #define _MAIN_CONTROLLER_DEFINES_HPP
 
@@ -40,6 +50,7 @@
 #define SPI_CS_SD 5
 #define POWER_ENABLE_PIN 21
 
+//TODO
 // #define MOSI?
 // #define MISO?
 // #define SPI_CS_DISPLAY
@@ -71,7 +82,6 @@
 
 #define SPI_CS_XPT 33
 
-//TODO WHAT ARE THOSEEEE?/
 #define nRESET_SWITCH_PIN 25
 #define nRESET_LED_SWITCH_PIN 13
 #define nRESET_MC_SWITCH 15

@@ -1,3 +1,13 @@
+// **********************************************
+// 		EE3L11: Bachelor Graduation Project
+//		GROUP M: UVC SEED STERILIZATION
+//		SUBGROUP: SOFTWARE AND CONTROL
+// 		MEMBERS: Erman Ergül, Erik van Weelderen
+// 		
+// 		BY ERIK VAN WEELDEREN
+// 		DATE: 16-6-2023
+// **********************************************
+
 #include "modules/control_module/main_controller.hpp"
 
 namespace UVO_MainController {
@@ -14,8 +24,6 @@ namespace UVO_MainController {
 	}
 
 	void MainController::init(void){
-		// m_setupSettings = &(m_systemState.SetupSettings);
-
 		#ifdef USE_SCREEN
 			m_screen.init(&m_setupSettings);
 		#endif
@@ -25,8 +33,6 @@ namespace UVO_MainController {
 		#endif
 
 		// initUI();
-		// pinMode(nRESET_LED_SWITCH_PIN, OUTPUT);
-		// digitalWrite(nRESET_LED_SWITCH_PIN, LOW);
 	}
 
 	void MainController::update(void){
@@ -39,9 +45,12 @@ namespace UVO_MainController {
 			m_screen.toggleEditSelectedElem();
 		}
 
-		// if (last_ui_event != UInoEvent){
-		// 	processUI();
-		// }
+		#ifdef USE_BUTTONS
+		if (last_ui_event != UInoEvent){
+			processUI();
+		}
+		#endif
+
 		#ifdef USE_SCREEN
 			m_screen.update();
 		#endif
