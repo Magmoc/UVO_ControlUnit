@@ -29,7 +29,9 @@ void onRotaryLeftISR(ESPRotary& t_rotary);
 class MainController{
 private:
 	UVO_Components::s_systemState m_systemState;
-	UVO_Components::s_setupSettings* m_setupSettings = &m_systemState.SetupSettings;
+	// UVO_Components::s_setupSettings m_setupSettings2;
+
+	UVO_Components::s_setupSettings m_setupSettings;
 
 	Button2 m_upButton;
 	Button2 m_downButton;

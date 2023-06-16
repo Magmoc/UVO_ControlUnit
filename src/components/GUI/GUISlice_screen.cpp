@@ -52,6 +52,7 @@ void Screen::init(s_setupSettings* t_initSettings){
 void Screen::setSetupSettings(s_setupSettings* t_Settings){
 	m_referenceSetupSettingsPointer = t_Settings;
 	displaySetupSettings(m_referenceSetupSettingsPointer);
+	gslc_Update(&m_gui);
 }
 
 
@@ -60,7 +61,7 @@ void Screen::update(void){
 		displaySetupSettings(m_referenceSetupSettingsPointer);
 		m_referenceSetupSettingsPointer->isUpdated = false;
 	}
-		
+	
 	gslc_Update(&m_gui);
 }
 
