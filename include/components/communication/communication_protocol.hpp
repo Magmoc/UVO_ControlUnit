@@ -50,6 +50,7 @@ namespace UVO_CommunicationProtocol {
 			
 			const TSensorToken SEED_TEMPERATURE_SENSOR = 16;
 			const TSensorToken ULTRAVIOLET_INTENSITY_SENSOR = 32;
+			// TODO: RENAME TO OZONE
 			const TSensorToken OZON_SENSOR = 64;
 			const TSensorToken LEDS_TEMPERATURE_SENSOR = 128;
 		}
@@ -58,7 +59,7 @@ namespace UVO_CommunicationProtocol {
 				const TDriverToken PWM_255nm = 1;
 				const TDriverToken PWM_265nm = 2;
 				const TDriverToken PWM_275nm = 4;
-				const TDriverToken PWM_395nm = 8;				
+				const TDriverToken PWM_395nm = 8;	
 		}
 		
 		namespace VariableResistorToken {

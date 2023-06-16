@@ -12,6 +12,7 @@ struct Sensor {
 
 namespace sensors {
 	namespace TOP_LEDDriver {
+		// CONSTANT MAKEN
 		inline Sensor current_sensor_255nm = {
 			.module_address_I2C = UVO_CommunicationProtocol::TOP_LED_CONTROLLER_ADDRESS,
 			.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::CURRENTSENSOR_255nm,
