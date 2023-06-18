@@ -64,8 +64,8 @@ namespace UVO_CommunicationProtocol {
 
 		namespace DriverToken {
 				const TDriverToken PWM_255nm = 1;
-				const TDriverToken PWM_265nm = 2;
-				const TDriverToken PWM_275nm = 4;
+				const TDriverToken PWM_275nm = 2;
+				const TDriverToken PWM_285nm = 4;
 				const TDriverToken PWM_395nm = 8;	
 		}
 		
