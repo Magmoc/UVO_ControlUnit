@@ -36,20 +36,20 @@ namespace UVO_MainController {
 		initUI();
 		#endif
 
-		m_setupSettings->motor_intensity = 0;
+
+
+		pinMode(POWER_ENABLE_PIN, OUTPUT);
+
+		//TODO VARIABLE
+		digitalWrite(POWER_ENABLE_PIN, HIGH);
+
+
+		delay(100);
+		m_setupSettings->motor_intensity = 120;
 		sendSetupSettings();
 	}
 
 	void MainController::update(void){
-		// if (!m_setupSettings->isUpdated){
-		// 	delay(1000);
-		// 	m_setupSettings->addSeconds(1);
-			
-		// 	m_setupSettings->isUpdated = true;
-
-		// 	m_screen.toggleEditSelectedElem();
-		// }
-
 		#ifdef USE_BUTTONS
 		if (last_ui_event != UInoEvent && last_ui_event != UIbusy){
 			processUI();
@@ -57,16 +57,14 @@ namespace UVO_MainController {
 		#endif
 
 		#ifdef USE_SCREEN
-			m_screen.update();
+		m_screen.update();
 		#endif
 
 		delay(1000);
-		// m_setupSettings->motor_intensity += 10;
-		// sendSetupSettings();
 		Serial.println( m_communication_interface.requestSensorData(UVO_CommunicationProtocol::sensors::motor_controller::current_sensor_motor));
 
 		#ifdef USE_COMMUNICATION_INTERFACE
-			m_communication_interface.update();
+		m_communication_interface.update();
 		#endif
 
 	}
@@ -74,25 +72,25 @@ namespace UVO_MainController {
 	#ifdef USE_COMMUNICATION_INTERFACE
 	void MainController::sendSetupSettings(void){
 		
-		//TOP LED DRIVER
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_255nm, 
-													m_setupSettings->LED_intensity_255nm);
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_275nm, 
-													m_setupSettings->LED_intensity_275nm);
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_285nm, 
-													m_setupSettings->LED_intensity_285nm);
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_395nm, 
-													m_setupSettings->LED_intensity_395nm);
+		// //TOP LED DRIVER
+		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_255nm, 
+		// 											m_setupSettings->LED_intensity_255nm);
+		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_275nm, 
+		// 											m_setupSettings->LED_intensity_275nm);
+		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_285nm, 
+		// 											m_setupSettings->LED_intensity_285nm);
+		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_395nm, 
+		// 											m_setupSettings->LED_intensity_395nm);
 
-		//BOTOM LED DRIVER											
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_255nm, 
-													m_setupSettings->LED_intensity_255nm);
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_275nm, 
-													m_setupSettings->LED_intensity_275nm);
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_285nm, 
-													m_setupSettings->LED_intensity_285nm);
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_395nm, 
-													m_setupSettings->LED_intensity_395nm);
+		// //BOTOM LED DRIVER											
+		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_255nm, 
+		// 											m_setupSettings->LED_intensity_255nm);
+		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_275nm, 
+		// 											m_setupSettings->LED_intensity_275nm);
+		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_285nm, 
+		// 											m_setupSettings->LED_intensity_285nm);
+		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_395nm, 
+		// 											m_setupSettings->LED_intensity_395nm);
 		
 		//MOTOR CONTROLLER
 		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::motor_controller::pwm_motor, 

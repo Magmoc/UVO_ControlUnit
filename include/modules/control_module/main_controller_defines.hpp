@@ -46,6 +46,8 @@
 #endif
 
 
+#ifndef ARDUINO_BYPASS
+
 #define DTR_PIN 0
 #define SPI_CS_SD 5
 #define POWER_ENABLE_PIN 21
@@ -58,7 +60,6 @@
 // #define BACKLIT 12
 
 #define ENABLE_SWITCH_PIN 22
-
 
 
 // *********************************************************
@@ -78,8 +79,6 @@
 #define BUTTON_UP_PIN 34
 #define BUTTON_DOWN_PIN 35
 
-
-
 #define SPI_CS_XPT 33
 
 #define nRESET_SWITCH_PIN 25
@@ -89,6 +88,17 @@
 #define SDA_PIN 26
 #define SCL_PIN 14
 
+#endif
+
+
+#ifdef ARDUINO_BYPASS
+
+#define SDA_PIN A4
+#define SCL_PIN A5
+
+#define POWER_ENABLE_PIN 13
+
+#endif
 
 
 #endif
