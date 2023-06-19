@@ -25,28 +25,30 @@ namespace UVO_MainController {
 
 	void MainController::init(void){
 		#ifdef USE_SCREEN
-			m_screen.init(&m_setupSettings);
+			m_screen.init(m_setupSettings);
 		#endif
 		
 		#ifdef USE_COMMUNICATION_INTERFACE
 			m_communication_interface.init();
 		#endif
 
-		// initUI();
+		#ifdef USE_BUTTONS
+		initUI();
+		#endif
 	}
 
 	void MainController::update(void){
-		if (!m_setupSettings.isUpdated){
-			delay(1000);
-			m_setupSettings.addSeconds(1);
+		// if (!m_setupSettings->isUpdated){
+		// 	delay(1000);
+		// 	m_setupSettings->addSeconds(1);
 			
-			m_setupSettings.isUpdated = true;
+		// 	m_setupSettings->isUpdated = true;
 
-			m_screen.toggleEditSelectedElem();
-		}
+		// 	m_screen.toggleEditSelectedElem();
+		// }
 
 		#ifdef USE_BUTTONS
-		if (last_ui_event != UInoEvent){
+		if (last_ui_event != UInoEvent && last_ui_event != UIbusy){
 			processUI();
 		}
 		#endif
@@ -70,9 +72,9 @@ namespace UVO_MainController {
 		//TODO FIND STEPS PER INC
 		m_rotaryEncoder.begin(ROTARY_ENCODER_A_PIN, ROTARY_ENCODER_B_PIN);
 
-		m_upButton.setClickHandler(onButtonUpPressISR);
-		m_downButton.setClickHandler(onButtonDownPressISR);
-		m_rotaryButton.setClickHandler(onButtonRotaryPressISR);
+		m_upButton.setPressedHandler(onButtonUpPressISR);
+		m_downButton.setPressedHandler(onButtonDownPressISR);
+		m_rotaryButton.setPressedHandler(onButtonRotaryPressISR);
 
 		m_rotaryEncoder.setRightRotationHandler(onRotaryRightISR);
 		m_rotaryEncoder.setLeftRotationHandler(onRotaryLeftISR);
@@ -100,23 +102,33 @@ namespace UVO_MainController {
 			break;
 		}
 
-		last_ui_event = UInoEvent;
+		last_ui_event = UIbusy;
 	}
 
 	void onButtonUpPressISR(Button2& t_button){
-		last_ui_event=UIbuttonUpPressed;
+		if (last_ui_event != UIbusy){
+			last_ui_event=UIbuttonUpPressed;
+		}
 	}
 	void onButtonDownPressISR(Button2& t_button){
-		last_ui_event=UIbuttonDownPressed;
+		if (last_ui_event != UIbusy){
+			last_ui_event=UIbuttonDownPressed;
+		}
 	}
 	void onButtonRotaryPressISR(Button2& t_button){
-		last_ui_event=UIbuttonRotaryPressed;
+		if (last_ui_event != UIbusy){
+			last_ui_event=UIbuttonRotaryPressed;
+		}
 	}
 	void onRotaryRightISR(ESPRotary& t_rotary){
-		last_ui_event=UIrotaryRight;
+		if (last_ui_event != UIbusy){
+			last_ui_event=UIrotaryRight;
+		}
 	}
 	void onRotaryLeftISR(ESPRotary& t_rotary){
-		last_ui_event=UIrotaryLeft;
+		if (last_ui_event != UIbusy){
+			last_ui_event=UIrotaryLeft;
+		}
 	}
 
 	void MainController::onButtonUpPress(Button2& t_button){

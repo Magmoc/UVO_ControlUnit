@@ -13,11 +13,13 @@
 
 #include "main_controller_defines.hpp"
 
+#ifdef USE_SCREEN
 #ifdef USE_NORMAL_SCREEN
 	#include "components/GUI/screen.hpp"
 #else
 	#include "components/GUI/GUISlice_screen.hpp"
 #endif 
+#endif
 
 #include "components/settings.hpp"
 #include "components/communication/main_controller_communication_interface.hpp"
@@ -27,7 +29,7 @@
 namespace UVO_MainController {
 
 #ifdef USE_BUTTONS
-enum UIEvent {UIbuttonUpPressed, UIbuttonDownPressed, UIbuttonRotaryPressed, UIrotaryRight, UIrotaryLeft, UInoEvent};
+enum UIEvent {UIbuttonUpPressed, UIbuttonDownPressed, UIbuttonRotaryPressed, UIrotaryRight, UIrotaryLeft, UInoEvent, UIbusy};
 extern volatile UIEvent last_ui_event;
 
 void onButtonUpPressISR(Button2& t_button);
@@ -41,7 +43,7 @@ void onRotaryLeftISR(ESPRotary& t_rotary);
 class MainController{
 private:
 	UVO_Components::s_systemState m_systemState;
-	UVO_Components::s_setupSettings m_setupSettings;
+	UVO_Components::s_setupSettings* m_setupSettings = &(m_systemState.SetupSettings);
 
 	#ifdef USE_BUTTONS
 	Button2 m_upButton;
