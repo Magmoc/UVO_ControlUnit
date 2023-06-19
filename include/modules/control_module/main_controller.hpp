@@ -22,9 +22,15 @@
 #endif
 
 #include "components/settings.hpp"
+
+#ifdef USE_COMMUNICATION_INTERFACE
 #include "components/communication/main_controller_communication_interface.hpp"
+#endif
+
+#ifdef USE_BUTTONS
 #include "components/GUI/button.hpp"
 #include "components/GUI/rotary_encoder.hpp"
+#endif
 
 namespace UVO_MainController {
 
@@ -63,6 +69,7 @@ private:
 
 	#ifdef USE_COMMUNICATION_INTERFACE
 		UVO_MainController::MainCommunicationInterface m_communication_interface{UVO_CommunicationProtocol::MAIN_CONTROLLER_ADDRESS};
+		void sendSetupSettings(void);
 	#endif
 
 	#ifdef USE_BUTTONS

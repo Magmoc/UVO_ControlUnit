@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include <limits.h>
 #include <time.h>
+#include <stdlib.h>
 
 namespace UVO_Components {
 
@@ -34,7 +35,7 @@ namespace UVO_Components {
 
 		void addSeconds(int seconds){
 			// Must be ulong type.
-			ulong new_time = targetExposureTime + seconds;
+			unsigned long new_time = targetExposureTime + seconds;
 
 			//clamp
 			time_t maxTime = ULONG_MAX;
