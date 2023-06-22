@@ -15,6 +15,7 @@
 #include <limits.h>
 #include <time.h>
 
+//TODO fix namespace
 namespace UVO_Components {
 
 	struct s_setupSettings
@@ -72,9 +73,15 @@ namespace UVO_Components {
 		time_t exposureTime = 0;
 	};
 
+
+	//TODO find other location
+	enum systemState {state_setup, state_monitor};
+
 	struct s_systemState {
 		s_setupSettings SetupSettings;
 		s_monitorState MonitorState;
+		systemState state = state_setup;
+		
 		volatile bool isUpdated = false;
 		long int elapsedExposureTime = 0;
 		int globalSampleFrequencyHz = 10;

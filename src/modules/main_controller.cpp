@@ -38,14 +38,14 @@ namespace UVO_MainController {
 	}
 
 	void MainController::update(void){
-		// if (!m_setupSettings->isUpdated){
-		// 	delay(1000);
-		// 	m_setupSettings->addSeconds(1);
+		if (!m_setupSettings->isUpdated){
+			delay(1000);
+			m_setupSettings->addSeconds(1);
 			
-		// 	m_setupSettings->isUpdated = true;
+			m_setupSettings->isUpdated = true;
 
-		// 	m_screen.toggleEditSelectedElem();
-		// }
+			m_screen.toggleEditSelectedElem();
+		}
 
 		#ifdef USE_BUTTONS
 		if (last_ui_event != UInoEvent && last_ui_event != UIbusy){
@@ -80,100 +80,6 @@ namespace UVO_MainController {
 		m_rotaryEncoder.setLeftRotationHandler(onRotaryLeftISR);
 	}
 	
-	void MainController::processUI(void){
-		switch (last_ui_event){
-		case UIbuttonUpPressed:
-			onButtonUpPress(m_upButton);
-			break;
-		case UIbuttonDownPressed:
-			onButtonDownPress(m_downButton);
-			break;
-		case UIbuttonRotaryPressed:
-			onButtonRotaryPressISR(m_rotaryButton);
-			break;
-		case UIrotaryLeft:
-			onRotaryLeft(m_rotaryEncoder);
-			break;
-		case UIrotaryRight:
-			onRotaryRight(m_rotaryEncoder);
-			break;
-		
-		default:
-			break;
-		}
-
-		last_ui_event = UIbusy;
-	}
-
-	void onButtonUpPressISR(Button2& t_button){
-		if (last_ui_event != UIbusy){
-			last_ui_event=UIbuttonUpPressed;
-		}
-	}
-	void onButtonDownPressISR(Button2& t_button){
-		if (last_ui_event != UIbusy){
-			last_ui_event=UIbuttonDownPressed;
-		}
-	}
-	void onButtonRotaryPressISR(Button2& t_button){
-		if (last_ui_event != UIbusy){
-			last_ui_event=UIbuttonRotaryPressed;
-		}
-	}
-	void onRotaryRightISR(ESPRotary& t_rotary){
-		if (last_ui_event != UIbusy){
-			last_ui_event=UIrotaryRight;
-		}
-	}
-	void onRotaryLeftISR(ESPRotary& t_rotary){
-		if (last_ui_event != UIbusy){
-			last_ui_event=UIrotaryLeft;
-		}
-	}
-
-	void MainController::onButtonUpPress(Button2& t_button){
-		if(!m_screen.isEditingElement()){
-			m_screen.selectPreviousElem();
-		}
-	}
-	
-	void MainController::onButtonDownPress(Button2& t_button){
-		if(!m_screen.isEditingElement()){
-			m_screen.selectNextElem();
-		}
-	}
-	
-	void MainController::onEnterButtonPress(Button2& t_button){
-		if(!m_screen.isEditingElement()){
-			m_screen.beginEditSelectedElem();
-		}
-		else{
-
-		}
-
-
-	}
-	
-	void MainController::onRotaryRight(ESPRotary& t_rotary){
-		if(m_screen.isEditingElement()){
-			changeSettingElement(1);
-		}
-		else{
-			m_screen.selectNextElem();
-		}
-	}
-
-	void MainController::onRotaryLeft(ESPRotary& t_rotary){
-		if(m_screen.isEditingElement()){
-			changeSettingElement(-1);
-		}
-		else{
-			m_screen.selectPreviousElem();
-		}
-	
-	}
-
-
 	void MainController::changeSettingElement(int t_amount){
 		int16_t elem_id = m_screen.getCurrentElementID();
 
@@ -207,6 +113,234 @@ namespace UVO_MainController {
 			break;
 		}
 	}
+
+	void MainController::processUI(void){
+		switch (last_ui_event){
+		case UIbuttonUpPressed:
+			last_ui_event = UIbusy;
+			onButtonUpPress(m_upButton);
+			break;
+		case UIbuttonDownPressed:
+			last_ui_event = UIbusy;
+			onButtonDownPress(m_downButton);
+			break;
+		case UIbuttonRotaryPressed:
+			last_ui_event = UIbusy;
+			onButtonRotaryPressISR(m_rotaryButton);
+			break;
+		case UIrotaryLeft:
+			last_ui_event = UIbusy;
+			onRotaryLeft(m_rotaryEncoder);
+			break;
+		case UIrotaryRight:
+			last_ui_event = UIbusy;
+			onRotaryRight(m_rotaryEncoder);
+			break;
+		
+		case UInoEvent:
+		default:
+			break;
+		}
+
+		last_ui_event = UInoEvent;
+	}
+
+	// *****************************************************
+	// 
+	// 					UI	ISR
+	// 
+	// *****************************************************
+
+	void onButtonUpPressISR(Button2& t_button){
+		if (last_ui_event == UInoEvent){
+			last_ui_event = UIbuttonUpPressed;
+		}
+	}
+	void onButtonDownPressISR(Button2& t_button){
+		if (last_ui_event == UInoEvent){
+			last_ui_event = UIbuttonDownPressed;
+		}
+	}
+	void onButtonRotaryPressISR(Button2& t_button){
+		if (last_ui_event == UInoEvent){
+			last_ui_event = UIbuttonRotaryPressed;
+		}
+	}
+	void onRotaryRightISR(ESPRotary& t_rotary){
+		if (last_ui_event == UInoEvent){
+			last_ui_event = UIrotaryRight;
+		}
+	}
+	void onRotaryLeftISR(ESPRotary& t_rotary){
+		if (last_ui_event == UInoEvent){
+			last_ui_event = UIrotaryLeft;
+		}
+	}
+
+	// *****************************************************
+	// 
+	// 				TOPLEVEL UI HANDLING
+	// 
+	// *****************************************************
+	void MainController::onButtonUpPress(Button2& t_button){
+		switch (m_systemState.state){
+		case UVO_Components::state_setup:
+			onButtonUpPress_setup(t_button);
+			break;
+		case UVO_Components::state_monitor:
+			onButtonUpPress_monitor(t_button);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	void MainController::onButtonDownPress(Button2& t_button){
+		switch (m_systemState.state){
+		case UVO_Components::state_setup:
+			onButtonDownPress_setup(t_button);
+			break;
+		case UVO_Components::state_monitor:
+			onButtonDownPress_monitor(t_button);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	void MainController::onEnterButtonPress(Button2& t_button){
+		switch (m_systemState.state){
+		case UVO_Components::state_setup:
+			onEnterButtonPress_setup(t_button);
+			break;
+		case UVO_Components::state_monitor:
+			onEnterButtonPress_monitor(t_button);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	void MainController::onRotaryRight(ESPRotary& t_rotary){
+		switch (m_systemState.state){
+		case UVO_Components::state_setup:
+			onRotaryRight_setup(t_rotary);
+			break;
+		case UVO_Components::state_monitor:
+			onRotaryRight_monitor(t_rotary);
+			break;
+		default:
+			break;
+		}
+	}
+
+	void MainController::onRotaryLeft(ESPRotary& t_rotary){
+		switch (m_systemState.state){
+		case UVO_Components::state_setup:
+			onRotaryLeft_setup(t_rotary);
+			break;
+		case UVO_Components::state_monitor:
+			onRotaryLeft_monitor(t_rotary);
+			break;
+		default:
+			break;
+		}
+	}
+
+
+
+	// *****************************************************
+	// 
+	// 				UI HANDLING SETUP SCREEN
+	// 
+	// *****************************************************
+	void MainController::onButtonUpPress_setup(Button2& t_button){
+		if(!m_screen.isEditingElement()){
+			m_screen.selectPreviousElem();
+		}
+	}
+	
+	void MainController::onButtonDownPress_setup(Button2& t_button){
+		if(!m_screen.isEditingElement()){
+			m_screen.selectNextElem();
+		}
+	}
+	
+	void MainController::onEnterButtonPress_setup(Button2& t_button){
+		if(!m_screen.isEditingElement()){
+			m_screen.beginEditSelectedElem();
+		}
+		else if (m_screen.getCurrentElementID() == UVO_Components::GUISlice::E_ELEM_SETUP_Start){
+			m_systemState.state = UVO_Components::systemState::state_monitor;
+		}
+
+	}
+	
+	void MainController::onRotaryRight_setup(ESPRotary& t_rotary){
+		if(m_screen.isEditingElement()){
+			changeSettingElement(1);
+		}
+		else{
+			m_screen.selectNextElem();
+		}
+	}
+
+	void MainController::onRotaryLeft_setup(ESPRotary& t_rotary){
+		if(m_screen.isEditingElement()){
+			changeSettingElement(-1);
+		}
+		else{
+			m_screen.selectPreviousElem();
+		}
+	}
+
+
+	// *****************************************************
+	// 
+	// 				UI HANDLING MONITOR SCREEN
+	// 
+	// *****************************************************
+	void MainController::onButtonUpPress_monitor(Button2& t_button){
+		if(!m_screen.isEditingElement()){
+			m_screen.selectPreviousElem();
+		}
+	}
+	
+	void MainController::onButtonDownPress_monitor(Button2& t_button){
+		if(!m_screen.isEditingElement()){
+			m_screen.selectNextElem();
+		}
+	}
+	
+	void MainController::onEnterButtonPress_monitor(Button2& t_button){
+		if(!m_screen.isEditingElement()){
+			m_screen.beginEditSelectedElem();
+		}
+		else if (m_screen.getCurrentElementID() == UVO_Components::GUISlice::E_ELEM_SETUP_Start){
+			m_systemState.state = UVO_Components::systemState::state_monitor;
+		}
+
+	}
+	
+	void MainController::onRotaryRight_monitor(ESPRotary& t_rotary){
+		if(m_screen.isEditingElement()){
+			changeSettingElement(1);
+		}
+		else{
+			m_screen.selectNextElem();
+		}
+	}
+
+	void MainController::onRotaryLeft_monitor(ESPRotary& t_rotary){
+		if(m_screen.isEditingElement()){
+			changeSettingElement(-1);
+		}
+		else{
+			m_screen.selectPreviousElem();
+		}
+	}
+
+
 	#endif
 
 }

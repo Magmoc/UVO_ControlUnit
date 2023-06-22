@@ -68,13 +68,26 @@ private:
 	#ifdef USE_BUTTONS
 	void initUI(void);
 	void processUI(void);
+	
+	void changeSettingElement(int t_amount);
 
 	void onButtonUpPress(Button2& t_button);
 	void onButtonDownPress(Button2& t_button);
 	void onEnterButtonPress(Button2& t_button);
 	void onRotaryRight(ESPRotary& t_rotary);
 	void onRotaryLeft(ESPRotary& t_rotary);
-	void changeSettingElement(int t_amount);
+
+	void onButtonUpPress_setup(Button2& t_button);
+	void onButtonDownPress_setup(Button2& t_button);
+	void onEnterButtonPress_setup(Button2& t_button);
+	void onRotaryRight_setup(ESPRotary& t_rotary);
+	void onRotaryLeft_setup(ESPRotary& t_rotary);
+
+	void onButtonUpPress_monitor(Button2& t_button);
+	void onButtonDownPress_monitor(Button2& t_button);
+	void onEnterButtonPress_monitor(Button2& t_button);
+	void onRotaryRight_monitor(ESPRotary& t_rotary);
+	void onRotaryLeft_monitor(ESPRotary& t_rotary);
 	#endif
 
 public:

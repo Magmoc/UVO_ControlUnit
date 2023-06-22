@@ -74,11 +74,11 @@ enum {E_ELEM_BOX1,E_ELEM_ERROR_Error1,E_ELEM_ERROR_Error2
       ,E_ELEM_TEXT108,E_ELEM_TEXT118,E_ELEM_TEXT119,E_ELEM_TEXT121
       ,E_ELEM_TEXT122,E_ELEM_TEXT124,E_ELEM_TEXT125,E_ELEM_TEXT126
       ,E_ELEM_TEXT127,E_ELEM_TEXT128,E_ELEM_TEXT129,E_ELEM_TEXT130
-      ,E_ELEM_TEXT131,E_ELEM_TEXT136,E_ELEM_TEXT63,E_ELEM_TEXT64
-      ,E_ELEM_TEXT73,E_ELEM_TEXT74,E_ELEM_TEXT75,E_ELEM_TEXT76
-      ,E_ELEM_TEXT77,E_ELEM_TEXT78,E_ELEM_TEXT80,E_ELEM_TEXT82
-      ,E_ELEM_TEXT83,E_ELEM_TEXT85,E_ELEM_TEXT88,E_ELEM_TEXT89
-      ,E_ELEM_TEXT90,E_ELEM_TEXT94};
+      ,E_ELEM_TEXT131,E_ELEM_TEXT136,E_ELEM_TEXT137,E_ELEM_TEXT63
+      ,E_ELEM_TEXT64,E_ELEM_TEXT73,E_ELEM_TEXT74,E_ELEM_TEXT75
+      ,E_ELEM_TEXT76,E_ELEM_TEXT77,E_ELEM_TEXT78,E_ELEM_TEXT80
+      ,E_ELEM_TEXT82,E_ELEM_TEXT83,E_ELEM_TEXT85,E_ELEM_TEXT88
+      ,E_ELEM_TEXT89,E_ELEM_TEXT90,E_ELEM_TEXT94};
 // Must use separate enum for fonts with MAX_FONT at end to use gslc_FontSet.
 enum {E_BUILTIN10X16,E_BUILTIN25X40,E_SEVEN_SEGMENT16,MAX_FONT};
 //<Enum !End!>
@@ -105,7 +105,7 @@ enum {E_BUILTIN10X16,E_BUILTIN25X40,E_SEVEN_SEGMENT16,MAX_FONT};
 #define MAX_ELEM_PG_MONITOR 40 // # Elems total on page
 #define MAX_ELEM_PG_MONITOR_RAM MAX_ELEM_PG_MONITOR // # Elems in RAM
 
-#define MAX_ELEM_PG_ERROR 9 // # Elems total on page
+#define MAX_ELEM_PG_ERROR 10 // # Elems total on page
 #define MAX_ELEM_PG_ERROR_RAM MAX_ELEM_PG_ERROR // # Elems in RAM
 //<ElementDefines !End!>
 
@@ -458,7 +458,7 @@ inline void InitGUIslice_gen()
   m_pElem_SETUP_Start = pElemRef;
   
   // Create E_ELEM_TEXT125 text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT125,E_PG_SETUP,(gslc_tsRect){0,300,96,16},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT125,E_PG_SETUP,(gslc_tsRect){10,300,96,16},
     (char*)"TEAM UVO",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
@@ -742,20 +742,20 @@ inline void InitGUIslice_gen()
   m_pElem_MONITOR_Pause = pElemRef;
   
   // Create E_ELEM_TEXT124 text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT124,E_PG_MONITOR,(gslc_tsRect){0,300,96,16},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT124,E_PG_MONITOR,(gslc_tsRect){10,300,96,16},
     (char*)"TEAM UVO",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
   // Create E_ELEM_TEXT126 text label
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT126,E_PG_MONITOR,(gslc_tsRect){320,210,48,16},
-    (char*)"Ozon",0,E_BUILTIN10X16);
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT126,E_PG_MONITOR,(gslc_tsRect){320,210,60,16},
+    (char*)"Ozone",0,E_BUILTIN10X16);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
   // Create E_ELEM_TEXT127 runtime modifiable text
   static char m_sDisplayText127[5] = "0";
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT127,E_PG_MONITOR,(gslc_tsRect){370,210,48,16},
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT127,E_PG_MONITOR,(gslc_tsRect){380,210,48,16},
     (char*)m_sDisplayText127,5,E_BUILTIN10X16);
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
@@ -839,10 +839,16 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   gslc_ElemSetCol(&m_gui,pElemRef,((gslc_tsColor){59,51,85}),((gslc_tsColor){93,93,129}),GSLC_COL_BLACK);
   m_pElem_MONITOR_Stop136 = pElemRef;
+  
+  // Create E_ELEM_TEXT137 text label
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_TEXT137,E_PG_ERROR,(gslc_tsRect){10,300,96,16},
+    (char*)"TEAM UVO",0,E_BUILTIN10X16);
+  gslc_ElemSetFillEn(&m_gui,pElemRef,false);
+  gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
 //<InitGUI !End!>
 
 //<Startup !Start!>
-  gslc_GuiRotate(&m_gui, 1);
+  gslc_GuiRotate(&m_gui, 3);
 //<Startup !End!>
 
 }
