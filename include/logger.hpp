@@ -11,10 +11,6 @@
 #ifndef _LOGGER_HPP
 #define _LOGGER_HPP
 
-#ifndef DONT_USE_SD
-#include <SD.h>
-#endif
-
 class Logger
 {
 private:

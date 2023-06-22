@@ -30,8 +30,6 @@ namespace UVO_Components {
 
 		time_t targetExposureTime = 0;
 
-		int globalSampleFrequencyHz = 10;
-
 		void addSeconds(int seconds){
 			// Must be ulong type.
 			ulong new_time = targetExposureTime + seconds;
@@ -53,11 +51,33 @@ namespace UVO_Components {
 			addMinutes(60*hours);
 		}
 	};
+	
+	struct s_monitorState
+	{
+		bool isUpdated = false;
+
+		float LED_current_255nm = 0.0;
+		float LED_current_275nm = 0.0;
+		float LED_current_285nm = 0.0;
+		float LED_current_395nm = 0.0;
+
+		float temperature_seeds = 0.0;
+		float temperature_leds_top = 0.0;
+		float temperature_leds_bottom = 0.0;
+
+		float UV_intensity = 0.0;
+		float UV_dose = 0.0;
+		float ozone_concentration_ppm = 0.0;
+
+		time_t exposureTime = 0;
+	};
 
 	struct s_systemState {
 		s_setupSettings SetupSettings;
+		s_monitorState MonitorState;
 		volatile bool isUpdated = false;
 		long int elapsedExposureTime = 0;
+		int globalSampleFrequencyHz = 10;
 
 	};
 	

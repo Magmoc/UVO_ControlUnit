@@ -26,9 +26,9 @@ Logger::~Logger(){
 
 
 bool Logger::begin(){
-
+	return false;
 }
 
 bool Logger::end(){
-	
+	return false;
 }
