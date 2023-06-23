@@ -35,17 +35,24 @@ namespace UVO_MainController {
 		#ifdef USE_BUTTONS
 		initUI();
 		#endif
+
+		setSystemState(UVO_Components::systemState_monitor);
+
 	}
 
 	void MainController::update(void){
-		if (!m_setupSettings->isUpdated){
-			delay(1000);
-			m_setupSettings->addSeconds(1);
+		// if (!m_setupSettings->isUpdated){
+		// 	// delay(1000);
+		// 	// m_setupSettings->addSeconds(1);
 			
-			m_setupSettings->isUpdated = true;
+		// 	m_setupSettings->isUpdated = true;
 
-			m_screen.toggleEditSelectedElem();
-		}
+		// }
+
+		// m_screen.setSelectedElem(0);
+		
+		// m_screen.toggleEditSelectedElem();
+		// delay(1000);
 
 		#ifdef USE_BUTTONS
 		//TODO UIbusy incase of threading if it were to be implemented
@@ -64,20 +71,21 @@ namespace UVO_MainController {
 
 	}
 
-	void MainController::changeSystemState(UVO_Components::systemState t_state){
+	//TODO Rethink layout of system states and pages
+	//     because this is not scalable to do it for every page and switch statement
+	void MainController::setSystemState(UVO_Components::systemState t_state){
 		m_systemState.state = t_state;
 
 		switch (t_state){
-		case UVO_Components::systemState::systemState_setup:
+		case UVO_Components::systemState_setup:
 			m_screen.selectSetupPage();
 			break;
-		case UVO_Components::systemState::systemState_monitor:
+		case UVO_Components::systemState_monitor:
 			m_screen.selectMonitorPage();
 			break;
 		default:
 			break;
 		}
-		
 	}
 
 	#ifdef USE_BUTTONS
@@ -168,6 +176,7 @@ namespace UVO_MainController {
 	// 
 	// *****************************************************
 
+	// Use ISR so that you dont do too much during interrupts
 	void onButtonUpPressISR(Button2& t_button){
 		if (last_ui_event == UInoEvent){
 			last_ui_event = UIbuttonUpPressed;
@@ -288,7 +297,7 @@ namespace UVO_MainController {
 			m_screen.beginEditSelectedElem();
 		}
 		else if (m_screen.getCurrentElementID() == UVO_Components::GUISlice::E_ELEM_SETUP_Start){
-			changeSystemState(UVO_Components::systemState_monitor);
+			setSystemState(UVO_Components::systemState_monitor);
 		}
 
 	}

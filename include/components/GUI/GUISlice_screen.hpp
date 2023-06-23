@@ -28,6 +28,8 @@ namespace GUISlice {
 	//	- number of selectable elems
 	//	- editable elems
 	//	- refs to all elems
+
+	//TODO RENAME ENUM
 	enum Pages {setupPage, monitorPage};
 
 	struct s_screenState {
@@ -65,7 +67,6 @@ namespace GUISlice {
 		gslc_tsElemRef** page_vec[2] = {SETUP_page_selectable_items, MONITOR_page_selectable_items};
 		int page_vec_array_sizes[2] = {SETUP_PAGE_SELECTABLE_ITEMS_NUM, MONITOR_PAGE_SELECTABLE_ITEMS_NUM};
 		
-		//TODO update it not to use idx but rather enum selected page
 		Pages current_page = setupPage;
 		bool update_current_page = false;
 
@@ -79,12 +80,12 @@ namespace GUISlice {
 			return page_vec[(int) current_page][current_elem_idx];
 		}
 
-		uint16_t getCurrentlySelectedElemID(void){
+		int16_t getCurrentlySelectedElemID(void){
 			return page_vec[(int) current_page][current_elem_idx]->pElem->nId;
 		}
 
 		//TODO FIX DATA STRUCTURE
-		uint16_t getCurrentPageID(void){
+		int16_t getCurrentPageID(void){
 			switch (current_page){
 			case setupPage:
 				return E_PG_SETUP;

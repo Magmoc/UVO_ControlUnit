@@ -3,7 +3,12 @@ hard code chip select between screen and data
 Driver struct for i2c communication script
 function to combine settings and sensors/drivers to pass to function to set everything correctly
 
-I2C send multiple commands in one session functionality? Kind of repeated start?
+
+Rethink layout of system state and screen state / current page.
+
+Cool features:
+	I2C send multiple commands in one session functionality? Kind of repeated start?
+	Save setup settings on SD card
 
 Code Beautification
 	const where necessary

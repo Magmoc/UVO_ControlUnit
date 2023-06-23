@@ -578,9 +578,9 @@ inline void InitGUIslice_gen()
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));
   
   // Create E_ELEM_MONITOR_Stop runtime modifiable text
-  static char m_sDisplayText95[6] = "STOP";
-  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Stop,E_PG_MONITOR,(gslc_tsRect){390,280,60,16},
-    (char*)m_sDisplayText95,6,E_BUILTIN10X16);
+  static char m_sDisplayText95[5] = "STOP";
+  pElemRef = gslc_ElemCreateTxt(&m_gui,E_ELEM_MONITOR_Stop,E_PG_MONITOR,(gslc_tsRect){400,280,48,16},
+    (char*)m_sDisplayText95,5,E_BUILTIN10X16);
   gslc_ElemSetTxtAlign(&m_gui,pElemRef,GSLC_ALIGN_MID_RIGHT);
   gslc_ElemSetFillEn(&m_gui,pElemRef,false);
   gslc_ElemSetTxtCol(&m_gui,pElemRef,((gslc_tsColor){0,0,5}));

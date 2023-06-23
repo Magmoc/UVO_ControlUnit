@@ -61,12 +61,14 @@ void Screen::setSetupSettings(s_setupSettings* t_Settings){
 }
 
 
+//TODO SETUP UPDATE, MONITOR UPDATE
 void Screen::update(void){
-	if (m_referenceSetupSettingsPointer->isUpdated){
-		displaySetupSettings(m_referenceSetupSettingsPointer);
-		m_referenceSetupSettingsPointer->isUpdated = false;
-	}
-	
+	// if (m_referenceSetupSettingsPointer->isUpdated){
+	// 	displaySetupSettings(m_referenceSetupSettingsPointer);
+	// 	m_referenceSetupSettingsPointer->isUpdated = false;
+	// }
+
+	// displayAsSelected(m_screenState.getCurrentlySelectedElem());
 	gslc_Update(&m_gui);
 }
 
@@ -76,16 +78,21 @@ void Screen::update(void){
 // }
 
 
+//TODO check if changed inside function or outside function
 void Screen::selectSetupPage(void){
 	m_screenState.current_page = setupPage;
-	uint16_t pageID = m_screenState.getCurrentPageID();
+	int16_t pageID = m_screenState.getCurrentPageID();
 	gslc_SetPageCur(&m_gui, pageID);
+	
+	setSelectedElem(0);
 }
 
 void Screen::selectMonitorPage(void){
 	m_screenState.current_page = monitorPage;
-	uint16_t pageID = m_screenState.getCurrentPageID();
+	int16_t pageID = m_screenState.getCurrentPageID();
 	gslc_SetPageCur(&m_gui, pageID);
+	
+	setSelectedElem(0);
 }
 
 
