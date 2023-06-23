@@ -38,13 +38,15 @@ void Screen::GUISliceInit(void){
 
 void Screen::init(void){
 	pinMode(BACKLIGHT_PIN, OUTPUT);
-	digitalWrite(BACKLIGHT_PIN, HIGH);
 
 	m_screenState.elem_is_editing = false;
 	m_screenState.current_elem_idx = 0;
-	m_screenState.current_page_idx = 0;
+	m_screenState.current_page = setupPage;
 
 	GUISliceInit();
+
+	//digitalWrite after init, so that screen boots when it is prepared.
+	digitalWrite(BACKLIGHT_PIN, HIGH);
 }
 
 void Screen::init(s_setupSettings* t_initSettings){
@@ -68,6 +70,23 @@ void Screen::update(void){
 	gslc_Update(&m_gui);
 }
 
+//TODO IMPLEMENT
+// void Screen::selectPage(void){
+
+// }
+
+
+void Screen::selectSetupPage(void){
+	m_screenState.current_page = setupPage;
+	uint16_t pageID = m_screenState.getCurrentPageID();
+	gslc_SetPageCur(&m_gui, pageID);
+}
+
+void Screen::selectMonitorPage(void){
+	m_screenState.current_page = monitorPage;
+	uint16_t pageID = m_screenState.getCurrentPageID();
+	gslc_SetPageCur(&m_gui, pageID);
+}
 
 
 void Screen::displaySetupSettings(s_setupSettings* t_new){
@@ -143,8 +162,8 @@ void Screen::selectPreviousElem(void){
 }
 
 void Screen::selectNextElem(void){
-	gslc_tsElemRef** current_elem_array = m_screenState.page_vec[m_screenState.current_page_idx];
-	int max_idx = m_screenState.page_vec_array_sizes[m_screenState.current_page_idx] - 1;
+	gslc_tsElemRef** current_elem_array = m_screenState.page_vec[(int) m_screenState.current_page];
+	int max_idx = m_screenState.page_vec_array_sizes[(int) m_screenState.current_page] - 1;
 
 	int next_idx = m_screenState.current_elem_idx + 1;
 	next_idx = (next_idx > max_idx) ? max_idx : next_idx;
@@ -183,6 +202,7 @@ uint16_t Screen::getCurrentElementID(void){
 
 
 void Screen::setSelectedElem(gslc_tsElemRef* t_pElem){
+	//TODO FIXXX
 	std::optional<int> index = getIndex(m_screenState.SETUP_page_selectable_items, m_screenState.SETUP_page_selectable_items_size, t_pElem);
 	
 	if (!index){

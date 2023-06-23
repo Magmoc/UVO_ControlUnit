@@ -24,13 +24,28 @@ namespace GUISlice {
 
 	//TODO make screenstate into a class
 	//TODO MAKE STRUCT WITH elem id, whether it is editable, and pointer to what it changes, and which function to use for changing the value
+	//TODO STRUCT OF A PAGE
+	//	- number of selectable elems
+	//	- editable elems
+	//	- refs to all elems
+	enum Pages {setupPage, monitorPage};
+
 	struct s_screenState {
 		
 		#define SETUP_PAGE_SELECTABLE_ITEMS_NUM 8
+		#define MONITOR_PAGE_SELECTABLE_ITEMS_NUM 2
+		
 		const int SETUP_page_selectable_items_size = SETUP_PAGE_SELECTABLE_ITEMS_NUM;
+		const int MONITOR_page_selectable_items_size = MONITOR_PAGE_SELECTABLE_ITEMS_NUM;
 		gslc_tsElemRef* SETUP_page_selectable_items[SETUP_PAGE_SELECTABLE_ITEMS_NUM];
+		gslc_tsElemRef* MONITOR_page_selectable_items[MONITOR_PAGE_SELECTABLE_ITEMS_NUM];
 
 		// Must call this after initializing GSLC
+		void init(void){
+			init_SETUP_sel_array();
+			init_MONITOR_sel_array();
+		}
+
 		void init_SETUP_sel_array(void){
 			SETUP_page_selectable_items[0] = m_pElem_SETUP_Intensity_255nm;
 			SETUP_page_selectable_items[1] = m_pElem_SETUP_Intensity_275nm;
@@ -42,10 +57,16 @@ namespace GUISlice {
 			SETUP_page_selectable_items[7] = m_pElem_SETUP_MotorIntensity;
 		}
 
-		gslc_tsElemRef** page_vec[1] = {SETUP_page_selectable_items};
-		int page_vec_array_sizes[1] = {SETUP_PAGE_SELECTABLE_ITEMS_NUM};
+		void init_MONITOR_sel_array(void){
+			MONITOR_page_selectable_items[0] = m_pElem_MONITOR_Pause;
+			MONITOR_page_selectable_items[1] = m_pElem_MONITOR_Stop;
+		}
+
+		gslc_tsElemRef** page_vec[2] = {SETUP_page_selectable_items, MONITOR_page_selectable_items};
+		int page_vec_array_sizes[2] = {SETUP_PAGE_SELECTABLE_ITEMS_NUM, MONITOR_PAGE_SELECTABLE_ITEMS_NUM};
 		
-		int current_page_idx = 0;
+		//TODO update it not to use idx but rather enum selected page
+		Pages current_page = setupPage;
 		bool update_current_page = false;
 
 		int current_elem_idx = 0;
@@ -55,11 +76,25 @@ namespace GUISlice {
 
 
 		gslc_tsElemRef* getCurrentlySelectedElem(void){
-			return page_vec[current_page_idx][current_elem_idx];
+			return page_vec[(int) current_page][current_elem_idx];
 		}
 
 		uint16_t getCurrentlySelectedElemID(void){
-			return page_vec[current_page_idx][current_elem_idx]->pElem->nId;
+			return page_vec[(int) current_page][current_elem_idx]->pElem->nId;
+		}
+
+		//TODO FIX DATA STRUCTURE
+		uint16_t getCurrentPageID(void){
+			switch (current_page){
+			case setupPage:
+				return E_PG_SETUP;
+				break;
+			case monitorPage:
+				return E_PG_MONITOR;
+				break;
+			default:
+				return E_PG_ERROR;
+			}
 		}
 
 	};
@@ -86,6 +121,12 @@ namespace GUISlice {
 		bool isEditingElement(void);
 		uint16_t getCurrentElementID(void);
 
+		//TODO Fix this
+		// void selectPage(page t_page);
+
+		void selectSetupPage(void);
+		void selectMonitorPage(void);
+
 	private:
 		s_setupSettings* m_referenceSetupSettingsPointer;
 		s_setupSettings m_currentlyDisplayedSetupSettings;
@@ -98,16 +139,7 @@ namespace GUISlice {
 		const gslc_tsColor UVO_LIGHT_BLUE = {191, 205, 224};
 		const gslc_tsColor UVO_WHITE = {254, 252, 253};
 
-		const int m_TFT_WIDTH = 480;
-		const int m_TFT_HEIGHT = 320;
-
-		// Need to swap the width and height due to the rotation of the tft screen
-		// Probably a bug in the system, or because I did something wrong
-		const int m_SPRITE_WIDTH = m_TFT_HEIGHT;
-		const int m_SPRITE_HEIGHT = m_TFT_WIDTH;
-
 		bool m_updateFrame;
-		u_int8_t m_Count = 0;
 
 		void writeFrame(void);
 
@@ -119,7 +151,6 @@ namespace GUISlice {
 
 		void setColorFrame(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFrame);
 		void setColorFill(gslc_tsElemRef* t_pElem, gslc_tsColor t_colFill);
-		
 
 		//TODO better name
 		void resetElemOptions(gslc_tsElemRef* t_pElem);
