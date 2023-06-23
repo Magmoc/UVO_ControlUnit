@@ -66,6 +66,18 @@ namespace UVO_MainController {
 
 	void MainController::changeSystemState(UVO_Components::systemState t_state){
 		m_systemState.state = t_state;
+
+		switch (t_state){
+		case UVO_Components::systemState::systemState_setup:
+			m_screen.selectSetupPage();
+			break;
+		case UVO_Components::systemState::systemState_monitor:
+			m_screen.selectMonitorPage();
+			break;
+		default:
+			break;
+		}
+		
 	}
 
 	#ifdef USE_BUTTONS
@@ -189,10 +201,10 @@ namespace UVO_MainController {
 	// *****************************************************
 	void MainController::onButtonUpPress(Button2& t_button){
 		switch (m_systemState.state){
-		case UVO_Components::state_setup:
+		case UVO_Components::systemState_setup:
 			onButtonUpPress_setup(t_button);
 			break;
-		case UVO_Components::state_monitor:
+		case UVO_Components::systemState_monitor:
 			onButtonUpPress_monitor(t_button);
 			break;
 		default:
@@ -202,10 +214,10 @@ namespace UVO_MainController {
 	
 	void MainController::onButtonDownPress(Button2& t_button){
 		switch (m_systemState.state){
-		case UVO_Components::state_setup:
+		case UVO_Components::systemState_setup:
 			onButtonDownPress_setup(t_button);
 			break;
-		case UVO_Components::state_monitor:
+		case UVO_Components::systemState_monitor:
 			onButtonDownPress_monitor(t_button);
 			break;
 		default:
@@ -215,10 +227,10 @@ namespace UVO_MainController {
 	
 	void MainController::onEnterButtonPress(Button2& t_button){
 		switch (m_systemState.state){
-		case UVO_Components::state_setup:
+		case UVO_Components::systemState_setup:
 			onEnterButtonPress_setup(t_button);
 			break;
-		case UVO_Components::state_monitor:
+		case UVO_Components::systemState_monitor:
 			onEnterButtonPress_monitor(t_button);
 			break;
 		default:
@@ -228,10 +240,10 @@ namespace UVO_MainController {
 	
 	void MainController::onRotaryRight(ESPRotary& t_rotary){
 		switch (m_systemState.state){
-		case UVO_Components::state_setup:
+		case UVO_Components::systemState_setup:
 			onRotaryRight_setup(t_rotary);
 			break;
-		case UVO_Components::state_monitor:
+		case UVO_Components::systemState_monitor:
 			onRotaryRight_monitor(t_rotary);
 			break;
 		default:
@@ -241,10 +253,10 @@ namespace UVO_MainController {
 
 	void MainController::onRotaryLeft(ESPRotary& t_rotary){
 		switch (m_systemState.state){
-		case UVO_Components::state_setup:
+		case UVO_Components::systemState_setup:
 			onRotaryLeft_setup(t_rotary);
 			break;
-		case UVO_Components::state_monitor:
+		case UVO_Components::systemState_monitor:
 			onRotaryLeft_monitor(t_rotary);
 			break;
 		default:
@@ -276,7 +288,7 @@ namespace UVO_MainController {
 			m_screen.beginEditSelectedElem();
 		}
 		else if (m_screen.getCurrentElementID() == UVO_Components::GUISlice::E_ELEM_SETUP_Start){
-			m_systemState.state = UVO_Components::systemState::state_monitor;
+			changeSystemState(UVO_Components::systemState_monitor);
 		}
 
 	}
@@ -306,43 +318,23 @@ namespace UVO_MainController {
 	// 
 	// *****************************************************
 	void MainController::onButtonUpPress_monitor(Button2& t_button){
-		if(!m_screen.isEditingElement()){
-			m_screen.selectPreviousElem();
-		}
+
 	}
 	
 	void MainController::onButtonDownPress_monitor(Button2& t_button){
-		if(!m_screen.isEditingElement()){
-			m_screen.selectNextElem();
-		}
+
 	}
 	
 	void MainController::onEnterButtonPress_monitor(Button2& t_button){
-		if(!m_screen.isEditingElement()){
-			m_screen.beginEditSelectedElem();
-		}
-		else if (m_screen.getCurrentElementID() == UVO_Components::GUISlice::E_ELEM_SETUP_Start){
-			m_systemState.state = UVO_Components::systemState::state_monitor;
-		}
 
 	}
 	
 	void MainController::onRotaryRight_monitor(ESPRotary& t_rotary){
-		if(m_screen.isEditingElement()){
-			changeSettingElement(1);
-		}
-		else{
-			m_screen.selectNextElem();
-		}
+
 	}
 
 	void MainController::onRotaryLeft_monitor(ESPRotary& t_rotary){
-		if(m_screen.isEditingElement()){
-			changeSettingElement(-1);
-		}
-		else{
-			m_screen.selectPreviousElem();
-		}
+
 	}
 
 
