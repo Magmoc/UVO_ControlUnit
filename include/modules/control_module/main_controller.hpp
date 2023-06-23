@@ -65,6 +65,8 @@ private:
 		UVO_MainController::MainCommunicationInterface m_communication_interface{UVO_CommunicationProtocol::MAIN_CONTROLLER_ADDRESS};
 	#endif
 
+	void changeSystemState(UVO_Components::systemState t_state);
+
 	#ifdef USE_BUTTONS
 	void initUI(void);
 	void processUI(void);

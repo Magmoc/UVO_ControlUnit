@@ -48,6 +48,7 @@ namespace UVO_MainController {
 		}
 
 		#ifdef USE_BUTTONS
+		//TODO UIbusy incase of threading if it were to be implemented
 		if (last_ui_event != UInoEvent && last_ui_event != UIbusy){
 			processUI();
 		}
@@ -61,6 +62,10 @@ namespace UVO_MainController {
 			m_communication_interface.update();
 		#endif
 
+	}
+
+	void MainController::changeSystemState(UVO_Components::systemState t_state){
+		m_systemState.state = t_state;
 	}
 
 	#ifdef USE_BUTTONS
