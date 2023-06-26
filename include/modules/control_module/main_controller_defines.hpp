@@ -94,8 +94,8 @@
 
 // https://www.esp32.com/viewtopic.php?t=3206
 
-#define ROTARY_ENCODER_A_PIN 22
-#define ROTARY_ENCODER_B_PIN 21
+#define ROTARY_ENCODER_A_PIN 21
+#define ROTARY_ENCODER_B_PIN 22
 
 
 #define ROTARY_ENCODER_PUSH_PIN 27
