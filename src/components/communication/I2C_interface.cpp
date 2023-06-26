@@ -18,6 +18,7 @@ namespace UVO_Components {
 I2CInterface::I2CInterface(int t_I2C_address){
 	m_I2C_address = t_I2C_address;
 
+	// Wire.setPins()
 	Wire.begin(m_I2C_address);
 }
 

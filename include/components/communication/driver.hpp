@@ -22,7 +22,7 @@ struct Driver {
 
 // https://stackoverflow.com/questions/14425262/why-include-guards-do-not-prevent-multiple-function-definitions/14425299#14425299
 // Therefore using the inline keyword
-namespace sensors {
+namespace drivers {
 	namespace TOP_LEDDriver {
 		inline const Driver pwm_driver_255nm = {
 			.module_address_I2C = UVO_CommunicationProtocol::TOP_LED_CONTROLLER_ADDRESS,
@@ -44,19 +44,19 @@ namespace sensors {
 
 	namespace BOTTOM_LEDDriver {
 		inline const Driver pwm_driver_255nm = {
-			.module_address_I2C = UVO_CommunicationProtocol::TOP_LED_CONTROLLER_ADDRESS,
+			.module_address_I2C = UVO_CommunicationProtocol::BOTTOM_LED_CONTROLLER_ADDRESS,
 			.driverToken = UVO_CommunicationProtocol::LEDDriverToken::DriverToken::PWM_255nm,
 		};
 		inline const Driver pwm_driver_275nm = {
-			.module_address_I2C = UVO_CommunicationProtocol::TOP_LED_CONTROLLER_ADDRESS,
+			.module_address_I2C = UVO_CommunicationProtocol::BOTTOM_LED_CONTROLLER_ADDRESS,
 			.driverToken = UVO_CommunicationProtocol::LEDDriverToken::DriverToken::PWM_275nm,
 		};
 		inline const Driver pwm_driver_285nm = {
-			.module_address_I2C = UVO_CommunicationProtocol::TOP_LED_CONTROLLER_ADDRESS,
+			.module_address_I2C = UVO_CommunicationProtocol::BOTTOM_LED_CONTROLLER_ADDRESS,
 			.driverToken = UVO_CommunicationProtocol::LEDDriverToken::DriverToken::PWM_285nm,
 		};
 		inline const Driver pwm_driver_395nm = {
-			.module_address_I2C = UVO_CommunicationProtocol::TOP_LED_CONTROLLER_ADDRESS,
+			.module_address_I2C = UVO_CommunicationProtocol::BOTTOM_LED_CONTROLLER_ADDRESS,
 			.driverToken = UVO_CommunicationProtocol::LEDDriverToken::DriverToken::PWM_395nm,
 		};
 	}
@@ -64,7 +64,7 @@ namespace sensors {
 	namespace motor_controller{
 		inline const Driver pwm_driver_motor = {
 			.module_address_I2C = UVO_CommunicationProtocol::MOTOR_CONTROLLER_ADDRESS,
-			.driverToken = UVO_CommunicationProtocol::MotorControlToken::SensorToken::CURRENTSENSOR_MOTOR,
+			.driverToken = UVO_CommunicationProtocol::MotorControlToken::DriverToken::PWM_MOTOR,
 		};
 	}
 };

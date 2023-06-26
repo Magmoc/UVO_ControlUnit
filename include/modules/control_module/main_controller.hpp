@@ -45,13 +45,6 @@ private:
 	UVO_Components::s_systemState m_systemState;
 	UVO_Components::s_setupSettings* m_setupSettings = &(m_systemState.SetupSettings);
 
-	#ifdef USE_BUTTONS
-	Button2 m_upButton;
-	Button2 m_downButton;
-	Button2 m_rotaryButton;
-	ESPRotary m_rotaryEncoder;
-	#endif
-
 	#ifdef USE_SCREEN
 	#ifdef USE_NORMAL_SCREEN
 		#error "THE USE OF THE NORMAL SCREEN IS CURRENTLY NOT IMPLEMENTED, PLEASE USE THE GUISLICE CODE" 
@@ -62,12 +55,19 @@ private:
 	#endif
 
 	#ifdef USE_COMMUNICATION_INTERFACE
-		UVO_MainController::MainCommunicationInterface m_communication_interface{UVO_CommunicationProtocol::MAIN_CONTROLLER_ADDRESS};
+	UVO_MainController::MainCommunicationInterface m_communication_interface{UVO_CommunicationProtocol::MAIN_CONTROLLER_ADDRESS};
 	#endif
+	
+	void sendSetupSettings(void);
 
 	void setSystemState(UVO_Components::e_systemState t_state);
 
 	#ifdef USE_BUTTONS
+	Button2 m_upButton;
+	Button2 m_downButton;
+	Button2 m_rotaryButton;
+	ESPRotary m_rotaryEncoder;
+
 	void initUI(void);
 	void processUI(void);
 	

@@ -41,12 +41,14 @@ namespace UVO_MainController
 
 	void MainController::update(void)
 	{	
+
+		#ifdef USE_BUTTONS
+	
 		m_rotaryButton.loop();
 		m_upButton.loop();
 		m_downButton.loop();
 		m_rotaryEncoder.loop();
-
-		#ifdef USE_BUTTONS
+		
 		// TODO UIbusy incase of threading if it were to be implemented
 		if (last_ui_event != UInoEvent && last_ui_event != UIbusy)
 		{
@@ -62,6 +64,8 @@ namespace UVO_MainController
 		m_communication_interface.update();
 		#endif
 
+		m_setupSettings->motor_intensity = 100;
+		sendSetupSettings();
 	}
 
 	// TODO Rethink layout of system states and pages
@@ -83,6 +87,19 @@ namespace UVO_MainController
 			break;
 		}
 	}
+
+#ifdef USE_COMMUNICATION_INTERFACE
+	void MainController::sendSetupSettings(void){
+		m_communication_interface.setPWMDutyCycle(UVO_CommunicationProtocol::drivers::motor_controller::pwm_driver_motor, m_setupSettings->motor_intensity);
+		
+		// m_communication_interface.setPWMDutyCycle(drivers::BOTTOM_LEDDriver::pwm_driver_255nm, m_setupSettings->LED_intensity_255nm);
+		// m_communication_interface.setPWMDutyCycle(drivers::BOTTOM_LEDDriver::pwm_driver_255nm, m_setupSettings->LED_intensity_255nm);
+		// m_communication_interface.setPWMDutyCycle(drivers::BOTTOM_LEDDriver::pwm_driver_255nm, m_setupSettings->LED_intensity_255nm);
+		// m_communication_interface.setPWMDutyCycle(drivers::BOTTOM_LEDDriver::pwm_driver_255nm, m_setupSettings->LED_intensity_255nm);
+	}
+#else
+	void MainController::sendSetupSettings(void){}
+#endif
 
 #ifdef USE_BUTTONS
 	void MainController::initUI(void)
@@ -329,7 +346,7 @@ namespace UVO_MainController
 			//TODO FIX ERROR ON SWITCHING SCREEN
 			// setSystemState(UVO_Components::e_systemState::Monitor);
 
-			// m_communication_interface
+			sendSetupSettings();
 		}
 		else {
 			m_screen.toggleEditSelectedElem();

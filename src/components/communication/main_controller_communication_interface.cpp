@@ -87,7 +87,6 @@ bool MainCommunicationInterface::setPWMDutyCycle(UVO_CommunicationProtocol::Driv
 		// TODO LOG SOMETHING IS WRONG
 	}
 
-
 	return response;
 }
 
