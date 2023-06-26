@@ -1,7 +1,11 @@
+I2C USE NON DEFAULT PINS CHECK HOW
+
+
 hard code chip select between screen and data
 
 Driver struct for i2c communication script
 function to combine settings and sensors/drivers to pass to function to set everything correctly
+
 
 
 Rethink layout of system state and screen state / current page.

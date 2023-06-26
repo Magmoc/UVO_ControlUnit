@@ -24,6 +24,8 @@ MainCommunicationInterface::~MainCommunicationInterface(){
 
 void MainCommunicationInterface::init(void){
 
+//TODO EXPLICITLY DEFINE PINOUTS
+
 }
 
 

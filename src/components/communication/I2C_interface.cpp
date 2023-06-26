@@ -13,12 +13,14 @@
 // https://www.gammon.com.au/i2c
 
 
+#include "modules/control_module/main_controller_defines.hpp"
+
 namespace UVO_Components {
 
 I2CInterface::I2CInterface(int t_I2C_address){
 	m_I2C_address = t_I2C_address;
-
-	// Wire.setPins()
+	
+	Wire.setPins(SDA_PIN, SCL_PIN);
 	Wire.begin(m_I2C_address);
 }
 

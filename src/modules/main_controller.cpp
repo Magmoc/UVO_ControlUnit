@@ -36,6 +36,10 @@ namespace UVO_MainController
 		#ifdef USE_BUTTONS
 		initUI();
 		#endif
+
+		delay(200);
+		m_setupSettings->motor_intensity = 100;
+		sendSetupSettings();
 	}
 
 
@@ -43,7 +47,6 @@ namespace UVO_MainController
 	{	
 
 		#ifdef USE_BUTTONS
-	
 		m_rotaryButton.loop();
 		m_upButton.loop();
 		m_downButton.loop();
@@ -64,7 +67,6 @@ namespace UVO_MainController
 		m_communication_interface.update();
 		#endif
 
-		m_setupSettings->motor_intensity = 100;
 		sendSetupSettings();
 	}
 
