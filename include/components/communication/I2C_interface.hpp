@@ -33,6 +33,7 @@ namespace UVO_Components
 		I2CInterface(int t_I2C_address);
 		// I2CInterface(int t_I2C_address, int t_SDA_pin, int t_SCL_pin);
 		~I2CInterface();
+		void init(int t_I2C_address);
 
 		void sendMessages(int address, byte *message, int message_length);
 		int requestAndReadAnswer(int I2C_address, byte *receive_message, int bytes_requested);

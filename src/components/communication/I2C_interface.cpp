@@ -18,10 +18,17 @@
 namespace UVO_Components {
 
 I2CInterface::I2CInterface(int t_I2C_address){
+	init(t_I2C_address);
+}
+
+void I2CInterface::init(int t_I2C_address){
 	m_I2C_address = t_I2C_address;
-	
+
+	//TODO MOVE
+	noInterrupts();
 	Wire.setPins(SDA_PIN, SCL_PIN);
 	Wire.begin(m_I2C_address);
+	interrupts();
 }
 
 // I2CInterface::I2CInterface(int t_I2C_address, int t_SDA_pin, int t_SCL_pin){
@@ -34,19 +41,26 @@ I2CInterface::I2CInterface(int t_I2C_address){
 
 
 I2CInterface::~I2CInterface(){
+	noInterrupts();
 	Wire.end();
+	interrupts();
 }
 
 void I2CInterface::sendMessages(int address, byte* message, int message_length){
+	noInterrupts();
 	Wire.beginTransmission(address);
 	Wire.write(message, (size_t) message_length);
 	Wire.endTransmission();
+	interrupts();
 
 	//TODO fix error checking
 	// return true;
 }
 
 int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, int bytes_requested){
+	
+	noInterrupts();
+	
 	//TODO CHECK OUT IF requestFrom can also be implemented using restart=false
 	int num_bytes_received = Wire.requestFrom(I2C_address, bytes_requested);
 	
@@ -54,6 +68,8 @@ int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, i
 	if(Wire.available()){
 		Wire.readBytes(receive_message, num_bytes_received);
 	}
+
+	interrupts();
 
 	//TODO RETURN OPTIONAL VALUE IF ERROR FOR EXAMPLE
 	return num_bytes_received;

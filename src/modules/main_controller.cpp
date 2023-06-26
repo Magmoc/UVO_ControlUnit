@@ -37,9 +37,7 @@ namespace UVO_MainController
 		initUI();
 		#endif
 
-		delay(200);
 		m_setupSettings->motor_intensity = 100;
-		sendSetupSettings();
 	}
 
 
@@ -66,8 +64,6 @@ namespace UVO_MainController
 		#ifdef USE_COMMUNICATION_INTERFACE
 		m_communication_interface.update();
 		#endif
-
-		sendSetupSettings();
 	}
 
 	// TODO Rethink layout of system states and pages
@@ -80,10 +76,15 @@ namespace UVO_MainController
 		switch (t_state)
 		{
 		case UVO_Components::e_systemState::Setup:
+			#ifdef USE_SCREEN
 			m_screen.selectSetupPage();
+			#endif
 			break;
 		case UVO_Components::e_systemState::Monitor:
+			#ifdef USE_SCREEN
 			m_screen.selectMonitorPage();
+			#endif
+
 			break;
 		default:
 			break;
