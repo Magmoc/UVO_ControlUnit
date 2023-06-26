@@ -16,6 +16,7 @@
 #include "components/communication/communication_protocol.hpp"
 #include "components/communication/I2C_interface.hpp"
 #include "components/communication/sensor.hpp"
+#include "components/communication/driver.hpp"
 
 namespace UVO_MainController {
 
@@ -34,7 +35,8 @@ public:
 
 	void init(void);
 	void update(void);
-	double requestSensorData(UVO_CommunicationProtocol::Sensor t_sensor);
+	float requestSensorData(UVO_CommunicationProtocol::Sensor t_sensor);
+	bool setPWMDutyCycle(UVO_CommunicationProtocol::Driver t_driver, uint8_t t_pwm);
 
 };
 

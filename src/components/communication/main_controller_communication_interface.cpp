@@ -46,8 +46,9 @@ int MainCommunicationInterface::sendMessageAndReadResponse(int t_I2C_slave_addre
 	return response_length;
 }
 
-double MainCommunicationInterface::requestSensorData(UVO_CommunicationProtocol::Sensor t_sensor){
-	double response = 0;
+float MainCommunicationInterface::requestSensorData(UVO_CommunicationProtocol::Sensor t_sensor){
+
+	float response = 0;
 	int bytes_requested = sizeof(response);
 	byte* response_pointer = (byte*) &response;
 
@@ -68,8 +69,26 @@ double MainCommunicationInterface::requestSensorData(UVO_CommunicationProtocol::
 	return response;
 }
 
-//bool MainCommunicationInterface::setPWMDutyCycle(Driver driver, int pwm){
+bool MainCommunicationInterface::setPWMDutyCycle(UVO_CommunicationProtocol::Driver t_driver, uint8_t t_pwm){
+	int bytes_requested = sizeof(t_pwm);
+	int received_length = 0;
 
-// }
+	bool response = false;
+	byte* pointer = (byte*) &response;
+
+	int I2C_address = t_driver.module_address_I2C;
+	
+	byte message[] = {UVO_CommunicationProtocol::PackageTypeToken::SET_DRIVER_INTENSITY, t_driver.driverToken, t_pwm};
+	int message_length = sizeof(message) / sizeof(message[0]);
+
+	received_length = sendMessageAndReadResponse(I2C_address, message, message_length, bytes_requested, pointer);
+
+	if (received_length != bytes_requested){
+		// TODO LOG SOMETHING IS WRONG
+	}
+
+
+	return response;
+}
 
 }

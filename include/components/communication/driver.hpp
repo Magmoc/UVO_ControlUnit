@@ -62,7 +62,7 @@ namespace sensors {
 	}
 
 	namespace motor_controller{
-		inline const Driver current_sensor_motor = {
+		inline const Driver pwm_driver_motor = {
 			.module_address_I2C = UVO_CommunicationProtocol::MOTOR_CONTROLLER_ADDRESS,
 			.driverToken = UVO_CommunicationProtocol::MotorControlToken::SensorToken::CURRENTSENSOR_MOTOR,
 		};
