@@ -11,8 +11,6 @@
 #ifndef _SD_INTERFACE_HPP
 #define _SD_INTERFACE_HPP
 
-#ifdef USE_SD
-#include <SD.h>
-#endif
+// #include <SD.h>
 
 #endif

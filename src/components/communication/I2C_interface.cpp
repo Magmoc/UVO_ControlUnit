@@ -16,6 +16,9 @@
 #include "modules/control_module/main_controller_defines.hpp"
 
 namespace UVO_Components {
+I2CInterface::I2CInterface(void){
+
+}
 
 I2CInterface::I2CInterface(int t_I2C_address){
 	init(t_I2C_address);
@@ -62,6 +65,8 @@ int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, i
 	noInterrupts();
 	
 	//TODO CHECK OUT IF requestFrom can also be implemented using restart=false
+	// bool stop = true;
+	// int num_bytes_received = Wire.requestFrom(I2C_address, bytes_requested, (int) stop);
 	int num_bytes_received = Wire.requestFrom(I2C_address, bytes_requested);
 	
 	//TODO MULTILPE CHECKS

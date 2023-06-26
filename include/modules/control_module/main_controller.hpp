@@ -55,7 +55,7 @@ private:
 	#endif
 
 	#ifdef USE_COMMUNICATION_INTERFACE
-	UVO_MainController::MainCommunicationInterface m_communication_interface{UVO_CommunicationProtocol::MAIN_CONTROLLER_ADDRESS};
+	UVO_MainController::MainCommunicationInterface m_communication_interface;
 	#endif
 	
 	void sendSetupSettings(void);

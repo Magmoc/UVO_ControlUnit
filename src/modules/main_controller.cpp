@@ -36,8 +36,6 @@ namespace UVO_MainController
 		#ifdef USE_BUTTONS
 		initUI();
 		#endif
-
-		m_setupSettings->motor_intensity = 100;
 	}
 
 

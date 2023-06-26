@@ -12,13 +12,11 @@
 
 namespace UVO_MainController {
 
-MainCommunicationInterface::MainCommunicationInterface(int t_I2C_address)
-	: m_I2C_Interface(t_I2C_address)
-{
-
+MainCommunicationInterface::MainCommunicationInterface(void){
+	init();
 }
 
-MainCommunicationInterface::~MainCommunicationInterface(){
+MainCommunicationInterface::~MainCommunicationInterface(void){
 
 }
 
@@ -32,12 +30,7 @@ void MainCommunicationInterface::init(void){
 
 // TODO: IMPLEMENT https://forum.arduino.cc/t/how-to-properly-use-wire-onreceive/891195/2
 void MainCommunicationInterface::update(void){
-	byte message[] = {UVO_CommunicationProtocol::PackageTypeToken::REQUEST_SENSOR_DATA, (char) 10};
-	int message_length = sizeof(message) / sizeof(message[0]);
 
-	m_I2C_Interface.sendMessages(80, message, message_length);
-
-	delay(100);
 }
 
 int MainCommunicationInterface::sendMessageAndReadResponse(int t_I2C_slave_address, byte* t_message, int t_message_length, int t_bytes_requested, byte* t_response_data){

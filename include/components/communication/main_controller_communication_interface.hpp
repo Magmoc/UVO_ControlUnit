@@ -26,7 +26,7 @@ private:
 	int sendMessageAndReadResponse(int t_I2C_slave_address, byte* t_message, int t_message_length, int t_bytes_requested, byte* t_response_data);
 	
 public:
-	MainCommunicationInterface(int t_I2C_address);
+	MainCommunicationInterface(void);
 	~MainCommunicationInterface();
 
 	// TODO IMPLEMENT IF NEEDED
