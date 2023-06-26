@@ -63,12 +63,12 @@ void Screen::setSetupSettings(s_setupSettings* t_Settings){
 
 //TODO SETUP UPDATE, MONITOR UPDATE
 void Screen::update(void){
-	// if (m_referenceSetupSettingsPointer->isUpdated){
-	// 	displaySetupSettings(m_referenceSetupSettingsPointer);
-	// 	m_referenceSetupSettingsPointer->isUpdated = false;
-	// }
+	if (m_referenceSetupSettingsPointer->isUpdated){
+		
+		displaySetupSettings(m_referenceSetupSettingsPointer);
+		m_referenceSetupSettingsPointer->isUpdated = false;
+	}
 
-	// displayAsSelected(m_screenState.getCurrentlySelectedElem());
 	gslc_Update(&m_gui);
 }
 

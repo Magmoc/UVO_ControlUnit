@@ -67,6 +67,7 @@
 //
 // *********************************************************
 
+#ifndef WIFITESTER_BYPASS
 // https://www.esp32.com/viewtopic.php?t=3206
 #define SENSOR_VP 36
 #define SENSOR_VN 39
@@ -77,8 +78,35 @@
 
 #define BUTTON_UP_PIN 34
 #define BUTTON_DOWN_PIN 35
+#endif
+
+#ifdef WIFITESTER_BYPASS
+// PIN 4 CU = IO SENSOR VP -> IO 22 wifitester
+// PIN 5 CU = IO SENSOR VN -> IO 21 wifitester
+// PIN 11 CU (SDA) = IO 26 -> SDA  
+// PIN 13 CU (SCL) = IO 14 -> SCL
+
+//IGNORE BUTTONS
+// PIN 6 CU (Button up)	-> io 33
+
+// IF THIS ONE IS CONNECTED, THE SCREEN DOES NOT WORK
+// PIN 7 CU (BUTTON DOWN) -> IO 5
+
+// https://www.esp32.com/viewtopic.php?t=3206
+
+#define ROTARY_ENCODER_A_PIN 22
+#define ROTARY_ENCODER_B_PIN 21
 
 
+#define ROTARY_ENCODER_PUSH_PIN 27
+// #define ROTARY_ENCODER_PUSH_PIN -1
+
+//BUTONS UP AND DOWN ARE NOT USED
+#define BUTTON_DOWN_PIN -1
+// #define BUTTON_UP_PIN 33
+#define BUTTON_UP_PIN -1
+
+#endif
 
 #define SPI_CS_XPT 33
 
@@ -88,7 +116,5 @@
 
 #define SDA_PIN 26
 #define SCL_PIN 14
-
-
 
 #endif

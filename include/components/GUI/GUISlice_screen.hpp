@@ -57,6 +57,7 @@ namespace GUISlice {
 			SETUP_page_selectable_items[5] = m_pElem_SETUP_Minutes;
 			SETUP_page_selectable_items[6] = m_pElem_SETUP_Seconds;
 			SETUP_page_selectable_items[7] = m_pElem_SETUP_MotorIntensity;
+			SETUP_page_selectable_items[8] = m_pElem_SETUP_Start;
 		}
 
 		void init_MONITOR_sel_array(void){

@@ -29,7 +29,7 @@
 namespace UVO_MainController {
 
 #ifdef USE_BUTTONS
-enum UIEvent {UIbuttonUpPressed, UIbuttonDownPressed, UIbuttonRotaryPressed, UIrotaryRight, UIrotaryLeft, UInoEvent, UIbusy};
+enum UIEvent {UInoEvent, UIbuttonUpPressed, UIbuttonDownPressed, UIbuttonRotaryPressed, UIrotaryRight, UIrotaryLeft, UIbusy};
 extern volatile UIEvent last_ui_event;
 
 void onButtonUpPressISR(Button2& t_button);
@@ -75,19 +75,19 @@ private:
 
 	void onButtonUpPress(Button2& t_button);
 	void onButtonDownPress(Button2& t_button);
-	void onEnterButtonPress(Button2& t_button);
+	void onRotaryButtonPress(Button2& t_button);
 	void onRotaryRight(ESPRotary& t_rotary);
 	void onRotaryLeft(ESPRotary& t_rotary);
 
 	void onButtonUpPress_setup(Button2& t_button);
 	void onButtonDownPress_setup(Button2& t_button);
-	void onEnterButtonPress_setup(Button2& t_button);
+	void onRotaryButtonPress_setup(Button2& t_button);
 	void onRotaryRight_setup(ESPRotary& t_rotary);
 	void onRotaryLeft_setup(ESPRotary& t_rotary);
 
 	void onButtonUpPress_monitor(Button2& t_button);
 	void onButtonDownPress_monitor(Button2& t_button);
-	void onEnterButtonPress_monitor(Button2& t_button);
+	void onRotaryButtonPress_monitor(Button2& t_button);
 	void onRotaryRight_monitor(ESPRotary& t_rotary);
 	void onRotaryLeft_monitor(ESPRotary& t_rotary);
 	#endif
