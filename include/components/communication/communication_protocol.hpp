@@ -16,7 +16,7 @@ namespace UVO_CommunicationProtocol {
 	// https://stackoverflow.com/questions/112433/should-i-use-define-enum-or-const
 
 	// Sent from Control Unit
-	// [REQUEST_SENSOR_DATA] [SENSOR_TOKEN] REQUEST [value (double) (4 bytes)]
+	// [REQUEST_SENSOR_DATA] [SENSOR_TOKEN] REQUEST [value (float) (4 bytes)]
 	// [SET_DRIVER_INTENSITY] [DRIVER_TOKEN] [uint_8 intensity (0-255)] REQUEST [ack (byte)]
 	// [SET_VARIABLE_RESISTOR] [RESISTOR_TOKEN] [uint_8 intensity (0-255)] REQUEST [ack (byte)]
 
@@ -57,8 +57,7 @@ namespace UVO_CommunicationProtocol {
 			
 			const TSensorToken SEED_TEMPERATURE_SENSOR = 16;
 			const TSensorToken ULTRAVIOLET_INTENSITY_SENSOR = 32;
-			// TODO: RENAME TO OZONE
-			const TSensorToken OZON_SENSOR = 64;
+			const TSensorToken OZONE_SENSOR = 64;
 			const TSensorToken LEDS_TEMPERATURE_SENSOR = 128;
 		}
 

@@ -56,7 +56,7 @@ namespace sensors {
 		
 		inline const Sensor ozon_sensor = {
 			.module_address_I2C = UVO_CommunicationProtocol::TOP_LED_CONTROLLER_ADDRESS,
-			.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::OZON_SENSOR,
+			.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::OZONE_SENSOR,
 		};
 		
 		inline const Sensor LEDs_temperature_sensor = {
@@ -98,7 +98,7 @@ namespace sensors {
 		
 		inline const Sensor ozon_sensor = {
 			.module_address_I2C = UVO_CommunicationProtocol::BOTTOM_LED_CONTROLLER_ADDRESS,
-			.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::OZON_SENSOR,
+			.sensorToken = UVO_CommunicationProtocol::LEDDriverToken::SensorToken::OZONE_SENSOR,
 		};
 		
 		inline const Sensor LEDs_temperature_sensor = {
