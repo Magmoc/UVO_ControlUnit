@@ -75,13 +75,13 @@ namespace UVO_Components {
 
 
 	//TODO find other location
-	enum systemState {systemState_setup, systemState_monitor};
+	enum e_systemState {Setup, Monitor};
 
 	struct s_systemState {
 
 		s_setupSettings SetupSettings;
 		s_monitorState MonitorState;
-		systemState state = systemState_setup;
+		e_systemState state = Setup;
 		
 		volatile bool isUpdated = false;
 		long int elapsedExposureTime = 0;

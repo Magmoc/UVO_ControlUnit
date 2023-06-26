@@ -29,14 +29,7 @@ void MainCommunicationInterface::init(void){
 
 // TODO: IMPLEMENT https://forum.arduino.cc/t/how-to-properly-use-wire-onreceive/891195/2
 void MainCommunicationInterface::update(void){
-	//TODO Implement good update function
-	double received_data;
 
-	received_data = requestSensorData(UVO_CommunicationProtocol::sensors::TOP_LEDDriver::current_sensor_255nm);
-
-	Serial.println(received_data);
-
-	delay(1000);
 }
 
 int MainCommunicationInterface::sendMessageAndReadResponse(int t_I2C_slave_address, byte* t_message, int t_message_length, int t_bytes_requested, byte* t_response_data){
@@ -54,7 +47,6 @@ int MainCommunicationInterface::sendMessageAndReadResponse(int t_I2C_slave_addre
 }
 
 double MainCommunicationInterface::requestSensorData(UVO_CommunicationProtocol::Sensor t_sensor){
-
 	double response = 0;
 	int bytes_requested = sizeof(response);
 	byte* response_pointer = (byte*) &response;

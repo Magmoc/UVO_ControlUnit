@@ -34,7 +34,7 @@ namespace GUISlice {
 
 	struct s_screenState {
 		
-		#define SETUP_PAGE_SELECTABLE_ITEMS_NUM 8
+		#define SETUP_PAGE_SELECTABLE_ITEMS_NUM 9
 		#define MONITOR_PAGE_SELECTABLE_ITEMS_NUM 2
 		
 		const int SETUP_page_selectable_items_size = SETUP_PAGE_SELECTABLE_ITEMS_NUM;
@@ -42,7 +42,7 @@ namespace GUISlice {
 		gslc_tsElemRef* SETUP_page_selectable_items[SETUP_PAGE_SELECTABLE_ITEMS_NUM];
 		gslc_tsElemRef* MONITOR_page_selectable_items[MONITOR_PAGE_SELECTABLE_ITEMS_NUM];
 
-		// Must call this after initializing GSLC
+		// Must call this after initializing GSLC, because the pointers are null_ptrs
 		void init(void){
 			init_SETUP_sel_array();
 			init_MONITOR_sel_array();
@@ -82,7 +82,7 @@ namespace GUISlice {
 		}
 
 		int16_t getCurrentlySelectedElemID(void){
-			return page_vec[(int) current_page][current_elem_idx]->pElem->nId;
+			return gslc_GetElemFromRef(&m_gui, getCurrentlySelectedElem())->nId;
 		}
 
 		//TODO FIX DATA STRUCTURE
@@ -142,6 +142,11 @@ namespace GUISlice {
 		const gslc_tsColor UVO_WHITE = {254, 252, 253};
 
 		bool m_updateFrame;
+
+
+		void update_setup(void);
+		void update_monitor(void);
+
 
 		void writeFrame(void);
 

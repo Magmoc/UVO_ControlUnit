@@ -63,14 +63,35 @@ void Screen::setSetupSettings(s_setupSettings* t_Settings){
 
 //TODO SETUP UPDATE, MONITOR UPDATE
 void Screen::update(void){
+
+	switch (m_screenState.current_page)
+	{
+	case Pages::setupPage:
+		update_setup();
+		break;
+	case Pages::monitorPage:
+		update_monitor();
+		break;
+	default:
+		break;
+	}
+
+	gslc_Update(&m_gui);
+}
+
+void Screen::update_setup(void){
 	if (m_referenceSetupSettingsPointer->isUpdated){
 		
 		displaySetupSettings(m_referenceSetupSettingsPointer);
 		m_referenceSetupSettingsPointer->isUpdated = false;
 	}
-
-	gslc_Update(&m_gui);
 }
+
+void Screen::update_monitor(void){
+	
+}
+
+
 
 //TODO IMPLEMENT
 // void Screen::selectPage(void){
@@ -78,21 +99,20 @@ void Screen::update(void){
 // }
 
 
-//TODO check if changed inside function or outside function
 void Screen::selectSetupPage(void){
 	m_screenState.current_page = setupPage;
-	int16_t pageID = m_screenState.getCurrentPageID();
-	gslc_SetPageCur(&m_gui, pageID);
+	gslc_SetPageCur(&m_gui, E_PG_SETUP);
 	
-	setSelectedElem(0);
+	//TODO FIND OUT WHY IT DOES NOT WORK
+	// setSelectedElem(0);
 }
 
 void Screen::selectMonitorPage(void){
 	m_screenState.current_page = monitorPage;
-	int16_t pageID = m_screenState.getCurrentPageID();
-	gslc_SetPageCur(&m_gui, pageID);
+	gslc_SetPageCur(&m_gui, E_PG_MONITOR);
 	
-	setSelectedElem(0);
+	//TODO FIND OUT WHY IT DOES NOT WORK
+	// setSelectedElem((int) 0);
 }
 
 
