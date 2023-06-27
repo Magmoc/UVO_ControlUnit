@@ -14,6 +14,7 @@
 
 
 #include "modules/control_module/main_controller_defines.hpp"
+#include <Wire.h>
 
 namespace UVO_Components {
 I2CInterface::I2CInterface(void){

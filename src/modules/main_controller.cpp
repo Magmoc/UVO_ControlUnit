@@ -362,8 +362,7 @@ namespace UVO_MainController
 		if (m_screen.getCurrentElementID() == UVO_Components::GUISlice::E_ELEM_SETUP_Start)
 		{
 			//TODO FIX ERROR ON SWITCHING SCREEN
-			// setSystemState(UVO_Components::e_systemState::Monitor);
-
+			setSystemState(UVO_Components::e_systemState::Monitor);
 			sendSetupSettings();
 		}
 		else {
