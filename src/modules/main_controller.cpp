@@ -374,7 +374,7 @@ namespace UVO_MainController
 	{
 		if (m_screen.isEditingElement())
 		{
-			changeSettingElement(1);
+			changeSettingElement(5);
 		}
 		else
 		{
@@ -386,7 +386,7 @@ namespace UVO_MainController
 	{
 		if (m_screen.isEditingElement())
 		{
-			changeSettingElement(-1);
+			changeSettingElement(-5);
 		}
 		else
 		{

@@ -14,7 +14,6 @@
 
 
 #include "modules/control_module/main_controller_defines.hpp"
-#include <Wire.h>
 
 namespace UVO_Components {
 I2CInterface::I2CInterface(void){
@@ -31,7 +30,11 @@ void I2CInterface::init(int t_I2C_address){
 	//TODO MOVE
 	noInterrupts();
 	Wire.setPins(SDA_PIN, SCL_PIN);
-	Wire.begin(m_I2C_address);
+	// Wire.begin(m_I2C_address);
+
+	// Cannot initialise using I2C address
+	// that is only possible for targets.
+	Wire.begin();
 	interrupts();
 }
 

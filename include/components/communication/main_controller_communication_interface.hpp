@@ -11,7 +11,6 @@
 #ifndef _MAIN_CONTROLLER_COMMUNICATION_INTERFACE_H
 #define _MAIN_CONTROLLER_COMMUNICATION_INTERFACE_H
 
-#include <Wire.h>
 #include <Arduino.h>
 #include "components/communication/communication_protocol.hpp"
 #include "components/communication/I2C_interface.hpp"

@@ -11,9 +11,8 @@
 #ifndef _I2C_INTERFACE_HPP
 #define _I2C_INTERFACE_HPP
 
-#include <Wire.h>
 #include <Arduino.h>
-#include <SPI.h>
+#include <Wire.h>
 
 // TODO MOVE TO SOMEWHERE ELSE
 #define MAX_MESSAGE_LENGTH 10
