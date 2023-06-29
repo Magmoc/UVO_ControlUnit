@@ -58,8 +58,7 @@ private:
 	UVO_MainController::MainCommunicationInterface m_communication_interface;
 	#endif
 	
-	void sendSetupSettings(void);
-
+	void sendSetupSettings(UVO_Components::s_setupSettings* t_setupSettings);		
 	void setSystemState(UVO_Components::e_systemState t_state);
 
 	#ifdef USE_BUTTONS

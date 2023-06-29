@@ -121,6 +121,7 @@ namespace GUISlice {
 		void toggleEditSelectedElem(void);
 
 		bool isEditingElement(void);
+		gslc_tsElemRef* getCurrentlySelectedElem(void);
 		uint16_t getCurrentElementID(void);
 
 		//TODO Fix this

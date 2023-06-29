@@ -90,7 +90,10 @@ namespace UVO_MainController
 	}
 
 #ifdef USE_COMMUNICATION_INTERFACE
-	void MainController::sendSetupSettings(void){		
+	void MainController::sendSetupSettings(UVO_Components::s_setupSettings* t_setupSettings){		
+		//MOTOR CONTROLLER
+		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::motor_controller::pwm_driver_motor, 
+													t_setupSettings->motor_intensity);
 		// //TOP LED DRIVER
 		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_255nm, 
 		// 											m_setupSettings->LED_intensity_255nm);
@@ -101,19 +104,18 @@ namespace UVO_MainController
 		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::TOP_LEDDriver::pwm_driver_395nm, 
 		// 											m_setupSettings->LED_intensity_395nm);
 
-		// //BOTOM LED DRIVER											
+		//BOTOM LED DRIVER											
 		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_255nm, 
 		// 											m_setupSettings->LED_intensity_255nm);
-		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_275nm, 
-		// 											m_setupSettings->LED_intensity_275nm);
+		m_setupSettings->LED_intensity_255nm = m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_275nm, 
+													m_setupSettings->LED_intensity_275nm);
+		m_setupSettings->isUpdated = true;
+		
 		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_285nm, 
 		// 											m_setupSettings->LED_intensity_285nm);
 		// m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::BOTTOM_LEDDriver::pwm_driver_395nm, 
 		// 											m_setupSettings->LED_intensity_395nm);
 		
-		//MOTOR CONTROLLER
-		m_communication_interface.setPWMDutyCycle(	UVO_CommunicationProtocol::drivers::motor_controller::pwm_driver_motor, 
-													m_setupSettings->motor_intensity);
 	}
 #else
 	void MainController::sendSetupSettings(void){}
@@ -359,11 +361,11 @@ namespace UVO_MainController
 
 	void MainController::onRotaryButtonPress_setup(Button2 &t_button)
 	{
-		if (m_screen.getCurrentElementID() == UVO_Components::GUISlice::E_ELEM_SETUP_Start)
+		if (m_screen.getCurrentlySelectedElem() == UVO_Components::GUISlice::m_pElem_SETUP_Start)
 		{
 			//TODO FIX ERROR ON SWITCHING SCREEN
-			setSystemState(UVO_Components::e_systemState::Monitor);
-			sendSetupSettings();
+			// setSystemState(UVO_Components::e_systemState::Monitor);
+			sendSetupSettings(m_setupSettings);
 		}
 		else {
 			m_screen.toggleEditSelectedElem();

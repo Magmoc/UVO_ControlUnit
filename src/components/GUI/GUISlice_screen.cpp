@@ -227,10 +227,17 @@ uint16_t Screen::getCurrentElementID(void){
 	return m_screenState.getCurrentlySelectedElemID();
 }
 
+gslc_tsElemRef* Screen::getCurrentlySelectedElem(void){
+	return m_screenState.getCurrentlySelectedElem();
+}
+
 
 void Screen::setSelectedElem(gslc_tsElemRef* t_pElem){
 	//TODO FIXXX
-	std::optional<int> index = getIndex(m_screenState.SETUP_page_selectable_items, m_screenState.SETUP_page_selectable_items_size, t_pElem);
+	gslc_tsElemRef** current_elem_array = m_screenState.page_vec[(int) m_screenState.current_page];
+	int size = m_screenState.page_vec_array_sizes[(int) m_screenState.current_page];
+
+	std::optional<int> index = getIndex(current_elem_array, size, t_pElem);
 	
 	if (!index){
 		//TODO FIX WITH CUSTOM DEBUGGING FUNCTION

@@ -74,9 +74,11 @@ int I2CInterface::requestAndReadAnswer(int I2C_address, byte* receive_message, i
 	int num_bytes_received = Wire.requestFrom(I2C_address, bytes_requested);
 	
 	//TODO MULTILPE CHECKS
-	if(Wire.available()){
-		Wire.readBytes(receive_message, num_bytes_received);
+	while(!Wire.available()){
+		// Wait for response
 	}
+	
+	Wire.readBytes(receive_message, num_bytes_received);
 
 	interrupts();
 
